@@ -27,6 +27,7 @@ public class ShadowController : MonoBehaviour
     {
         if (_curTarget == null) return;
 
+        
         // todo: 플레이어 정보 초기화할 때 받기
         GameObject player = new();
         _curTarget = player.transform;
