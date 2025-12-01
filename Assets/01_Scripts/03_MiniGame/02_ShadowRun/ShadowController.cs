@@ -11,22 +11,15 @@ public class ShadowController : MonoBehaviour
     [SerializeField] private Transform _curTarget;
     [field: SerializeField] public float Distance { get; private set; }
 
-    // 움직임 필드 
     [Header("움직임 세팅")]
+    // 이동
     [SerializeField] private float _speed = 6f;               // 기본 움직임. 플레이어와 동일
     [SerializeField] private float _speedModifier = 1f;       // 플레이어가 대시를 썼을 때 가속도를 위함
-    [SerializeField] private Vector3 _movementDirection;
 
+    // 회전
     private float _rotateDamping = 1f;
 
-    private void Update()
-    {
-        if (_curTarget == null) return;
-
-        CalcDistance();
-        Move();
-    }
-
+    #region 초기화
     /// <summary>
     /// [public] 그림자가 따라갈 플레이어를 연동
     /// </summary>
@@ -42,27 +35,33 @@ public class ShadowController : MonoBehaviour
         //_speed = ...
         _speedModifier = 1f;
     }
+    #endregion
 
-    /// <summary>
-    /// 플레이어와 거리 측정
-    /// </summary>
-    private void CalcDistance()
+    private void Update()
     {
-        Distance = Vector3.Distance(_curTarget.position, this.transform.position);
+        if (_curTarget == null) return;
+
+        CalcDistance();
+        Move();
     }
 
     #region 움직임 구현
     private void Move()
     {
-        _movementDirection = _curTarget.transform.position - this.transform.position;
-        Rotate(_movementDirection);
-        Move(_movementDirection);
+        Vector3 direction = (_curTarget.transform.position - this.transform.position).normalized;
+        Rotate(direction);
+        Move(direction);
     }
 
     private void Move(Vector3 direction)
     {
-        Transform shadowTransform = this.transform;
-        //direction * _speed * 
+        Vector3 shadowPos = this.transform.position;
+        direction = direction * _speed * _speedModifier;
+
+        shadowPos += direction * Time.deltaTime;
+        shadowPos.y = this.transform.position.y;
+
+        this.transform.position = shadowPos;
     }
 
     /// <summary>
@@ -80,6 +79,14 @@ public class ShadowController : MonoBehaviour
                 targetRotation,
                 _rotateDamping * Time.deltaTime);
         }
+    }
+
+    /// <summary>
+    /// 플레이어와 거리 측정
+    /// </summary>
+    private void CalcDistance()
+    {
+        Distance = Vector3.Distance(_curTarget.position, this.transform.position);
     }
     #endregion
 }
