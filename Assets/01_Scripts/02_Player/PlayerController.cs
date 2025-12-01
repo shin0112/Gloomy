@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-
+        //Look();
     }
 
     public void Move()
@@ -38,15 +38,15 @@ public class PlayerController : MonoBehaviour
         rb.velocity = dir;
     }
 
-    public void Look()
-    {
-        float mouseX = Input.GetAxis("mouse X") * mouseSensesivity;
-        float mouseY = Input.GetAxis("mouse Y");
+    //public void Look()
+    //{
+    //    float mouseX = Input.GetAxis("mouse X") * mouseSensesivity * Time.deltaTime;
+    //    float mouseY = Input.GetAxis("mouse Y");
 
-        transform.Rotate(Vector3.up * mouseX);
-        transform.Rotate(Vector3.right * mouseY);
-        transform.eulerAngles = new Vector3(mouseX, mouseY,0);
-    }
+    //    transform.Rotate(Vector3.up * mouseX);
+    //    transform.Rotate(Vector3.right * mouseY);
+    //    transform.eulerAngles = new Vector3(mouseX, 0, 0);
+    //}
 
     public void InputMove(InputAction.CallbackContext context)
     {
