@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -490, y: -0.5, z: 0}
-  m_LocalScale: {x: 1000, y: 1, z: 10}
+  m_LocalScale: {x: 1000, y: 1, z: 16}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6909503268321907224}
@@ -101,7 +101,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -165,7 +165,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -490, y: 0.0001, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 0.6}
+  m_LocalScale: {x: 100, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6909503268321907224}
@@ -294,4 +294,5 @@ MonoBehaviour:
   - {fileID: 5600770189604592891, guid: a815d0bd38bb6ec4392802dcab284dee, type: 3}
   _overrideTreeCount: 1
   _treeRowCount: 10
-  _spacing: 2
+  _spacing: 0
+  _width: 6
