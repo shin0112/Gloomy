@@ -44,7 +44,7 @@ public class SpawnTree : MonoBehaviour
             Instantiate(
                 _trees[0],
                 new Vector3(
-                    -i * Define.TreeLength + _spacing * 2,
+                    -(i * Define.TreeLength + _spacing * i),
                     -0.5f,
                     4f),
                 Quaternion.identity,
@@ -52,7 +52,7 @@ public class SpawnTree : MonoBehaviour
             Instantiate(
                 _trees[0],
                 new Vector3(
-                    -i * Define.TreeLength + _spacing * 2,
+                    -(i * Define.TreeLength + _spacing * i),
                     -0.5f,
                     -4f),
                 Quaternion.identity,
