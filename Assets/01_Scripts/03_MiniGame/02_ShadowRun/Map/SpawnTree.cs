@@ -15,6 +15,7 @@ public class SpawnTree : MonoBehaviour
     [Tooltip("최대 나무 줄 개수")]
     [SerializeField] private int _treeRowCount;
     [SerializeField] private float _spacing = 2f;
+    [SerializeField] private float _width = 4f;
 
 
     private void Reset()
@@ -46,7 +47,7 @@ public class SpawnTree : MonoBehaviour
                 new Vector3(
                     -(i * Define.TreeLength + _spacing * i),
                     -0.5f,
-                    4f),
+                    _width),
                 Quaternion.identity,
                 _root.transform);
             Instantiate(
@@ -54,7 +55,7 @@ public class SpawnTree : MonoBehaviour
                 new Vector3(
                     -(i * Define.TreeLength + _spacing * i),
                     -0.5f,
-                    -4f),
+                    -_width),
                 Quaternion.identity,
                 _root.transform);
         }
