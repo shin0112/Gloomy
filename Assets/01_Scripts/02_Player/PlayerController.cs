@@ -40,12 +40,12 @@ public class PlayerController : MonoBehaviour
 
     //public void Look()
     //{
-    //    float mouseX = Input.GetAxis("mouse X") * mouseSensesivity;
+    //    float mouseX = Input.GetAxis("mouse X") * mouseSensesivity * Time.deltaTime;
     //    float mouseY = Input.GetAxis("mouse Y");
 
     //    transform.Rotate(Vector3.up * mouseX);
     //    transform.Rotate(Vector3.right * mouseY);
-    //    transform.eulerAngles = new Vector3(mouseX, mouseY,0);
+    //    transform.eulerAngles = new Vector3(mouseX, 0, 0);
     //}
 
     public void InputMove(InputAction.CallbackContext context)
