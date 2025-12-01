@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed = 5f;
+    public float destroyZ = -10f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(Vector3.back * speed * Time.deltaTime);
+
+        if (transform.position.z < destroyZ)
+            Destroy(gameObject);
     }
 }
