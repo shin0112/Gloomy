@@ -23,6 +23,7 @@ public class DiaryButtonUI : MonoBehaviour
     private Vector2 diaryButtonOriginPos;
     private Vector2 diaryButtonCenterPos = Vector2.zero;
 
+    
     private void Awake()
     {
         diaryButton.interactable = true;
@@ -34,19 +35,15 @@ public class DiaryButtonUI : MonoBehaviour
         diaryButtonRect = diaryButton.GetComponent<RectTransform>();
         diaryButtonOriginPos = diaryButtonRect.anchoredPosition;
     }
-
-
+    
     void OnDiaryButtonClick()
     {
         if (isZoom == false)
         {
-            // 확대하기
             StartCoroutine(DiaryButtonZoomInRoutine());
         }
         else
         {
-            // 열기
-            //
             diaryUI.gameObject.SetActive(true);
             diaryButton.gameObject.SetActive(false);
             isOpen = true;
@@ -69,11 +66,15 @@ public class DiaryButtonUI : MonoBehaviour
         }
     }
 
-
+    // todo : 합칠 수 있을 때 합치기
+    // todo : 하다 말았던 PresetChange Extension 추가해보기
     IEnumerator DiaryButtonZoomInRoutine()
     {
         diaryButton.interactable = false;
+        backButton.interactable = false;
         float a = 0;
+        //
+        // diaryButtonRect.SetAnchorPreset(AnchorPreset.TopLeft, PivotPreset.TopLeft);
 
         Vector2 startPos = diaryButtonRect.anchoredPosition;
         Vector2 targetPos = Vector2.zero;
@@ -96,8 +97,10 @@ public class DiaryButtonUI : MonoBehaviour
 
     IEnumerator DiaryButtonZoomOutRoutine()
     {
+        backButton.interactable = false;
         diaryButton.interactable = false;
         float a = 0;
+        
         
         Vector2 startPos = diaryButtonRect.anchoredPosition;
         Vector2 targetPos = diaryButtonOriginPos;
@@ -115,7 +118,7 @@ public class DiaryButtonUI : MonoBehaviour
         
         isZoom = false;
         diaryButton.interactable = true;
-        backButton.interactable = false;
+        backButton.interactable = true;
     }
 
 }

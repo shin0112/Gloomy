@@ -5,17 +5,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Vector2 curtransformInput; //ÀÌµ¿½ºÅ©¸³Æ® Â© ¶§ ÇÊ¼ö
-    [SerializeField] private Transform cameraMoveObject; //Ä«¸Þ¶ó ÀÌµ¿À» ´ã´çÇÏ´Â ¿ÀºêÁ§Æ®
-    private Vector2 mouseDelta;//¸¶¿ì½º ÀÌµ¿ÇÒ ¶§ ÇÊ¿ä
-    private Rigidbody rb;//¸®Áöµå¹Ùµð
+    [SerializeField] private Vector2 curtransformInput; //ï¿½Ìµï¿½ï¿½ï¿½Å©ï¿½ï¿½Æ® Â© ï¿½ï¿½ ï¿½Ê¼ï¿½
+    [SerializeField] private Transform cameraMoveObject; //Ä«ï¿½Þ¶ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    private Vector2 mouseDelta;//ï¿½ï¿½ï¿½ì½º ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½
+    private Rigidbody rb;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½
 
     [Header("Option")]
-    [SerializeField] private float speed;//ÀÌµ¿¼Óµµ
-    [SerializeField] private float jumpPower;//Á¡ÇÁÆÄ¿ö
-    [SerializeField] private float mouseSensesivity;//°¨µµ
-    [SerializeField] private float MaxRoationX;//XÃà ÃÖ´ë °¢µµ
-    [SerializeField] private float MinRoationX;//XÃà ÃÖ¼Ò °¢µµ
+    [SerializeField] private float speed;//ï¿½Ìµï¿½ï¿½Óµï¿½
+    [SerializeField] private float jumpPower;//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½
+    [SerializeField] private float mouseSensesivity;//ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float MaxRoationX;//Xï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float MinRoationX;//Xï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     [SerializeField] private float curX;
     void Start()
