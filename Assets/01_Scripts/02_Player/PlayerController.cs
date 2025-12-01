@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraMoveObject; //카메라 이동을 담당하는 오브젝트
     private Vector2 mouseDelta;//마우스 이동할 때 필요
     private Rigidbody rb;//리지드바디
-
+    private float dir;
     [Header("Option")]
     [SerializeField] private float speed;//이동속도
     [SerializeField] private float jumpPower;//점프파워
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-
+        Look();
     }
 
     public void Move()
@@ -40,12 +40,10 @@ public class PlayerController : MonoBehaviour
 
     public void Look()
     {
-        float mouseX = Input.GetAxis("mouse X") * mouseSensesivity;
-        float mouseY = Input.GetAxis("mouse Y");
-
-        transform.Rotate(Vector3.up * mouseX);
-        transform.Rotate(Vector3.right * mouseY);
-        transform.eulerAngles = new Vector3(mouseX, mouseY,0);
+        dir += mouseDelta.y * mouseSensesivity;
+        dir = Mathf.Clamp(dir, MinRoationX,MaxRoationX);
+        cameraMoveObject.localEulerAngles = new Vector3(-dir, 0, 0);
+        transform.eulerAngles += new Vector3(0, mouseDelta.x * mouseSensesivity, 0);
     }
 
     public void InputMove(InputAction.CallbackContext context)

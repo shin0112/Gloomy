@@ -42,22 +42,17 @@ public class SpawnTree : MonoBehaviour
         // 나무 랜덤으로 하면 교체
         for (int i = 0; i < _treeRowCount; i++)
         {
-            Instantiate(
-                _trees[0],
-                new Vector3(
-                    -(i * Define.TreeLength + _spacing * i),
-                    -0.5f,
-                    _width),
-                Quaternion.identity,
-                _root.transform);
-            Instantiate(
-                _trees[0],
-                new Vector3(
-                    -(i * Define.TreeLength + _spacing * i),
-                    -0.5f,
-                    -_width),
-                Quaternion.identity,
-                _root.transform);
+            GameObject rightTree = Instantiate(_trees[0], _root.transform);
+            rightTree.transform.localPosition = new Vector3(
+                -(i * Define.TreeLength + _spacing * i),
+                -0.5f,
+                _width);
+
+            GameObject leftTree = Instantiate(_trees[0], _root.transform);
+            leftTree.transform.localPosition = new Vector3(
+                -(i * Define.TreeLength + _spacing * i),
+                -0.5f,
+                -_width);
         }
     }
 }

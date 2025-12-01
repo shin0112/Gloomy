@@ -500,9 +500,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ea1195b6f47814f8b67fce0fcd24f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curtransform: {x: 0, y: 0}
+  curtransformInput: {x: 0, y: 0}
+  cameraMoveObject: {fileID: 0}
   speed: 5
-  jumpSpeed: 10
+  jumpPower: 0
+  mouseSensesivity: 0
+  MaxRoationX: 0
+  MinRoationX: 0
+  curX: 0
 --- !u!54 &1550838029
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -581,8 +586,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1550838028}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 1
+        m_MethodName: InputMove
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
