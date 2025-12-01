@@ -13,7 +13,7 @@ public class ShadowController : MonoBehaviour
 
     // 움직임 필드 
     [Header("움직임 세팅")]
-    [SerializeField] private float _speed = 5f;               // 기본 움직임. 플레이어와 동일
+    [SerializeField] private float _speed = 6f;               // 기본 움직임. 플레이어와 동일
     [SerializeField] private float _speedModifier = 1f;       // 플레이어가 대시를 썼을 때 가속도를 위함
     [SerializeField] private Vector3 _movementDirection;
 
