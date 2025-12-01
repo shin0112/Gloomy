@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Vector2 curtransform; //현제 위치
+    private string moveAxisName = "Vertical";
     private Rigidbody rb;
 
     [Header("Option")]
@@ -12,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -22,11 +24,22 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertinal");
-        float xSpeed = xInput * speed * Time.deltaTime;
-        float zSpeed = zInput * speed * Time.deltaTime;
+        Vector3 dir = transform.forward * curtransform.y + transform.right * curtransform.x;
+        
+        dir *= speed;
+        dir.y = rb.velocity.y;
+        rb.velocity = dir;
+    }
 
-        Vector3 move = new Vector3(xInput,0,zInput);
+    public void InputMove(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Performed)
+        {
+            curtransform = context.ReadValue<Vector2>();
+        }
+        if(context.phase == InputActionPhase.Canceled)
+        {
+            curtransform = Vector2.zero;
+        }
     }
 }
