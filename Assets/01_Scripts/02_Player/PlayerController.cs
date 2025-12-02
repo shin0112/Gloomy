@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
     //private float[] index;
     private bool isSliding = false;
     private bool isDash = false;
-    private bool isMove = true;
     [SerializeField] private float curX;
 
     void Start()
@@ -57,10 +56,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-            Move();
-
-
+        Move();
+        if (isDash)
+        {
+            Dash();
+        }
         
      
     }
@@ -78,10 +78,6 @@ public class PlayerController : MonoBehaviour
 
         moveDir = transform.forward * curtransformInput.y + transform.right * curtransformInput.x;
         moveDir *= speed;
-        if (isDash == true)
-        {
-            StartCoroutine(DashTime());
-        }
         moveDir.y = rb.velocity.y;
         rb.velocity = moveDir;
 
@@ -114,6 +110,12 @@ public class PlayerController : MonoBehaviour
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
     }
 
+    public void Dash()
+    {
+        
+        StartCoroutine(DashTime());
+        //isDash = false;
+    }
 
     public void InputMove(InputAction.CallbackContext context)
     {
@@ -150,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputDash(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if(context.performed)
         {
             isDash = true;
         }
@@ -168,14 +170,12 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DashTime()
     {
-
-        speed = 10;
-        
+        Vector3 dash = transform.forward;
+        dash *= DashPower;
+        rb.velocity += dash;
 
         yield return new WaitForSeconds(dashDuration);
-        speed = 6l;
         isDash = false;
-
         yield return new WaitForSeconds(dashCooldown);
         StopCoroutine(DashTime());
     }
