@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float destroyZ = -10f;
+    private Vector3 startPos;
+    public float maxDistance = 30f;
+    void Start()
+    {
+        startPos = transform.position;
+    }
 
     void Update()
     {
-        transform.Translate(Vector3.back * speed * Time.deltaTime);
-
-        if (transform.position.z < destroyZ)
+        transform.Translate(Vector3.forward * Time.deltaTime, Space.Self);
+        if (Vector3.Distance(transform.position, startPos) >= maxDistance)
+        {
             Destroy(gameObject);
+        }
     }
 }
