@@ -10,8 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraMoveObject; //카메라 이동 오브젝트
     private Vector2 mouseDelta;//마우스입력값
     private Rigidbody rb;//리지드바디
-    private float dir;
-    [SerializeField] private Transform slidePivot;
+    [SerializeField]private GameObject model;//ray로 점프제한 역할 //실질적 플레이어 이미지가 있는 오브젝트
+    private float dir;//이동할 때 변수?
+    [SerializeField] private Transform slidePivot;//슬라이더 할 때 기준점
+    [SerializeField] LayerMask layerMask;
+
     [Header("Option")]
     [SerializeField] private float speed;//이동스피드
     [SerializeField] private float jumpPower;//점프 파워
@@ -21,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float DashPower; //대쉬 했을 때거리?
     [SerializeField] private float dashDuration = 3f; //대쉬 지속시간 기본 3초
     [SerializeField] private float dashCooldown = 3.5f;
-
+    
     [Header("RunGame")]
     [SerializeField] private float moveTime;
     private Vector3 moveDir;
@@ -32,9 +35,12 @@ public class PlayerController : MonoBehaviour
     private bool isSliding = false;
     private bool isDash = false;
     [SerializeField] private float curX;
+    
+
 
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
     }
 
@@ -51,7 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             NoSliding();
         }
-
+        IsGround();
     }
 
     private void FixedUpdate()
@@ -132,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started && IsGround())
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
@@ -161,6 +167,17 @@ public class PlayerController : MonoBehaviour
     public void InputLook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
+    }
+
+    bool IsGround()
+    {
+        Ray ray = new Ray(model.transform.position, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(ray,0.5f,layerMask))
+        {
+            return true;
+        }
+        return false;
     }
 
     public void Gravity()
