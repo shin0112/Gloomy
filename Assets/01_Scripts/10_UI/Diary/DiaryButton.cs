@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DiaryButtonUI : MonoBehaviour
+public class DiaryButton : MonoBehaviour
 {
     [SerializeField] private Button diaryButton;
     [SerializeField] private Button backButton;
     [SerializeField] private DiaryUI diaryUI;
+    [SerializeField] private GameObject clearParticle;
 
     private bool isZoom;
     private bool isOpen;
@@ -34,37 +35,88 @@ public class DiaryButtonUI : MonoBehaviour
 
         diaryButtonRect = diaryButton.GetComponent<RectTransform>();
         diaryButtonOriginPos = diaryButtonRect.anchoredPosition;
+
+        ChpaterClearCheck();
     }
     
     void OnDiaryButtonClick()
     {
         if (isZoom == false)
         {
-            StartCoroutine(DiaryButtonZoomInRoutine());
+            ZoomDiaryButton(true);
         }
-        else
+        else  
         {
-            diaryUI.gameObject.SetActive(true);
-            diaryButton.gameObject.SetActive(false);
-            isOpen = true;
+            // 일기장 오픈
+            OpenDiary(true);
         }
 
     }
-
     void OnBackButtonClick()
     {
         if (isOpen == true)
         {
-            isOpen = false;
-            diaryUI.gameObject.SetActive(false);
-            diaryButton.gameObject.SetActive(true);
+            ZoomDiaryButton(false);
+            OpenDiary(false);
         }
-        
-        if (isZoom == true)
+        else if (isZoom == true)
         {
-            StartCoroutine(DiaryButtonZoomOutRoutine());
+            ZoomDiaryButton(false);
         }
     }
+
+    
+
+    public void OpenDiary(bool _isOpen)
+    {
+        isOpen = _isOpen;
+        diaryUI.gameObject.SetActive(isOpen);
+        diaryButton.gameObject.SetActive(!isOpen);
+        
+        if (isOpen)
+        {
+            if (ChapterClearData.IsChapterClearCheckInDaiary() == false)
+            {
+                ChapterClearData.CheckDiaryAfterClear();
+            }
+        }
+    }
+
+    public void ZoomDiaryButton(bool _isZoom)
+    {
+        isZoom = _isZoom;
+
+        Vector2 targetPos = isZoom? Vector2.zero : diaryButtonOriginPos;
+        Vector3 targetScale = isZoom? Vector3.one * diaryScale : Vector3.one;
+        
+        diaryButtonRect.anchoredPosition = targetPos;
+        diaryButtonRect.localScale = targetScale;
+      
+        backButton.interactable = isZoom;
+        ChpaterClearCheck();
+    }
+
+    public void ChpaterClearCheck()
+    {
+        if (isZoom == false)
+        {
+            // 다이어리 확인
+            if (ChapterClearData.IsChapterClearCheckInDaiary())
+            {
+                clearParticle.SetActive(false);
+            }
+            else
+            {
+                clearParticle.SetActive(true);
+            }
+        }
+        else
+        {
+            clearParticle.SetActive(false);
+        }
+    }
+    
+    #region 확대축소 애니메이션 (햔제 미사용)
 
     // todo : 합칠 수 있을 때 합치기
     // todo : 하다 말았던 PresetChange Extension 추가해보기
@@ -121,4 +173,7 @@ public class DiaryButtonUI : MonoBehaviour
         backButton.interactable = true;
     }
 
+
+        #endregion
+ 
 }

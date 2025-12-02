@@ -1,13 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// ScreenSpace - Camera 인 Canvas에서 사용 가능
+/// </summary>
 public class UIParticle : MonoBehaviour
 {
     [SerializeField] RectTransform target;
-     ParticleSystem particle;
-    Camera cam; 
+    ParticleSystem particle;
+    Camera cam;
+
+    [SerializeField] float zOffset = 0.1f;
 
     private void Awake()
     {
@@ -18,14 +21,12 @@ public class UIParticle : MonoBehaviour
     void LateUpdate()
     {
         if (target == null) return;
+        
+        Vector3 dir = Vector3.Normalize(cam.transform.position - target.position);
+        particle.transform.position = target.transform.position + (dir * zOffset);
 
-        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(cam, target.position);
-        Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 1f));
-
-        particle.transform.position = worldPos;
     }
-
-
+    
     public void SetTargetRectTransform(RectTransform _target)
     {
         target = _target;
