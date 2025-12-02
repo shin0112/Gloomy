@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// 그림자 생성 및 플레이어 추적 로직 
@@ -19,10 +21,19 @@ public class ShadowController : MonoBehaviour
     // 회전
     private float _rotateDamping = 1f;
 
+    // 연출
+    [Header("그림자 추적 세팅")]
+    [SerializeField] private float _vignetteTriggerDistance = 1f;
+
+    private Camera _camera;
+    private Vignette _vignette;
+
     #region 초기화
     private void Start()
     {
         ConnectPlayer();
+        _camera = Camera.main;
+        _camera.GetComponent<Volume>().profile.TryGet(out _vignette);
     }
 
     /// <summary>
@@ -46,6 +57,7 @@ public class ShadowController : MonoBehaviour
 
         CalcDistance();
         Move();
+        ManageVignette();
     }
 
     #region 움직임 구현
@@ -90,6 +102,22 @@ public class ShadowController : MonoBehaviour
     private void CalcDistance()
     {
         Distance = Vector3.Distance(_curTarget.position, this.transform.position);
+    }
+    #endregion
+
+    #region 효과
+    private void ManageVignette()
+    {
+        // 거리가 약 1보다는 안 좁혀지기 때문에 보정
+        float value = (_vignetteTriggerDistance + 1) - Distance;
+        value = Mathf.Max(value, 0);
+
+        if (value < 0.1f)
+        {
+            _vignette.intensity.value = 1f;
+        }
+
+        _vignette.intensity.value = Mathf.Lerp(0, 1, value);
     }
     #endregion
 }
