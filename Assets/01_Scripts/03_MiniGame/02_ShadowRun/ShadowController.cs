@@ -20,20 +20,22 @@ public class ShadowController : MonoBehaviour
     private float _rotateDamping = 1f;
 
     #region 초기화
+    private void Start()
+    {
+        ConnectPlayer();
+    }
+
     /// <summary>
     /// [public] 그림자가 따라갈 플레이어를 연동
     /// </summary>
     public void ConnectPlayer()
     {
-        if (_curTarget == null) return;
+        if (_curTarget == null)
+        {
+            _curTarget = FindObjectOfType<PlayerController>().transform;
+        }
 
-        
-        // todo: 플레이어 정보 초기화할 때 받기
-        GameObject player = new();
-        _curTarget = player.transform;
-
-        // 플레이어의 속도 복사
-        //_speed = ...
+        // 추가 세팅들
         _speedModifier = 1f;
     }
     #endregion

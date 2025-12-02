@@ -44,15 +44,15 @@ public class SpawnTree : MonoBehaviour
         {
             GameObject rightTree = Instantiate(_trees[0], _root.transform);
             rightTree.transform.localPosition = new Vector3(
-                -(i * Define.TreeLength + _spacing * i),
+                _width,
                 -0.5f,
-                _width);
+                (i * Define.TreeLength + _spacing * i));
 
             GameObject leftTree = Instantiate(_trees[0], _root.transform);
             leftTree.transform.localPosition = new Vector3(
-                -(i * Define.TreeLength + _spacing * i),
+                -_width,
                 -0.5f,
-                -_width);
+                (i * Define.TreeLength + _spacing * i));
         }
     }
 }
