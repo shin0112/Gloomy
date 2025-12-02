@@ -5,7 +5,7 @@ using UnityEngine;
 public class JournalPageUI : PageUI
 {
     // todo : 일기장 페이지 UI 내용 구성
-    
+    [SerializeField] private GameObject journalPanel;
     [SerializeField] TMP_InputField journalTextInputField;
 
     private void Awake()

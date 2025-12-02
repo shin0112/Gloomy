@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,16 +12,9 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
     [SerializeField] CardBoard cardBoard;
     public TextMeshPro textTime;
     
-    
-    // [SerializeField]
-    // private GameObject clearBoard;
-    // [SerializeField]
-    // private GameObject failBoard;
-
 
     protected override void Init()
     {
-        Time.timeScale = 0;
         StartGame(); 
     }
 
@@ -36,13 +30,25 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
         {
             Time.timeScale = 0;
             GameOver();
+            return;
+        }
+        
+        // todo : 나중에 Input 정리되면 해결하기
+        // Input 여기다 일단 넣어!!!!
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            {
+                Card card = hit.collider.GetComponent<Card>();
+                card?.OpenCard();
+            }
         }
     }
     
     public void GameOver()
     {
         // Todo : 게임오버
-        //failBoard.SetActive(true);
         cardBoard.OpenAllCard();
     }
     
@@ -50,7 +56,6 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
     public void GameClear()
     {   
         // Todo : 게임클레어 
-        //clearBoard.SetActive(true);
     }
 
     
@@ -62,8 +67,17 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
 
     void StartGame()
     { 
-        //SoundManager.GetInstance().PlayBgm("bgmusic",true,1.0f);
-        cardBoard.SpawnCards();   
+        cardBoard.SpawnCards();
+        Time.timeScale = 1;
+        //StartCoroutine(StartGameCoroutine());
     }
+
+    // IEnumerator StartGameCoroutine()
+    // {
+    //     Time.timeScale = 0;
+    //     yield return new WaitForSeconds(3);
+    //     Time.timeScale = 1;
+    //     
+    // }
 
 }
