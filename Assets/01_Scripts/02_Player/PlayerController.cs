@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private float dir;//이동할 때 변수?
     [SerializeField] private Transform slidePivot;//슬라이더 할 때 기준점
     [SerializeField] LayerMask layerMask;
+    [SerializeField] private Transform cameraTransfrom;
 
     [Header("Option")]
     [SerializeField] private float speed;//이동스피드
@@ -28,10 +29,10 @@ public class PlayerController : MonoBehaviour
     [Header("RunGame")]
     [SerializeField] private float moveTime;
     private Vector3 moveDir;
-    private bool isLock = false;
-    //private float runGameMoveTransformValue = 3f;
+    [SerializeField]private bool isLock = false;
+
     private float slidingSpeed = 500f;
-    //private float[] index;
+   
     private bool isSliding = false;
     private bool isDash = false;
     [SerializeField] private float curX;
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         
         Look();
-        Gravity();
+        
         if (isSliding == true)
         {
             Sliding();
@@ -67,22 +68,25 @@ public class PlayerController : MonoBehaviour
         {
             Dash();
         }
-        
-     
+        //Gravity();
+
     }
     public void Move()
     {
-
-        if (transform.position.x < -3.0f)
+        if(isLock == true)
         {
-            transform.position = new Vector3(-3.0f, transform.position.y, transform.position.z);
+            if (transform.position.x < -3.0f)
+            {
+                transform.position = new Vector3(-3.0f, transform.position.y, transform.position.z);
+            }
+            else if (transform.position.x > 3.0f)
+            {
+                transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
+            }
         }
-        else if (transform.position.x > 3.0f)
-        {
-            transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
-        }
+        
 
-        moveDir = transform.forward * curtransformInput.y + transform.right * curtransformInput.x;
+        moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
         moveDir *= speed;
         moveDir.y = rb.velocity.y;
         rb.velocity = moveDir;
@@ -176,7 +180,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray,0.5f,layerMask))
         {
             return true;
-        }
+        } 
         return false;
     }
 
