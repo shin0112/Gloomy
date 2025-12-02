@@ -22,12 +22,14 @@ public class CphaterSaveTest : Editor
 
         if (GUILayout.Button("2챕 클리어"))
         {
+            Logger.Log("2챕 클리어!");
             ChapterClearData.RemoveSaveData();
             ChapterClearData.ClearChapter(2);
         }
 
         if (GUILayout.Button("세이브 데이터 삭제"))
         {
+            Logger.Log("챕터 클리어 데이터 삭제!");
             ChapterClearData.RemoveSaveData();
         }
         
