@@ -36,7 +36,10 @@ public class ShadowController : MonoBehaviour
     [SerializeField] private float _speed = 6f;
     [Tooltip("그림자 움직임 보정값")]
     [SerializeField] private float _speedModifier = 1f;
+    [Tooltip("플레이어가 대각선 이동할 때 그림자 속도 감속 강도")]
+    [Range(1f, 5f)][SerializeField] private float _diagonalSlowFactor = 3.0f;
     [Tooltip("그림자가 이동할 수 있는 너비 (도로 너비와 동일)")]
+
     [SerializeField] private float _roadWidth = 10f;
     // 회전
     private float _rotateDamping = 1f;
@@ -174,20 +177,18 @@ public class ShadowController : MonoBehaviour
     {
         // 이동량 계산
         Vector3 targetDelta = _curTarget.position - _prevTargetPos;
-        Vector3 shadowDelta = this.transform.position - _prevShadowPos;
+        float deltaX = Mathf.Abs(targetDelta.x);
+        deltaX = deltaX > 0.001f ? deltaX : 0;
 
-        float targetDistance = targetDelta.magnitude;
-        float shadowDistance = shadowDelta.magnitude;
+        // 반비례 감속
+        float modifier = 1f / (1f + _diagonalSlowFactor * deltaX);
 
-        _speedModifier = 1f;
-        if (shadowDistance > 0.001f)    // division by zero 방지
-        {
-            _speedModifier = Mathf.Clamp(targetDistance / shadowDistance, 0.8f, 1.2f);
-        }
+        // 최소 속도 제한
+        modifier = Mathf.Clamp(modifier, 0.7f, 1f);
+        _speedModifier = modifier;
 
         // 캐싱
         _prevTargetPos = _curTarget.position;
-        _prevShadowPos = this.transform.position;
     }
     #endregion
 
