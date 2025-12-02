@@ -6,26 +6,20 @@ public class Card : MonoBehaviour
 {
     public int idx { get; private set; }
 
-    public GameObject front;
-    public GameObject back;
+    [SerializeField] GameObject front;
+    [SerializeField] GameObject back;
+    [SerializeField] Renderer backRenderer;
 
     public event Action OnOpenCardAction; 
-    void Start()
-    {   
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SetIndex(int _idx)
+    public void Init(int _idx, Sprite _sprite)
     {
         idx = _idx;
      
         // Sprite spr = Resources.Load<Sprite>("Sprite/" + "rtan" + idx.ToString());
         // back.GetComponent<Image>().sprite = spr;
+        
+        backRenderer.material.mainTexture = _sprite.texture;
         back.gameObject.SetActive(false);
     }
 
@@ -42,6 +36,12 @@ public class Card : MonoBehaviour
     {
         back.SetActive(false);
         front.SetActive(true);
+    }
+
+    public void ForceOpenCard()
+    {
+        front.SetActive(false);
+        back.SetActive(true);
     }
 
     // public void SetCardSize(float width, float height)
