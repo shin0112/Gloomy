@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8131015430846936495}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2907947184310540451}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 3993486510513383780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.0001, z: 490}
+  m_LocalPosition: {x: 0, y: 0.001, z: 490}
   m_LocalScale: {x: 100, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -283,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6909503268321907224}
   - component: {fileID: 2166813915330450945}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Map_ShadowRun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
