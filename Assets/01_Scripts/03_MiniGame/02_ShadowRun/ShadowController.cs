@@ -29,8 +29,14 @@ public class ShadowController : MonoBehaviour
 
     private Camera _camera;
     private Vignette _vignette;
+    private Rigidbody _rigidbody;
 
     #region 초기화
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
     private void Start()
     {
         ConnectPlayer();
@@ -79,7 +85,7 @@ public class ShadowController : MonoBehaviour
         Vector3 shadowPos = this.transform.position;
         direction = direction * _speed * _speedModifier;
 
-        shadowPos += direction * Time.deltaTime;
+        _rigidbody.velocity = direction;
 
         float maxX = _roadWidth / 2;
 
