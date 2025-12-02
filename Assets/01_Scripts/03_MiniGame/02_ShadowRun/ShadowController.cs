@@ -22,7 +22,7 @@ public class ShadowController : MonoBehaviour
 
     // modifier를 계산하기 위한 캐싱 값
     private Vector3 _prevTargetPos;
-    private float _prevDistance;
+    private Vector3 _prevShadowPos;
 
     [Header("게임 세팅")]
     [Tooltip("추격 게임이 시작한 후 그림자가 출발을 기다리는 시간(초)")]
@@ -81,7 +81,7 @@ public class ShadowController : MonoBehaviour
         _speedModifier = 1f;
 
         _prevTargetPos = _curTarget.transform.position;
-        _prevDistance = Vector3.Distance(_prevTargetPos, this.transform.position);
+        _prevShadowPos = this.transform.position;
     }
     #endregion
 
@@ -101,6 +101,7 @@ public class ShadowController : MonoBehaviour
             return;
         }
 
+        CalcSpeedModifier();
         MoveAndRot();
     }
 
@@ -115,6 +116,10 @@ public class ShadowController : MonoBehaviour
         Move(direction);
     }
 
+    /// <summary>
+    /// 방향대로 움직이기
+    /// </summary>
+    /// <param name="direction"></param>
     private void Move(Vector3 direction)
     {
         direction = direction * _speed * _speedModifier;
@@ -125,8 +130,7 @@ public class ShadowController : MonoBehaviour
 
         // 1) x 좌표: -maxX <= shadowPos.x <= maxX
         float maxX = _roadWidth / 2;
-        shadowPos.x = Mathf.Min(shadowPos.x, maxX);
-        shadowPos.x = Mathf.Max(shadowPos.x, -maxX);
+        shadowPos.x = Mathf.Clamp(shadowPos.x, -maxX, maxX);
 
         // 2) y 좌표: 유지
         shadowPos.y = this.transform.position.y;
@@ -156,27 +160,34 @@ public class ShadowController : MonoBehaviour
     /// </summary>
     private void CalcDistance()
     {
-        // 타겟 이동량
-        float targetMoveDelta = (_curTarget.position - _prevTargetPos).magnitude;
-
-        // 현재 거리
         float nowDistance = Vector3.Distance(_curTarget.position, this.transform.position);
-
-        // 거리 변화량
-        float distanceDelta = Mathf.Abs(nowDistance - _prevDistance);
-
-        // 속도 보정
-        float safeDelta = Mathf.Max(distanceDelta, 0.0001f);
-        _speedModifier = Mathf.Min(1f, targetMoveDelta / safeDelta);
-
         // 오브젝트 부피로 인한 값(1f) 감산
         Distance = Mathf.Max(nowDistance - 1, 0);
 
         HasCaughtTarget = Distance < _caughtDistance;
+    }
+
+    /// <summary>
+    /// 그림자 이동 속도 보정
+    /// </summary>
+    private void CalcSpeedModifier()
+    {
+        // 이동량 계산
+        Vector3 targetDelta = _curTarget.position - _prevTargetPos;
+        Vector3 shadowDelta = this.transform.position - _prevShadowPos;
+
+        float targetDistance = targetDelta.magnitude;
+        float shadowDistance = shadowDelta.magnitude;
+
+        _speedModifier = 1f;
+        if (shadowDistance > 0.001f)    // division by zero 방지
+        {
+            _speedModifier = Mathf.Clamp(targetDistance / shadowDistance, 0.8f, 1.2f);
+        }
 
         // 캐싱
-        _prevDistance = nowDistance;
         _prevTargetPos = _curTarget.position;
+        _prevShadowPos = this.transform.position;
     }
     #endregion
 
