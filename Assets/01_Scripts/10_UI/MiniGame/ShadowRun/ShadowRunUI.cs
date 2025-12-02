@@ -37,9 +37,16 @@ public class ShadowRunUI : MonoBehaviour
     }
     #endregion
 
+    private void OnEnable()
+    {
+        _distanceText.text = $"그림자 거리: {0}M";
+        _mindPiece.gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         ChangeColorAlpha();
+        UpdateDistanceText();
     }
 
     /// <summary>
@@ -57,5 +64,28 @@ public class ShadowRunUI : MonoBehaviour
             color.a = Mathf.Max(color.a - delta, 0f);
 
         _closeEffect.color = color;
+    }
+
+    /// <summary>
+    /// 그림자 거리 텍스트 변경하기
+    /// </summary>
+    private void UpdateDistanceText()
+    {
+        if (_shadow.HasCaughtTarget)
+        {
+            _distanceText.text = $"그림자 거리: {0}M";
+            return;
+        }
+
+        _distanceText.text = $"그림자 거리: {_shadow.Distance:0}M";
+    }
+
+    /// <summary>
+    /// [public] 감정 조각 획득 시 이미지 활성화하기
+    /// todo: 실제로 사용 시 이벤트로 사용 가능
+    /// </summary>
+    public void GetMindPiece()
+    {
+        _mindPiece.gameObject.SetActive(true);
     }
 }
