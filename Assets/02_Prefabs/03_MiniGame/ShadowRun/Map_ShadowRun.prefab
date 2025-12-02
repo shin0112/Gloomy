@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1602972074210873716}
   - component: {fileID: 5655187693903834409}
   - component: {fileID: 2316892713502087844}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 8205776120969178998}
   - component: {fileID: 1167259744821099415}
   - component: {fileID: 5013808038063289219}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 3993486510513383780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.0001, z: 490}
+  m_LocalPosition: {x: 0, y: 0.001, z: 490}
   m_LocalScale: {x: 100, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

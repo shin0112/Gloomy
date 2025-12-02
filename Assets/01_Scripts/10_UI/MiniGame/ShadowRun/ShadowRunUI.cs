@@ -46,7 +46,7 @@ public class ShadowRunUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _distanceText.text = "그림자 거리: 0.00M";
+        _distanceText.text = "0.00M";
         _mindPiece.gameObject.SetActive(false);
         _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
         _testStartButton.onClick.AddListener(OnClickTestStartButton);
@@ -85,11 +85,11 @@ public class ShadowRunUI : MonoBehaviour
     {
         if (_shadow.HasCaughtTarget)
         {
-            _distanceText.text = "그림자 거리: 0.00M";
+            _distanceText.text = "0.00M";
             return;
         }
 
-        _distanceText.text = $"그림자 거리: {_shadow.Distance:0.00}M";
+        _distanceText.text = $"{_shadow.Distance:0.00}M";
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public class ShadowRunUI : MonoBehaviour
     private void OnClickTestReloadButton()
     {
         _testReLoadButton.onClick.RemoveListener(OnClickTestReloadButton);
-        SceneManager.LoadScene("Shin0112");
+        SceneManager.LoadScene("ShadowRunScene");
     }
 
     private void OnClickTestStartButton()
