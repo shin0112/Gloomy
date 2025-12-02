@@ -11,7 +11,7 @@ public class ObstacleManager : MonoBehaviour
         public int maxCount;
         [HideInInspector] public int currentCount;
 
-        // ½ºÆù ¹üÀ§
+        // ìŠ¤í° ë²”ìœ„
         public Vector2 xRange;
         public float y;
         public Vector2 zRange;
@@ -23,7 +23,7 @@ public class ObstacleManager : MonoBehaviour
     public ObstacleInfo invisible;
     public ObstacleInfo star;
 
-    public float interval = 1.2f; // ½ºÆù °£°İ
+    public float interval = 1.2f; // ìŠ¤í° ê°„ê²©
     private float timer;
 
     void Update()
@@ -40,19 +40,19 @@ public class ObstacleManager : MonoBehaviour
     {
         ObstacleInfo[] list = { owl, rock, hurdle, invisible, star };
 
-        // »ı¼º °¡´É Ç×¸ñ ÇÊÅÍ¸µ
+        // ìƒì„± ê°€ëŠ¥ í•­ëª© í•„í„°ë§
         var available = System.Array.FindAll(list, o => o.currentCount < o.maxCount);
         if (available.Length == 0) return;
 
-        // ·£´ıÀ¸·Î Àå¾Ö¹° ¼±ÅÃ
+        // ëœë¤ìœ¼ë¡œ ì¥ì• ë¬¼ ì„ íƒ
         ObstacleInfo target = available[Random.Range(0, available.Length)];
 
-        // ·£´ı À§Ä¡ °è»ê
+        // ëœë¤ ìœ„ì¹˜ ê³„ì‚°
         float x = Random.Range(target.xRange.x, target.xRange.y);
         float z = Random.Range(target.zRange.x, target.zRange.y);
-        Vector3 spawnPos = new Vector3(x, target.y, z);
+        Vector3 spawnPos = new Vector3(x, z);
 
-        // »ı¼º
+        // ìƒì„±
         Instantiate(target.prefab, spawnPos, Quaternion.identity);
         target.currentCount++;
     }
