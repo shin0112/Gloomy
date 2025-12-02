@@ -326,6 +326,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ef8f0f6033c60f47a56e657ee48c228, type: 3}
+--- !u!114 &726254174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+    type: 3}
+  m_PrefabInstance: {fileID: 1257360234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ea1195b6f47814f8b67fce0fcd24f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &819033610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,45 +469,65 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2713920660857997465, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
+      propertyPath: m_ActionEvents.Array.size
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 2713920660857997465, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.03
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: 4d31c761-2739-425f-9e5d-535fc1414362
       objectReference: {fileID: 0}
-    - target: {fileID: 2713920660857997465, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: m_LocalRotation.w
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: Player/Dash[/Keyboard/f]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2713920660857997465, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: m_LocalRotation.y
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2713920660857997465, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6254411648532761541, guid: a3612d3478f372a49aa05a6384443426,
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 726254174}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -8.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      propertyPath: moveTime
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputDash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: jumpPower
-      value: 90
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: DashPower
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -699,7 +731,7 @@ PrefabInstance:
     - target: {fileID: 1662544634612761180, guid: cb7f54707bb87744bba724357a138443,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.4
+      value: 12.01
       objectReference: {fileID: 0}
     - target: {fileID: 1662544634612761180, guid: cb7f54707bb87744bba724357a138443,
         type: 3}
