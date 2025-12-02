@@ -106,7 +106,7 @@ public class ShadowRunUI : MonoBehaviour
     private void OnClickTestReloadButton()
     {
         _testReLoadButton.onClick.RemoveListener(OnClickTestReloadButton);
-        SceneManager.LoadScene("Shin0112");
+        SceneManager.LoadScene("ShadowRunScene");
     }
 
     private void OnClickTestStartButton()

@@ -471,6 +471,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3652826308276567441, guid: a3612d3478f372a49aa05a6384443426, type: 3}
     m_RemovedGameObjects: []
@@ -653,11 +658,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2166813915330450945, guid: d84d52c83d89473458af93081de7765f,
-        type: 3}
-      propertyPath: _overrideTreeCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5211318065254867508, guid: d84d52c83d89473458af93081de7765f,
         type: 3}
       propertyPath: m_Name
