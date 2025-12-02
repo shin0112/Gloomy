@@ -106,18 +106,28 @@ public class ShadowController : MonoBehaviour
     #endregion
 
     #region 효과
+    private float _vigVelocity;
+
     private void ManageVignette()
     {
-        // 거리가 약 1보다는 안 좁혀지기 때문에 보정
-        float value = (_vignetteTriggerDistance + 1) - Distance;
-        value = Mathf.Max(value, 0);
+        float value = (_vignetteTriggerDistance + 1f) - Distance;
+        value = Mathf.Max(value, 0f);
 
-        if (value < 0.1f)
+        if (Distance < 0.1f)
         {
             _vignette.intensity.value = 1f;
+            return;
         }
 
-        _vignette.intensity.value = Mathf.Lerp(0, 1, value);
+        float target = Mathf.Lerp(0f, 1f, value);
+
+        _vignette.intensity.value = Mathf.SmoothDamp(
+            _vignette.intensity.value,
+            target,
+            ref _vigVelocity,
+            0.08f
+        );
     }
+
     #endregion
 }
