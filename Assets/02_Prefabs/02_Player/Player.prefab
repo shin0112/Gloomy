@@ -52,7 +52,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtransformInput: {x: 0, y: 0}
   cameraMoveObject: {fileID: 3805378438949916709}
+  model: {fileID: 8770934223881154935}
   slidePivot: {fileID: 7159591761226490089}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
   speed: 6
   jumpPower: 90
   mouseSensesivity: 0.5
