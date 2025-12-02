@@ -20,6 +20,10 @@ public class ShadowController : MonoBehaviour
     [field: SerializeField] public float Distance { get; private set; }
     [field: SerializeField] public bool HasCaughtTarget { get; private set; }
 
+    // modifier를 계산하기 위한 캐싱 값
+    private Vector3 _prevTargetPos;
+    private float _prevDistance;
+
     [Header("게임 세팅")]
     [Tooltip("추격 게임이 시작한 후 그림자가 출발을 기다리는 시간(초)")]
     [Range(1f, 10f)][SerializeField] private float _startDelay = 3f;
@@ -75,13 +79,14 @@ public class ShadowController : MonoBehaviour
 
         // 추가 세팅들
         _speedModifier = 1f;
+
+        _prevTargetPos = _curTarget.transform.position;
+        _prevDistance = Vector3.Distance(_prevTargetPos, this.transform.position);
     }
     #endregion
 
     private void Update()
     {
-        if (IsTest) return;
-
         CalcDistance();
         ManageVignette();
     }
@@ -96,11 +101,14 @@ public class ShadowController : MonoBehaviour
             return;
         }
 
-        Move();
+        MoveAndRot();
     }
 
     #region 움직임 구현
-    private void Move()
+    /// <summary>
+    /// 이동 및 회전 
+    /// </summary>
+    private void MoveAndRot()
     {
         Vector3 direction = (_curTarget.transform.position - this.transform.position).normalized;
         Rotate(direction);
@@ -148,11 +156,27 @@ public class ShadowController : MonoBehaviour
     /// </summary>
     private void CalcDistance()
     {
-        float distance = Vector3.Distance(_curTarget.position, this.transform.position);
+        // 타겟 이동량
+        float targetMoveDelta = (_curTarget.position - _prevTargetPos).magnitude;
+
+        // 현재 거리
+        float nowDistance = Vector3.Distance(_curTarget.position, this.transform.position);
+
+        // 거리 변화량
+        float distanceDelta = Mathf.Abs(nowDistance - _prevDistance);
+
+        // 속도 보정
+        float safeDelta = Mathf.Max(distanceDelta, 0.0001f);
+        _speedModifier = Mathf.Min(1f, targetMoveDelta / safeDelta);
+
         // 오브젝트 부피로 인한 값(1f) 감산
-        Distance = Mathf.Max(distance - 1, 0);
+        Distance = Mathf.Max(nowDistance - 1, 0);
 
         HasCaughtTarget = Distance < _caughtDistance;
+
+        // 캐싱
+        _prevDistance = nowDistance;
+        _prevTargetPos = _curTarget.position;
     }
     #endregion
 
@@ -164,10 +188,11 @@ public class ShadowController : MonoBehaviour
     /// </summary>
     private void ManageVignette()
     {
-        float value = _vignetteTriggerDistance - Distance;
-        value = Mathf.Max(value, 0f) / _vignetteTriggerDistance * _vigetteIntensity;
+        // 비네팅 범위 거리 체크
+        float raw = _vignetteTriggerDistance - Distance;
+        raw = Mathf.Max(raw, 0f) / _vignetteTriggerDistance * _vigetteIntensity;
 
-        float target = Mathf.Lerp(0f, _vigetteIntensity, value);
+        float target = Mathf.Lerp(0f, _vigetteIntensity, raw);
 
         _vignette.intensity.value = Mathf.SmoothDamp(
             _vignette.intensity.value,
