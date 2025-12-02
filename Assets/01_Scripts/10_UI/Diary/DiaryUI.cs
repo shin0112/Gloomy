@@ -3,24 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DiaryUI : MonoBehaviour
 {
 
-    [SerializeField] List<PageUI> pageUI; // 페이지들 child 찾을거임
-    private PageUI nowOpenPage;           // 현재 페이지
+    [SerializeField] List<PageUI> pageUIPrefab;
+    List<PageUI> pageUI = new List<PageUI>();
+
+    //private PageUI nowOpenSheet; // 현재 페이지
     private int nowPageNum = 0;
 
     [SerializeField] Button nextButton;
     [SerializeField] Button prevButton;
+    [SerializeField] private Transform leftPivot;
+    [SerializeField] private Transform rightPivot;
 
     private void Awake()
     {
-        pageUI = GetComponentsInChildren<PageUI>().ToList();
-        for (int i = 0; i < pageUI.Count; i++)
+        for (int i = 0; i < pageUIPrefab.Count; i++)
         {
-            pageUI[i].gameObject.SetActive(false);
+            PageUI newPage = Instantiate(pageUIPrefab[i], i % 2 == 0 ? leftPivot : rightPivot);
+            pageUI.Add(newPage);
+            newPage.gameObject.SetActive(false);
+            //pageUIPrefab[i].gameObject.SetActive(false);
         }
 
         nextButton.onClick.AddListener(NextPage);
@@ -39,19 +46,15 @@ public class DiaryUI : MonoBehaviour
     {
         nowPageNum = 0;
 
-        if (nowOpenPage != null)
-            nowOpenPage.gameObject.SetActive(false);
+        OpenPage(nowPageNum);
 
-        pageUI[nowPageNum].gameObject.SetActive(true);
-        nowOpenPage = pageUI[nowPageNum];
     }
 
     public void NextPage()
     {
-        nowPageNum = Mathf.Clamp(nowPageNum + 1, 0, pageUI.Count - 1);
-        nowOpenPage.gameObject.SetActive(false);
-        
-        if (nowPageNum == pageUI.Count)
+
+        int nextPageNum = nowPageNum + 2;
+        if (nextPageNum >= pageUIPrefab.Count)
         {
             // todo: 닫기
 
@@ -59,19 +62,28 @@ public class DiaryUI : MonoBehaviour
         else
         {
             // todo: 다음페이지
-            nowOpenPage = pageUI[nowPageNum];
-            nowOpenPage.gameObject.SetActive(true);
+            OpenPage(nextPageNum);
         }
     }
 
     public void PrevPage()
     {
-        nowPageNum = Mathf.Clamp(nowPageNum - 1, 0, pageUI.Count - 1);
-        nowOpenPage.gameObject.SetActive(false);
-        if (nowPageNum == 0)
-        {
-            nowOpenPage = pageUI[nowPageNum];
-            nowOpenPage.gameObject.SetActive(true);
-        }
+        if (nowPageNum == 0) return;
+
+        int nextPAgeNum = nowPageNum - 2;
+        OpenPage(nextPAgeNum);
+    }
+
+    public void OpenPage(int pageNum)
+    {
+        pageUI[nowPageNum].gameObject.SetActive(false);
+        if (pageUI.Count > nowPageNum + 1)
+            pageUI[nowPageNum + 1].gameObject.SetActive(false);
+
+        nowPageNum = pageNum;
+        pageUI[nowPageNum].gameObject.SetActive(true);
+        if (pageUI.Count > nowPageNum + 1)
+            pageUI[nowPageNum + 1].gameObject.SetActive(true);
+
     }
 }
