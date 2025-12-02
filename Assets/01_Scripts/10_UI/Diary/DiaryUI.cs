@@ -28,6 +28,11 @@ public class DiaryUI : MonoBehaviour
             PageUI newPage = Instantiate(pageUIPrefab[i], i % 2 == 0 ? leftPivot : rightPivot);
             pageUI.Add(newPage);
             newPage.gameObject.SetActive(false);
+
+            if (ChapterClearData.IsChapterClearCheckInDaiary() == false)
+            {
+                newPage.SetFirstOpenAfterClear();
+            }
         }
 
         nextButton.onClick.AddListener(NextPage);
@@ -37,6 +42,9 @@ public class DiaryUI : MonoBehaviour
     private void OnEnable()
     {
         ShowFirstPage();
+        
+        // todo : 호출 지점 나중에 정리 필요할 수 있음
+        ChapterClearData.CheckDiaryAfterClear();
     }
 
     /// <summary>
@@ -45,7 +53,6 @@ public class DiaryUI : MonoBehaviour
     public void ShowFirstPage()
     {
         OpenPage(0);
-
     }
 
     public void NextPage()
@@ -72,16 +79,19 @@ public class DiaryUI : MonoBehaviour
 
     public void OpenPage(int pageNum)
     {
-        pageUI[nowPageNum].gameObject.SetActive(false);
+        // 열려있던 페이지 닫기
+        pageUI[nowPageNum].ClosePage();
         if (pageUI.Count > nowPageNum + 1)
-            pageUI[nowPageNum + 1].gameObject.SetActive(false);
+            pageUI[nowPageNum + 1]?.ClosePage();
 
+        // 현재 페이지 열기
         nowPageNum = pageNum;
-        pageUI[nowPageNum].gameObject.SetActive(true);
+        pageUI[nowPageNum].OpenPage();
         if (pageUI.Count > nowPageNum + 1)
-            pageUI[nowPageNum + 1].gameObject.SetActive(true);
+            pageUI[nowPageNum + 1].OpenPage();
 
         
+        // 다음, 이전 페이지 버튼 확인
         if (pageNum == 0)
             prevButton.gameObject.SetActive(false);
         else

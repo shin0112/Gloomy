@@ -7,7 +7,13 @@ public class EmotionPageUI : PageUI
 
     [SerializeField] private GameObject[] emotionPieces;
 
-    private void Awake()
+
+    protected override void OpenPageInternal()
+    {
+        ShowClearEmotionPiece();
+    }
+    
+    void ShowClearEmotionPiece()
     {
         int clearChapter = ChapterClearData.GetClearChapter();
 
@@ -23,4 +29,5 @@ public class EmotionPageUI : PageUI
             }
         }
     }
+
 }

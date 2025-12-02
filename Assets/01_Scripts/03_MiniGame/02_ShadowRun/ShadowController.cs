@@ -64,9 +64,9 @@ public class ShadowController : MonoBehaviour
     }
 
     /// <summary>
-    /// [public] 그림자가 따라갈 플레이어를 연동
+    /// 그림자가 따라갈 플레이어(타겟)를 연동
     /// </summary>
-    public void ConnectPlayer()
+    private void ConnectPlayer()
     {
         if (_curTarget == null)
         {

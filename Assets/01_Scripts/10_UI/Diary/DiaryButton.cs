@@ -72,14 +72,6 @@ public class DiaryButton : MonoBehaviour
         isOpen = _isOpen;
         diaryUI.gameObject.SetActive(isOpen);
         diaryButton.gameObject.SetActive(!isOpen);
-        
-        if (isOpen)
-        {
-            if (ChapterClearData.IsChapterClearCheckInDaiary() == false)
-            {
-                ChapterClearData.CheckDiaryAfterClear();
-            }
-        }
     }
 
     public void ZoomDiaryButton(bool _isZoom)
