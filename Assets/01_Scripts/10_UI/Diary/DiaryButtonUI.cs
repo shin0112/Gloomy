@@ -9,6 +9,7 @@ public class DiaryButtonUI : MonoBehaviour
     [SerializeField] private Button diaryButton;
     [SerializeField] private Button backButton;
     [SerializeField] private DiaryUI diaryUI;
+    [SerializeField] private GameObject clearParticle;
 
     private bool isZoom;
     private bool isOpen;
@@ -34,13 +35,32 @@ public class DiaryButtonUI : MonoBehaviour
 
         diaryButtonRect = diaryButton.GetComponent<RectTransform>();
         diaryButtonOriginPos = diaryButtonRect.anchoredPosition;
+
+        if (ChapterClearData.IsChapterClearCheckInDaiary())
+        {
+            clearParticle.SetActive(false);
+        }
+        else
+        {
+            clearParticle.SetActive(true);
+        }
     }
     
     void OnDiaryButtonClick()
     {
         if (isZoom == false)
         {
-            StartCoroutine(DiaryButtonZoomInRoutine());
+            //StartCoroutine(DiaryButtonZoomInRoutine());
+            
+            Vector2 targetPos = Vector2.zero;
+            Vector3 targetScale = Vector3.one * diaryScale;
+            
+            diaryButtonRect.anchoredPosition = targetPos;
+            diaryButtonRect.localScale = targetScale;
+
+
+            backButton.interactable = true;
+            isZoom = true;
         }
         else
         {
@@ -62,7 +82,15 @@ public class DiaryButtonUI : MonoBehaviour
         
         if (isZoom == true)
         {
-            StartCoroutine(DiaryButtonZoomOutRoutine());
+            Vector2 targetPos = diaryButtonOriginPos;
+            Vector3 targetScale = Vector3.one;
+            
+            diaryButtonRect.anchoredPosition = targetPos;
+            diaryButtonRect.localScale = targetScale;
+
+            isZoom = false;
+            backButton.interactable = false;
+            //StartCoroutine(DiaryButtonZoomOutRoutine());
         }
     }
 

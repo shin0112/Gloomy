@@ -31,6 +31,7 @@ public static class ChapterClearData
 
     /// <summary>
     /// 챕터 클리어 후 다이어리 확인 했는지
+    /// 이미 확인했으면 true / 확인 안했으면 false
     /// </summary>
     /// <returns></returns>
     public static bool IsChapterClearCheckInDaiary()

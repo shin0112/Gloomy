@@ -44,9 +44,8 @@ public class DiaryUI : MonoBehaviour
     /// </summary>
     public void ShowFirstPage()
     {
-        nowPageNum = 0;
 
-        OpenPage(nowPageNum);
+        OpenPage(0);
 
     }
 
