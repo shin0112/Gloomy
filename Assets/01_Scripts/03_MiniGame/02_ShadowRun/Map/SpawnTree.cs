@@ -28,6 +28,9 @@ public class SpawnTree : MonoBehaviour
         SpawnTrees();
     }
 
+    /// <summary>
+    /// z축 방향으로 나무 자동으로 설치하기
+    /// </summary>
     private void SpawnTrees()
     {
         // root 좌표 가져오기
