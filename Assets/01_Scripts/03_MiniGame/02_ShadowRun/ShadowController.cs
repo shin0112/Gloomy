@@ -116,6 +116,9 @@ public class ShadowController : MonoBehaviour
     #region 효과
     private float _vigVelocity;
 
+    /// <summary>
+    /// 플레이어와의 거리를 측정해서 비네틱 효과 주기
+    /// </summary>
     private void ManageVignette()
     {
         float value = (_vignetteTriggerDistance + 1f) - Distance;
@@ -130,6 +133,5 @@ public class ShadowController : MonoBehaviour
             0.08f
         );
     }
-
     #endregion
 }
