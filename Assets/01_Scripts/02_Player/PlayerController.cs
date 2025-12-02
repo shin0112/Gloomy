@@ -13,12 +13,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;//이동스피드
     [SerializeField] private float jumpPower;//점프 파워
     [SerializeField] private float mouseSensesivity;//감도
-    [SerializeField] private float MaxRoationX;//각도 최대값
-    [SerializeField] private float MinRoationX;//각도 최소값
+    [SerializeField] private float maxRoationX;//각도 최대값
+    [SerializeField] private float minRoationX;//각도 최소값
 
+    [Header("RunGame")]
+    [SerializeField] private float moveTime;
     private Vector3 moveDir;
+    [SerializeField] private bool isAutoRun = true; 
     private bool isLock = true;
     private float runGameMoveTransformValue = 3f;
+    private float[] index;
+
+    
     [SerializeField] private float curX;
 
     void Start()
@@ -36,44 +42,21 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-
        
-        if (SceneManager.GetActiveScene().name == "ShadowRunScene")
-        {
-            //Vector3 runGameMoveX = Vector3.up;
-            transform.Translate(transform.right *speed*Time.deltaTime);
-            if (Input.GetKeyDown(KeyCode.D))
+            if (transform.position.x < -3.0f)
             {
-                if (transform.position.z <= 3)
-                {
-                    transform.position += transform.right * runGameMoveTransformValue * Time.deltaTime;
-                }
-                if (transform.position.z >= 3)
-                {
-                    transform.position += transform.right * 0;
-                }
+                transform.position = new Vector3(-3.0f, transform.position.y, transform.position.z);
             }
-            else if (Input.GetKeyDown(KeyCode.A))
+            else if (transform.position.x > 3.0f)
             {
-
-                if (transform.position.z >= -3)
-                {
-                    transform.position += transform.right * -runGameMoveTransformValue * Time.deltaTime;
-                }
-                if (transform.position.z <= -3)
-                {
-                    transform.position += transform.right * 0;
-                }
-
+                transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
             }
-        }
-        else
-        {
+      
             moveDir = transform.forward * curtransformInput.y + transform.right * curtransformInput.x;
             moveDir *= speed;
             moveDir.y = rb.velocity.y;
             rb.velocity = moveDir;
-        }
+        
     }
 
     public void Look()
@@ -81,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (isLock == true)
         {
             dir += mouseDelta.y * mouseSensesivity;
-            dir = Mathf.Clamp(dir, MinRoationX, MaxRoationX);
+            dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
             cameraMoveObject.localEulerAngles = new Vector3(-dir, 0, 0);
             transform.eulerAngles += new Vector3(0, mouseDelta.x * mouseSensesivity, 0);
         }
@@ -120,10 +103,27 @@ public class PlayerController : MonoBehaviour
 
     public void RunPlayerRule()
     {
-        if (SceneManager.GetActiveScene().name == "ShadowRunScene")
+        if (isAutoRun == true)
         {
             isLock = false;
 
         }
     }
+    //public void RailIndex()
+    //{
+    //    index[0] = Mathf.Clamp(transform.position.x, -4, 1);
+
+    //    for(int i = 0; )
+    //    {
+
+    //    }
+    //}
+
 }
+//1번 2번 3번 레일 위치를 정한다
+//1번 레일 position 값
+//2번 레일 position 값
+//3번 레일 position 값
+//현제 위치가 1번레일일 경우
+//현제 위치가 2번레일일 경우
+//현제 위치가 3번레일일 경우
