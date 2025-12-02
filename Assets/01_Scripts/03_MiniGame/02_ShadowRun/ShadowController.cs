@@ -18,6 +18,7 @@ public class ShadowController : MonoBehaviour
     // 이동
     [SerializeField] private float _speed = 6f;               // 기본 움직임. 플레이어와 동일
     [SerializeField] private float _speedModifier = 1f;       // 플레이어가 대시를 썼을 때 가속도를 위함
+    [SerializeField] private float _roadWidth = 10f;
 
     // 회전
     private float _rotateDamping = 1f;
@@ -79,6 +80,13 @@ public class ShadowController : MonoBehaviour
         direction = direction * _speed * _speedModifier;
 
         shadowPos += direction * Time.deltaTime;
+
+        float maxX = _roadWidth / 2;
+
+        // -maxX <= shadowPos.x <= maxX
+        shadowPos.x = Mathf.Min(shadowPos.x, maxX);
+        shadowPos.x = Mathf.Max(shadowPos.x, -maxX);
+
         shadowPos.y = this.transform.position.y;
 
         this.transform.position = shadowPos;
