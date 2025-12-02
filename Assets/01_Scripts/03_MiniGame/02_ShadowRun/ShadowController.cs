@@ -7,6 +7,7 @@ using UnityEngine.Rendering.Universal;
 /// </summary>
 public class ShadowController : MonoBehaviour
 {
+    #region 필드
     // 플레이어가 이동하다가 아마 매니저 측에서 shadowcontroller를 instantiate
     // 그러면 그 오브젝트를 받아서 바로 init할 수 있음
     [Header("타겟 정보")]
@@ -26,10 +27,13 @@ public class ShadowController : MonoBehaviour
     // 연출
     [Header("그림자 추적 세팅")]
     [SerializeField] private float _vignetteTriggerDistance = 1f;
+    [SerializeField] private float _caughtDistance = 0.05f;
 
+    // 컴포넌트
     private Camera _camera;
     private Vignette _vignette;
     private Rigidbody _rigidbody;
+    #endregion
 
     #region 초기화
     private void Awake()
@@ -123,7 +127,7 @@ public class ShadowController : MonoBehaviour
         float distance = Vector3.Distance(_curTarget.position, this.transform.position);
         Distance = Mathf.Max(distance, 1);
 
-        HasCaughtTarget = Distance == 1f;
+        HasCaughtTarget = Distance < 1f + _caughtDistance;
     }
     #endregion
 
