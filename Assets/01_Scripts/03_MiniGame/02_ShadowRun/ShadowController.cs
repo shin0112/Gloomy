@@ -12,6 +12,7 @@ public class ShadowController : MonoBehaviour
     [Header("타겟 정보")]
     [SerializeField] private Transform _curTarget;
     [field: SerializeField] public float Distance { get; private set; }
+    [field: SerializeField] public bool HasCaughtTarget { get; private set; }
 
     [Header("움직임 세팅")]
     // 이동
@@ -56,8 +57,12 @@ public class ShadowController : MonoBehaviour
         if (_curTarget == null) return;
 
         CalcDistance();
-        Move();
         ManageVignette();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     #region 움직임 구현
@@ -101,7 +106,10 @@ public class ShadowController : MonoBehaviour
     /// </summary>
     private void CalcDistance()
     {
-        Distance = Vector3.Distance(_curTarget.position, this.transform.position);
+        float distance = Vector3.Distance(_curTarget.position, this.transform.position);
+        Distance = Mathf.Max(distance, 1);
+
+        HasCaughtTarget = Distance == 1f;
     }
     #endregion
 
@@ -112,12 +120,6 @@ public class ShadowController : MonoBehaviour
     {
         float value = (_vignetteTriggerDistance + 1f) - Distance;
         value = Mathf.Max(value, 0f);
-
-        if (Distance < 0.1f)
-        {
-            _vignette.intensity.value = 1f;
-            return;
-        }
 
         float target = Mathf.Lerp(0f, 1f, value);
 
