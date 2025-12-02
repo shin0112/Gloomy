@@ -124,10 +124,13 @@ MonoBehaviour:
   _curTarget: {fileID: 0}
   <Distance>k__BackingField: 0
   <HasCaughtTarget>k__BackingField: 0
+  _startDelay: 3
+  _caughtDistance: 0.05
   _speed: 6
   _speedModifier: 1
   _roadWidth: 10
   _vignetteTriggerDistance: 1
+  _vigetteIntensity: 1
 --- !u!54 &3021212353221736012
 Rigidbody:
   m_ObjectHideFlags: 0

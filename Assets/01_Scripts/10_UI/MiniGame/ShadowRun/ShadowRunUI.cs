@@ -39,7 +39,7 @@ public class ShadowRunUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _distanceText.text = $"그림자 거리: {0.00}M";
+        _distanceText.text = "그림자 거리: 0.00M";
         _mindPiece.gameObject.SetActive(false);
     }
 
@@ -73,7 +73,7 @@ public class ShadowRunUI : MonoBehaviour
     {
         if (_shadow.HasCaughtTarget)
         {
-            _distanceText.text = $"그림자 거리: {0.00}M";
+            _distanceText.text = "그림자 거리: 0.00M";
             return;
         }
 

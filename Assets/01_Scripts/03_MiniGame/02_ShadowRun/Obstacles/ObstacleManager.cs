@@ -19,7 +19,7 @@ public class ObstacleManager : MonoBehaviour
 
     public ObstacleInfo owl;
     public ObstacleInfo rock;
-    public ObstacleInfo hurdle;
+    public ObstacleInfo hudle;
     public ObstacleInfo invisible;
     public ObstacleInfo star;
 
@@ -38,7 +38,7 @@ public class ObstacleManager : MonoBehaviour
 
     void Spawn()
     {
-        ObstacleInfo[] list = { owl, rock, hurdle, invisible, star };
+        ObstacleInfo[] list = { owl, rock, hudle, invisible, star };
 
         // 생성 가능 항목 필터링
         var available = System.Array.FindAll(list, o => o.currentCount < o.maxCount);
