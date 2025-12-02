@@ -87,8 +87,8 @@ public class ShadowController : MonoBehaviour
     private void Move(Vector3 direction)
     {
         Vector3 shadowPos = this.transform.position;
-        direction = direction * _speed * _speedModifier;
 
+        direction = direction * _speed * _speedModifier;
         _rigidbody.velocity = direction;
 
         float maxX = _roadWidth / 2;
@@ -96,7 +96,7 @@ public class ShadowController : MonoBehaviour
         // -maxX <= shadowPos.x <= maxX
         shadowPos.x = Mathf.Min(shadowPos.x, maxX);
         shadowPos.x = Mathf.Max(shadowPos.x, -maxX);
-
+        // y 좌표 유지
         shadowPos.y = this.transform.position.y;
 
         this.transform.position = shadowPos;
