@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,22 +11,26 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;//마우스입력값
     private Rigidbody rb;//리지드바디
     private float dir;
+    [SerializeField] private Transform slidePivot;
     [Header("Option")]
     [SerializeField] private float speed;//이동스피드
     [SerializeField] private float jumpPower;//점프 파워
     [SerializeField] private float mouseSensesivity;//감도
     [SerializeField] private float maxRoationX;//각도 최대값
     [SerializeField] private float minRoationX;//각도 최소값
+    [SerializeField] private float DashPower; //대쉬 했을 때거리?
+    [SerializeField] private float dashDuration = 3f; //대쉬 지속시간 기본 3초
+    [SerializeField] private float dashCooldown = 3.5f;
 
     [Header("RunGame")]
     [SerializeField] private float moveTime;
     private Vector3 moveDir;
-    [SerializeField] private bool isAutoRun = true; 
-    private bool isLock = true;
-    private float runGameMoveTransformValue = 3f;
-    private float[] index;
-
-    
+    private bool isLock = false;
+    //private float runGameMoveTransformValue = 3f;
+    private float slidingSpeed = 500f;
+    //private float[] index;
+    private bool isSliding = false;
+    private bool isDash = false;
     [SerializeField] private float curX;
 
     void Start()
@@ -34,40 +40,81 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Move();
+        
         Look();
-        Grabity();
-        RunPlayerRule();
+        Gravity();
+        if (isSliding == true)
+        {
+            Sliding();
+        }
+        else if(isSliding == false)
+        {
+            NoSliding();
+        }
+
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+        if (isDash)
+        {
+            Dash();
+        }
+        
+     
+    }
     public void Move()
     {
-       
-            if (transform.position.x < -3.0f)
-            {
-                transform.position = new Vector3(-3.0f, transform.position.y, transform.position.z);
-            }
-            else if (transform.position.x > 3.0f)
-            {
-                transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
-            }
-      
-            moveDir = transform.forward * curtransformInput.y + transform.right * curtransformInput.x;
-            moveDir *= speed;
-            moveDir.y = rb.velocity.y;
-            rb.velocity = moveDir;
-        
+
+        if (transform.position.x < -3.0f)
+        {
+            transform.position = new Vector3(-3.0f, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x > 3.0f)
+        {
+            transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
+        }
+
+        moveDir = transform.forward * curtransformInput.y + transform.right * curtransformInput.x;
+        moveDir *= speed;
+        moveDir.y = rb.velocity.y;
+        rb.velocity = moveDir;
+
     }
 
     public void Look()
     {
-        if (isLock == true)
+        if(isLock == true)
         {
             dir += mouseDelta.y * mouseSensesivity;
             dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
             cameraMoveObject.localEulerAngles = new Vector3(-dir, 0, 0);
             transform.eulerAngles += new Vector3(0, mouseDelta.x * mouseSensesivity, 0);
         }
+     
+
+    }
+
+    public void Sliding()
+    {
+
+        float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, -90, slidingSpeed * Time.deltaTime);
+        slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
+        
+    }
+
+    public void NoSliding()
+    {
+        float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, 0, slidingSpeed * Time.deltaTime);
+        slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
+    }
+
+    public void Dash()
+    {
+        
+        StartCoroutine(DashTime());
+        //isDash = false;
     }
 
     public void InputMove(InputAction.CallbackContext context)
@@ -91,24 +138,49 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void InputSlid(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isSliding = true;
+        }
+        if (context.canceled)
+        {
+            isSliding = false;
+        }
+    }
+
+    public void InputDash(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            isDash = true;
+        }
+    }
+
     public void InputLook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
 
-    public void Grabity()
+    public void Gravity()
     {
         rb.AddForce(Vector3.down * 30, ForceMode.Acceleration);
     }
 
-    public void RunPlayerRule()
+    public IEnumerator DashTime()
     {
-        if (isAutoRun == true)
-        {
-            isLock = false;
+        Vector3 dash = transform.forward;
+        dash *= DashPower;
+        rb.velocity += dash;
 
-        }
+        yield return new WaitForSeconds(dashDuration);
+        isDash = false;
+        yield return new WaitForSeconds(dashCooldown);
+        StopCoroutine(DashTime());
     }
+
+
     //public void RailIndex()
     //{
     //    index[0] = Mathf.Clamp(transform.position.x, -4, 1);

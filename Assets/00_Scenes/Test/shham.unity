@@ -240,6 +240,12 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1298568156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 745846111708111710, guid: aa5dafa1b393afe4686826f27875e232,
+    type: 3}
+  m_PrefabInstance: {fileID: 7898649524830439259}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1680934414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -353,8 +359,8 @@ MonoBehaviour:
     xRange: {x: 0, y: 0}
     y: 0
     zRange: {x: 0, y: 0}
-  hurdle:
-    prefab: {fileID: 745846111708111710, guid: aa5dafa1b393afe4686826f27875e232, type: 3}
+  hudle:
+    prefab: {fileID: 1298568156}
     maxCount: 20
     currentCount: 0
     xRange: {x: 0, y: 0}
