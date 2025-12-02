@@ -56,16 +56,20 @@ public static class ChapterClearData
     
 
     /// <summary>
-    /// 특정 챕터 확인 했는지
+    /// 특정 챕터 클리어 했는지?
     /// </summary>
     /// <param name="chapter"></param>
     /// <returns></returns>
     public static bool IsClear(int chapter)
     {
+        // 프로토타입 챕터1 클리어상태로
+        if (PlayerPrefs.HasKey(ClearChapterKey) == false)
+            ChapterClearData.ClearChapter(1);
+        
         if (PlayerPrefs.HasKey(ClearChapterKey))
         {
             int clearChapter = PlayerPrefs.GetInt(ClearChapterKey);
-            if(clearChapter <= chapter)
+            if(clearChapter >= chapter)
                 return true;
         }
         return false;
@@ -79,6 +83,11 @@ public static class ChapterClearData
     {
         PlayerPrefs.DeleteKey(ClearChapterKey);
         PlayerPrefs.DeleteKey(ChapterClearCheckDiaryKey);
+
+        // 프로토타입 챕터1 클리어상태로
+        PlayerPrefs.SetInt(ClearChapterKey, 1);
+        
+        PlayerPrefs.Save();
     }
 
 }

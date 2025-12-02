@@ -1,8 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// ScreenSpace - Camera 인 Canvas에서 사용 가능
+/// </summary>
 public class UIParticle : MonoBehaviour
 {
     [SerializeField] RectTransform target;
@@ -25,8 +26,7 @@ public class UIParticle : MonoBehaviour
         particle.transform.position = target.transform.position + (dir * zOffset);
 
     }
-
-
+    
     public void SetTargetRectTransform(RectTransform _target)
     {
         target = _target;

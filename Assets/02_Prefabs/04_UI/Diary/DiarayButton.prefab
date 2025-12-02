@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 220415777212671511}
   - component: {fileID: 6152133822230242883}
   m_Layer: 5
-  m_Name: DiarayButtonUI
+  m_Name: DiarayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

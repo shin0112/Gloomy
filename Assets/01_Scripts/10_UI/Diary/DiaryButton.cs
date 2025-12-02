@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DiaryButtonUI : MonoBehaviour
+public class DiaryButton : MonoBehaviour
 {
     [SerializeField] private Button diaryButton;
     [SerializeField] private Button backButton;
@@ -36,6 +36,7 @@ public class DiaryButtonUI : MonoBehaviour
         diaryButtonRect = diaryButton.GetComponent<RectTransform>();
         diaryButtonOriginPos = diaryButtonRect.anchoredPosition;
 
+        ChpaterClearCheck();
     }
     
     void OnDiaryButtonClick()
@@ -92,7 +93,11 @@ public class DiaryButtonUI : MonoBehaviour
         diaryButtonRect.localScale = targetScale;
       
         backButton.interactable = isZoom;
+        ChpaterClearCheck();
+    }
 
+    public void ChpaterClearCheck()
+    {
         if (isZoom == false)
         {
             // 다이어리 확인
