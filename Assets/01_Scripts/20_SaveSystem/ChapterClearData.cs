@@ -29,6 +29,11 @@ public static class ChapterClearData
         PlayerPrefs.SetInt(ChapterClearCheckDiaryKey, 0);
     }
 
+    public static int GetClearChapter()
+    {
+        return PlayerPrefs.GetInt(ClearChapterKey, 0);
+    }
+
     /// <summary>
     /// 챕터 클리어 후 다이어리 확인 했는지
     /// 이미 확인했으면 true / 확인 안했으면 false
