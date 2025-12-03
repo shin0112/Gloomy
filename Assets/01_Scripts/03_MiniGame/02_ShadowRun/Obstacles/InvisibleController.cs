@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 투명 인간 움직임 관리
+/// </summary>
 public class InvisibleController : MonoBehaviour
 {
     #region 필드
@@ -9,14 +12,15 @@ public class InvisibleController : MonoBehaviour
     [SerializeField] private bool _xTrackingEnabled = true;
     [SerializeField] private bool _zBackwardRestrictio = true;
 
+    private float _prevZSign;           // z방향 벡터 부호 캐싱용
+    private bool _canMoveZ = true;      // z방향 움직임 플래그
+
     [Header("값 확인용")]
     [SerializeField] private Transform _curTarget;
 
     // 정보 캐싱
     private ObstacleManager.ObstacleInfo _invisibleInfo;
     private float _roadWidth;
-    private float _prevZSign;
-    private bool _isZStop = false;
 
     // 컴포넌트
     private Rigidbody _rigidbody;
@@ -78,7 +82,8 @@ public class InvisibleController : MonoBehaviour
         float zSign = Mathf.Sign(dir.z);
         if (_prevZSign != zSign)
         {
-            _isZStop = true;
+            Logger.Log("투명인간 장애물 통과");
+            _canMoveZ = false;
         }
         _prevZSign = zSign; // 캐싱
 
@@ -87,7 +92,7 @@ public class InvisibleController : MonoBehaviour
             dir.x = 0f;
         }
 
-        if (_isZStop)
+        if (!_canMoveZ)
         {
             dir.z = 0f;
         }

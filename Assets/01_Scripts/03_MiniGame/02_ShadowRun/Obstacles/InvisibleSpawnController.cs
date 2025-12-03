@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// 투명 인간 스폰 관리
+/// </summary>
 public class InvisibleSpawnController : MonoBehaviour
 {
     #region 필드
@@ -43,6 +46,10 @@ public class InvisibleSpawnController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 플레이어가 500M 콜라이더에 들어올 시 투명 인간 소환 코루틴 수행
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (!_doneSpawn && other.TryGetComponent<PlayerController>(out var player))
@@ -52,6 +59,10 @@ public class InvisibleSpawnController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 스폰 횟수만큼 투명 인간 소환
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SpawnInvisible()
     {
         int count = 0;
@@ -75,7 +86,8 @@ public class InvisibleSpawnController : MonoBehaviour
             // 투명인간 생성
             GameObject invisibleObj = Instantiate(_invisible, _root.transform);
             var invisible = invisibleObj.GetComponent<InvisibleController>();
-            if (_isOverrideMovementSetting)
+
+            if (_isOverrideMovementSetting)     // 오버라이딩할 경우
             {
                 invisible.InitInfo(
                     info,
