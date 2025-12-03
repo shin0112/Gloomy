@@ -14,24 +14,27 @@ public class InvisibleController : MonoBehaviour
 
     // 정보 캐싱
     private ObstacleManager.ObstacleInfo _invisibleInfo;
+    private float _roadWidth;
 
     // 컴포넌트
     private Rigidbody _rigidbody;
     #endregion
 
     #region 초기화
+
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponentInChildren<Rigidbody>(true);
     }
 
     /// <summary>
     /// [public] 해당 오브젝트 생성 시 정보 초기화
     /// </summary>
     /// <param name="invisibleInfo"></param>
-    public void InitInfo(ObstacleManager.ObstacleInfo invisibleInfo)
+    public void InitInfo(ObstacleManager.ObstacleInfo invisibleInfo, float roadWidth)
     {
         _invisibleInfo = invisibleInfo;
+        _roadWidth = roadWidth;
     }
 
     private void Start()
@@ -76,7 +79,7 @@ public class InvisibleController : MonoBehaviour
 
         // 조건 후처리
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, _invisibleInfo.xRange.x, _invisibleInfo.xRange.y);
+        pos.x = Mathf.Clamp(pos.x, -_roadWidth / 2, _roadWidth / 2);
         _rigidbody.MovePosition(pos);
     }
     #endregion
