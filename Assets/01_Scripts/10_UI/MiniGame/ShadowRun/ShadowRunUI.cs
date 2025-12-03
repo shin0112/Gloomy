@@ -26,6 +26,7 @@ public class ShadowRunUI : MonoBehaviour
     [Header("테스트용")]
     [SerializeField] private Button _testReLoadButton;
     [SerializeField] private Button _testStartButton;
+    [SerializeField] private Button _testInvisibleButton;
     #endregion
 
     #region 초기화
@@ -36,6 +37,7 @@ public class ShadowRunUI : MonoBehaviour
         _mindPiece = transform.FindChild<Image>("Image - MindPiece");
         _testReLoadButton = transform.FindChild<Button>("Button - ReLoad");
         _testStartButton = transform.FindChild<Button>("Button - Start");
+        _testInvisibleButton = transform.FindChild<Button>("Button - Invisible");
     }
 
     private void Start()
@@ -50,6 +52,7 @@ public class ShadowRunUI : MonoBehaviour
         _mindPiece.gameObject.SetActive(false);
         _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
         _testStartButton.onClick.AddListener(OnClickTestStartButton);
+        _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
     }
 
     private void Update()
@@ -114,6 +117,12 @@ public class ShadowRunUI : MonoBehaviour
     {
         _testStartButton.onClick.RemoveListener(OnClickTestStartButton);
         _shadow.IsTest = false;
+    }
+
+    private void OnClickTestInvisibleButton()
+    {
+        var player = FindObjectOfType<PlayerController>();
+        player.transform.position = new Vector3(0, 1, 495);
     }
     #endregion
 }
