@@ -43,4 +43,14 @@ public abstract class SceneSingletonManager<T> : MonoBehaviour where T : SceneSi
         //안전하게 null 로 비우기
         instance = null;
     }
+
+    protected Coroutine StartDelayAction(Action action, float delay)
+    {
+        return StartCoroutine(DelayAction(action, delay));
+    }
+    IEnumerator DelayAction(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
+    }
 }
