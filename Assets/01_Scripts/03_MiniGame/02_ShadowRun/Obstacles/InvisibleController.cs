@@ -18,6 +18,11 @@ public class InvisibleController : MonoBehaviour
     private Rigidbody _rigidbody;
 
     #region 초기화
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
     /// <summary>
     /// [public] 해당 오브젝트 생성 시 정보 초기화
     /// </summary>
@@ -47,31 +52,30 @@ public class InvisibleController : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        // 속도에 따른 이동 비율 구하기
-        float xRatio = (_curTarget.position.x - transform.position.x) * _moveSpeedX;
-        float zRatio = (_curTarget.position.z - transform.position.z) * _moveSpeedZ;
+        // 방향 구하기
+        Vector3 dir = _curTarget.position - transform.position.normalized;
 
-        if (!_xTrackingEnabled)
+        if (!_xTrackingEnabled)     // x축 추적이 불가능할 때
         {
-            xRatio = 0f;
+            dir.x = 0f;
         }
 
-        if (!zBackwardRestrictio)
+        if (zBackwardRestrictio)   // 뒷 방향으로 추적이 불가능할 때
         {
-            zRatio = Mathf.Min(0f, zRatio);
+            dir.z = Mathf.Min(0f, dir.z);
         }
+
+        // 속도 보정
+        float velocityX = dir.x * _moveSpeedX;
+        float velocityZ = dir.z * _moveSpeedZ;
 
         // 점프는 없다고 가정
-        Vector3 direction = new Vector3(xRatio, 0, zRatio).normalized;
-        // 비율을 맞추기 위해 더 큰 속도 값으로 보정
-        direction *= Mathf.Max(_moveSpeedZ, _moveSpeedX);
-        _rigidbody.velocity = direction;
+        _rigidbody.velocity = new Vector3(velocityX, 0f, velocityZ);
 
         // 조건 후처리
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, _invisibleInfo.xRange.x, _invisibleInfo.xRange.y);
-
-        transform.position = pos;
+        _rigidbody.MovePosition(pos);
     }
     #endregion
 }
