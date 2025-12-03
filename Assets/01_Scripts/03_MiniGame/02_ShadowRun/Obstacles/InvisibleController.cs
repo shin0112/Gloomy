@@ -12,8 +12,8 @@ public class InvisibleController : MonoBehaviour
     [SerializeField] private bool _xTrackingEnabled = true;
     [SerializeField] private bool _zBackwardRestrictio = true;
 
-    private float _prevZSign;           // z방향 벡터 부호 캐싱용
-    private bool _canMoveZ = true;      // z방향 움직임 플래그
+    private float _prevZSign;               // z방향 벡터 부호 캐싱용
+    private bool _allowBackward = true;     // z방향 움직임 플래그
 
     [Header("값 확인용")]
     [SerializeField] private Transform _curTarget;
@@ -83,7 +83,7 @@ public class InvisibleController : MonoBehaviour
         if (_prevZSign != zSign)
         {
             Logger.Log("투명인간 장애물 통과");
-            _canMoveZ = false;
+            _allowBackward = false;
         }
         _prevZSign = zSign; // 캐싱
 
@@ -92,9 +92,9 @@ public class InvisibleController : MonoBehaviour
             dir.x = 0f;
         }
 
-        if (!_canMoveZ)
+        if (!_allowBackward)     // z축 방향으로 이동해야하기 때문
         {
-            dir.z = 0f;
+            dir.z = -1f;
         }
 
         // 속도 보정
