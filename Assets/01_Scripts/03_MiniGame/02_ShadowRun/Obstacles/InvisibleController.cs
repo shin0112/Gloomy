@@ -15,6 +15,8 @@ public class InvisibleController : MonoBehaviour
     // 정보 캐싱
     private ObstacleManager.ObstacleInfo _invisibleInfo;
     private float _roadWidth;
+    private float _prevZSign;
+    private bool _isZStop = false;
 
     // 컴포넌트
     private Rigidbody _rigidbody;
@@ -52,6 +54,7 @@ public class InvisibleController : MonoBehaviour
     {
         // 타겟 탐색 및 지정
         _curTarget = FindObjectOfType<PlayerController>().transform;
+        _prevZSign = Mathf.Sign((_curTarget.position - transform.position).normalized.z);
     }
     #endregion
 
@@ -71,9 +74,22 @@ public class InvisibleController : MonoBehaviour
         // 방향 구하기
         Vector3 dir = (_curTarget.position - transform.position).normalized;
 
-        if (!_xTrackingEnabled)     // x축 추적이 불가능할 때
+        // z 벡터의 부호가 변경되는지 = 플레이어가 통과했는지
+        float zSign = Mathf.Sign(dir.z);
+        if (_prevZSign != zSign)
+        {
+            _isZStop = true;
+        }
+        _prevZSign = zSign; // 캐싱
+
+        if (!_xTrackingEnabled)         // x축 추적이 불가능할 때
         {
             dir.x = 0f;
+        }
+
+        if (_isZStop)
+        {
+            dir.z = 0f;
         }
 
         // 속도 보정
