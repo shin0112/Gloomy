@@ -90,7 +90,7 @@ public class CardBoard : MonoBehaviour
                 nowCorrectCount += 2;
                 if (nowCorrectCount == cardCount)
                 {
-                    Time.timeScale = 0;
+                    //Time.timeScale = 0;
                     CardMinigame.Instance.GameClear();
                 }
             }

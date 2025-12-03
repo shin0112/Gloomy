@@ -18,7 +18,7 @@ public class ObstacleManager : MonoBehaviour
     public ObstacleInfo owl;
     public ObstacleInfo rock;
     public ObstacleInfo hurdle;
-    public ObstacleInfo invisible;
+    //public ObstacleInfo invisible;
     public ObstacleInfo star;
 
     void Start()
@@ -26,7 +26,7 @@ public class ObstacleManager : MonoBehaviour
         SpawnObstacleLine(owl);
         SpawnObstacleLine(rock);
         SpawnObstacleLine(hurdle);
-        SpawnObstacleLine(invisible);
+        //SpawnObstacleLine(invisible);
         SpawnStars(); // 별만 특별하게 처리
     }
 
@@ -39,6 +39,12 @@ public class ObstacleManager : MonoBehaviour
         {
             float x = Random.Range(info.xRange.x, info.xRange.y);
             Vector3 pos = new Vector3(x, info.y, z);
+
+            if (info == owl && z > 500f)
+            {
+                z += info.spacing + Random.Range(0f, 3f);
+                continue; // 이번 스폰 건너뛰고 다음으로
+            }
 
             GameObject obj = Instantiate(info.prefab, root);
             obj.transform.localPosition = pos;
