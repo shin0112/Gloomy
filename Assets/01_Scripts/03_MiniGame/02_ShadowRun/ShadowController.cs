@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -19,9 +20,12 @@ public class ShadowController : MonoBehaviour
     [SerializeField] private Transform _curTarget;
     [field: SerializeField] public float Distance { get; private set; }
     [field: SerializeField] public bool HasCaughtTarget { get; private set; }
+    public event Action OnCaughtTarget;
+    public event Action OnEscapeTarget;
 
-    // modifier를 계산하기 위한 캐싱 값
-    private Vector3 _prevTargetPos;
+    // 캐싱
+    private Vector3 _prevTargetPos;             // modifier 계산
+    private bool _doneCaughtDirection = false;  // 잡힘 연출
 
     [Header("게임 세팅")]
     [Tooltip("추격 게임이 시작한 후 그림자가 출발을 기다리는 시간(초)")]
@@ -166,6 +170,13 @@ public class ShadowController : MonoBehaviour
         Distance = Mathf.Max(nowDistance - 1, 0);
 
         HasCaughtTarget = Distance < _caughtDistance;
+
+        // todo: 벗어날 경우 doneCaughtDirection 초기화
+        if (!_doneCaughtDirection && HasCaughtTarget)
+        {
+            OnCaughtTarget?.Invoke();
+            _doneCaughtDirection = true;
+        }
     }
 
     /// <summary>
