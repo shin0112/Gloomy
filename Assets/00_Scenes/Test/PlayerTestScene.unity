@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 64078019}
   - component: {fileID: 64078018}
   - component: {fileID: 64078017}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1962285460
+--- !u!1001 &1402764296
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -367,7 +367,7 @@ PrefabInstance:
     - target: {fileID: 271373973191908824, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 271373973191908824, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
@@ -409,20 +409,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3805378438949916709, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: jumpPower
-      value: 70
+      propertyPath: maxRoationX
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: cameraTransfrom
+      value: 
+      objectReference: {fileID: 1971872429}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: mouseSensesivity
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3612d3478f372a49aa05a6384443426, type: 3}
+--- !u!4 &1971872429 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6254411648532761541, guid: a3612d3478f372a49aa05a6384443426,
+    type: 3}
+  m_PrefabInstance: {fileID: 1402764296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 22889767}
   - {fileID: 64078020}
-  - {fileID: 1962285460}
+  - {fileID: 1402764296}
