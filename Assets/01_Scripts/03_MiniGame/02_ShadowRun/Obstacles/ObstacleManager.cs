@@ -50,12 +50,13 @@ public class ObstacleManager : MonoBehaviour
     // 별만 3개, 시작/중간/끝
     void SpawnStars()
     {
-        float[] zPositions = { 0f, mapLength / 2f, mapLength };
-
+        float[] zPositions = { 15f, mapLength / 2f, mapLength }; //별의 생성지점, 시작 중간 , 끝지점
+        //0f는 시작지점 값, maplength는 /2fm mapLength는 1000M (전체 맵 길이 나누기 2)
+        
         foreach (float z in zPositions)
         {
             float x = Random.Range(star.xRange.x, star.xRange.y);
-            Vector3 pos = new Vector3(x, star.y, z);
+            Vector3 pos = new Vector3(x, star.y, z); 
 
             GameObject obj = Instantiate(star.prefab, root);
             obj.transform.localPosition = pos;
