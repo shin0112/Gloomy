@@ -32,6 +32,7 @@ public class ShadowRunUI : MonoBehaviour
     [SerializeField] private Button _testReLoadButton;
     [SerializeField] private Button _testStartButton;
     [SerializeField] private Button _testInvisibleButton;
+    [SerializeField] private Button _testIGoalButton;
 
     // 코루틴
     private Coroutine _showDashKeyCoroutine;
@@ -49,12 +50,14 @@ public class ShadowRunUI : MonoBehaviour
         _testReLoadButton = transform.FindChild<Button>("Button - ReLoad");
         _testStartButton = transform.FindChild<Button>("Button - Start");
         _testInvisibleButton = transform.FindChild<Button>("Button - Invisible");
+        _testIGoalButton = transform.FindChild<Button>("Button - Goal");
     }
 
     private void Start()
     {
         _shadow = FindObjectOfType<ShadowController>();
         _shadow.OnCaughtTarget += OnCaughtTarget;
+        _shadow.OnEscapeTarget += OnEscapeTarget;
     }
 
     private void OnEnable()
@@ -66,6 +69,7 @@ public class ShadowRunUI : MonoBehaviour
         _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
         _testStartButton.onClick.AddListener(OnClickTestStartButton);
         _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
+        _testIGoalButton.onClick.AddListener(OnClickTestGoalButton);
     }
 
     private void Update()
@@ -115,6 +119,14 @@ public class ShadowRunUI : MonoBehaviour
             _showDashKeyCoroutine = null;
         }
         _showDashKeyCoroutine = StartCoroutine(nameof(ShowPressDashKeyCoroutine));
+    }
+
+    /// <summary>
+    /// 타겟이 벗어났을 때 동작하는 연출
+    /// </summary>
+    private void OnEscapeTarget()
+    {
+        _pressDashKeyObj.SetActive(false);
     }
 
     /// <summary>
@@ -171,6 +183,12 @@ public class ShadowRunUI : MonoBehaviour
     {
         var player = FindObjectOfType<PlayerController>();
         player.transform.position = new Vector3(0, 1, 495);
+    }
+
+    private void OnClickTestGoalButton()
+    {
+        var player = FindObjectOfType<PlayerController>();
+        player.transform.position = new Vector3(0, 1, 950);
     }
     #endregion
 }
