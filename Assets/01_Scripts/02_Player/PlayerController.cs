@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
     public InputActionReference lookAction;
     RaycastHit hit;
 
+    [Header("Obstacle")]
+    [SerializeField] ShadowController shadowController;
+
 
     void Start()
     {
@@ -102,29 +105,25 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnEnable()
+    private void CatchMoveEnable()//inputaction 연결
     {
-        moveAction.action.performed += InputMove;
-        moveAction.action.canceled += InputMove;
-
-        jumpAction.action.started += InputJump;
-
-        slidingAction.action.performed += InputSliding;
-        slidingAction.action.canceled += InputSliding;
-        dashAction.action.performed += InputDash;
-        lookAction.action.performed += InputLook;
-        interactAction.action.started += InputIinteract;
-        interactAction.action.performed += InputIinteract;
-
         moveAction.action.Enable();
         jumpAction.action.Enable();
         slidingAction.action.Enable();
-        dashAction.action.Enable();
         lookAction.action.Enable();
         interactAction.action.Enable();
     }
 
-    public void Move()
+    public void CatchMoveDisable()
+    {
+        moveAction.action.Disable();
+        jumpAction.action.Disable();
+        slidingAction.action.Disable();
+        interactAction.action.Disable();
+        lookAction.action.Disable();
+    }
+
+    public void Move()//이동
     {
         if (isOpenShadowScene == true)
         {
@@ -143,7 +142,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveDir;
     }
 
-    public void Look()
+    public void Look()//마우스 이동으로 화면 돌리기
     {
         if (isOpenShadowScene == true)
         {
@@ -161,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Sliding()
+    public void Sliding()//슬라이딩
     {
 
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, -90, slidingSpeed * Time.deltaTime);
@@ -169,20 +168,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void NoSliding()
+    public void NoSliding()//슬라이딩 안할 때
     {
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, 0, slidingSpeed * Time.deltaTime);
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
     }
 
-    public void Dash()
+    public void Dash()//대쉬
     {
 
         StartCoroutine(DashTime());
         //isDash = false;
     }
 
-    public void InputMove(InputAction.CallbackContext context)
+    public void InputMove(InputAction.CallbackContext context)//움직임 입력
     {
 
         if (context.phase == InputActionPhase.Performed)
@@ -195,7 +194,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputJump(InputAction.CallbackContext context)
+    public void InputJump(InputAction.CallbackContext context)//점프 입력
     {
         if (context.phase == InputActionPhase.Started && IsGround())
         {
@@ -203,7 +202,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputSliding(InputAction.CallbackContext context)
+    public void InputSliding(InputAction.CallbackContext context)//슬라이딩 입력
     {
         if (context.performed)
         {
@@ -215,20 +214,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputDash(InputAction.CallbackContext context)
+    public void InputDash(InputAction.CallbackContext context)//대쉬 입력
     {
-        if (context.performed)
+        if (context.started)
         {
             isDash = true;
         }
     }
 
-    public void InputLook(InputAction.CallbackContext context)
+    public void InputLook(InputAction.CallbackContext context)//카메라 입력
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
 
-    public void InputIinteract(InputAction.CallbackContext context)
+    public void InputIinteract(InputAction.CallbackContext context)//interact 입력(E)
     {
 
         if (context.phase == InputActionPhase.Started)
@@ -242,7 +241,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    bool IsGround()
+    bool IsGround()//플레이어가 레이와 닿았는지 체크
     {
         Ray ray = new Ray(rayObject.transform.position, Vector3.down);
         RaycastHit hit;
@@ -258,7 +257,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.down * 30, ForceMode.Acceleration);
     }
 
-    public IEnumerator DashTime()
+    public IEnumerator DashTime()//대쉬타임 그리고 쿨타임
     {
         Vector3 dash = transform.forward;
         dash *= DashPower;
@@ -272,15 +271,28 @@ public class PlayerController : MonoBehaviour
         StopCoroutine(DashTime());
     }
 
-    public void CharacterRay()
+    public void CharacterRay()//캐릭터로 레이쏘기
     {
         
-        if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 5f))
+        if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 1f))
         {
             InteractableObject obj = hit.collider.gameObject.GetComponent<InteractableObject>();
             interactable = hit.collider.gameObject.GetComponent<IInteractable>();
         }
-        
-
     }
+    public void ShadowCollision()
+    {
+        if(shadowController.HasCaughtTarget == true)
+        {
+            CatchMoveDisable();
+            isDash = true;
+            dashCooldown = 0;
+            if (Input.GetKey(KeyCode.E))
+            {
+                Dash();
+                CatchMoveEnable();
+            }
+            
+        }
+    }    
 }
