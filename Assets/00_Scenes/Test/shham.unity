@@ -308,6 +308,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a162ad3b68e829c4587c15207e2f06ca, type: 3}
+--- !u!1 &1042439896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8330555204706614496, guid: aa5dafa1b393afe4686826f27875e232,
+    type: 3}
+  m_PrefabInstance: {fileID: 980020982960439951}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1680934414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -422,18 +428,11 @@ MonoBehaviour:
     startZ: 70
     spacing: 10
   hurdle:
-    prefab: {fileID: 980020982960439952}
+    prefab: {fileID: 1042439896}
     y: 0
     xRange: {x: -2.5, y: 2.5}
-    startZ: 70
+    startZ: 100
     spacing: 8
-  invisible:
-    prefab: {fileID: 2703658448840396811, guid: a162ad3b68e829c4587c15207e2f06ca,
-      type: 3}
-    y: 0
-    xRange: {x: -2.5, y: 2.5}
-    startZ: 500
-    spacing: 20
   star:
     prefab: {fileID: 1601880977150667353, guid: 7ef8f0f6033c60f47a56e657ee48c228,
       type: 3}
@@ -828,12 +827,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5dafa1b393afe4686826f27875e232, type: 3}
---- !u!1 &980020982960439952 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6260349310041092042, guid: aa5dafa1b393afe4686826f27875e232,
-    type: 3}
-  m_PrefabInstance: {fileID: 980020982960439951}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4336201156546932699
 PrefabInstance:
   m_ObjectHideFlags: 0
