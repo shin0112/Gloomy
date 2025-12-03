@@ -37,12 +37,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
     private bool isDash = false;
-    private bool isInteract = false;
 
     [Header("Scripts")]
     public InteractableObject interactableObject;
     public IInteractable interactable;
 
+    [Header("InputAction")]
+    public InputActionReference interactAction;
+    public InputActionReference moveAction;
+    public InputActionReference jumpAction;
+    public InputActionReference slidingAction;
+    public InputActionReference dashAction;
+    public InputActionReference lookAction;
+    RaycastHit hit;
 
 
     void Start()
@@ -87,6 +94,29 @@ public class PlayerController : MonoBehaviour
         //Gravity();
 
     }
+
+    private void OnEnable()
+    {
+        moveAction.action.performed += InputMove;
+        moveAction.action.canceled += InputMove;
+
+        jumpAction.action.started += InputJump;
+
+        slidingAction.action.performed += InputSliding;
+        slidingAction.action.canceled += InputSliding;
+        dashAction.action.performed += InputDash;
+        lookAction.action.performed += InputLook;
+        interactAction.action.started += InputIinteract;
+        interactAction.action.performed += InputIinteract;
+
+        moveAction.action.Enable();
+        jumpAction.action.Enable();
+        slidingAction.action.Enable();
+        dashAction.action.Enable();
+        lookAction.action.Enable();
+        interactAction.action.Enable();
+    }
+
     public void Move()
     {
         if (isOpenShadowScene == true)
@@ -121,6 +151,8 @@ public class PlayerController : MonoBehaviour
             dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
             cameraMoveObject.localEulerAngles = new Vector3(-dir, 0, 0);
             transform.eulerAngles += new Vector3(0, mouseDelta.x * mouseSensesivity, 0);
+
+            mouseDelta = Vector2.zero;
         }
 
     }
@@ -167,7 +199,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputSlid(InputAction.CallbackContext context)
+    public void InputSliding(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -239,19 +271,13 @@ public class PlayerController : MonoBehaviour
 
     public void CharacterRay()
     {
-        RaycastHit hit;
+        
         if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 5f))
         {
-
             InteractableObject obj = hit.collider.gameObject.GetComponent<InteractableObject>();
             interactable = hit.collider.gameObject.GetComponent<IInteractable>();
-
         }
-        else
-        {
-            isInteract = false;
-        }
-
+        
 
     }
 }
