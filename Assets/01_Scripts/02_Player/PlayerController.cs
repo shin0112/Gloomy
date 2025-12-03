@@ -14,8 +14,9 @@ public class PlayerController : MonoBehaviour
     private float dir;//이동할 때 변수?
     [SerializeField] private Transform slidePivot;//슬라이더 할 때 기준점
     [SerializeField] LayerMask layerMask;
-    [SerializeField] private Transform cameraTransfrom;
+    [SerializeField] private Transform cameraTransfrom;//카메라
     [SerializeField] private CapsuleCollider capsuleCollider;
+    [SerializeField] private Camera characterCamera;
 
     [Header("Option")]
     [SerializeField] private float speed;//이동스피드
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.rotation = Quaternion.Euler(0, 0, 0);
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
+        characterCamera = GetComponent<Camera>();
     }
 
     void Update()
@@ -209,11 +211,14 @@ public class PlayerController : MonoBehaviour
         //capsuleCollider.enabled = false;
 
         yield return new WaitForSeconds(dashDuration);
-        //isDash = false;
+        isDash = false;
         capsuleCollider.enabled = true;
         yield return new WaitForSeconds(dashCooldown);
         StopCoroutine(DashTime());
     }
 
-    //public void 
+    //public void RayMouse()
+    //{
+    //    Ray cameraray = new Ray(characterCamera.ScreenPointToRay(new Vector3(Screen.width);
+    //}
 }
