@@ -69,15 +69,18 @@ public class PlayerController : MonoBehaviour
     {
 
         Look();
-
-        if (isSliding == true)
+        if(isOpenShadowScene)
         {
-            Sliding();
+            if (isSliding == true)
+            {
+                Sliding();
+            }
+            else if (isSliding == false)
+            {
+                NoSliding();
+            }
         }
-        else if (isSliding == false)
-        {
-            NoSliding();
-        }
+        
         IsGround();
         CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
@@ -87,10 +90,14 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        if (isDash)
+        if(isOpenShadowScene == true)
         {
-            Dash();
+            if (isDash)
+            {
+                Dash();
+            }
         }
+        
         //Gravity();
 
     }
@@ -130,13 +137,10 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
             }
         }
-
-
         moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
         moveDir *= speed;
         moveDir.y = rb.velocity.y;
         rb.velocity = moveDir;
-
     }
 
     public void Look()
@@ -230,7 +234,6 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started)
         {
             interactable?.OnInteract();
-         
         }
         else if (context.phase == InputActionPhase.Performed)
         {
