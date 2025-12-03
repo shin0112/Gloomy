@@ -337,45 +337,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7fe746b3a28ff44afb3e6b86d64b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  root: {fileID: 0}
+  mapLength: 1000
   owl:
     prefab: {fileID: 7901427384133234246, guid: 0c09435b1be93594abfff5e5c3d81bff,
       type: 3}
-    maxCount: 10
-    currentCount: 0
-    xRange: {x: 0, y: 0}
     y: 0
-    zRange: {x: 0, y: 0}
+    xRange: {x: -2.5, y: 2.5}
+    startZ: 10
+    spacing: 10
   rock:
     prefab: {fileID: 2300125185318126800, guid: 5b5c02a289c01ad4da3e61068947867f,
       type: 3}
-    maxCount: 15
-    currentCount: 0
-    xRange: {x: 0, y: 0}
     y: 0
-    zRange: {x: 0, y: 0}
-  hudle:
+    xRange: {x: -2.5, y: 2.5}
+    startZ: 70
+    spacing: 10
+  hurdle:
     prefab: {fileID: 745846111708111710, guid: aa5dafa1b393afe4686826f27875e232, type: 3}
-    maxCount: 20
-    currentCount: 0
-    xRange: {x: 0, y: 0}
     y: 0
-    zRange: {x: 0, y: 0}
+    xRange: {x: -2.5, y: 2.5}
+    startZ: 70
+    spacing: 8
   invisible:
     prefab: {fileID: 2703658448840396811, guid: a162ad3b68e829c4587c15207e2f06ca,
       type: 3}
-    maxCount: 3
-    currentCount: 0
-    xRange: {x: 0, y: 0}
     y: 0
-    zRange: {x: 0, y: 0}
+    xRange: {x: -2.5, y: 2.5}
+    startZ: 500
+    spacing: 20
   star:
     prefab: {fileID: 1601880977150667353, guid: 7ef8f0f6033c60f47a56e657ee48c228,
       type: 3}
-    maxCount: 3
-    currentCount: 0
-    xRange: {x: 0, y: 0}
-    y: 0
-    zRange: {x: 0, y: 0}
+    y: 1.5
+    xRange: {x: -1, y: 1}
+    startZ: 0
+    spacing: 0
 --- !u!4 &1691260214
 Transform:
   m_ObjectHideFlags: 0
