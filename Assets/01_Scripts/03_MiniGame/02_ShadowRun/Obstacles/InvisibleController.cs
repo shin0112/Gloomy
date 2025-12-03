@@ -57,29 +57,38 @@ public class InvisibleController : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        // 방향 구하기
-        Vector3 dir = _curTarget.position - transform.position.normalized;
+        Vector3 delta = _curTarget.position - transform.position;
 
         if (!_xTrackingEnabled)     // x축 추적이 불가능할 때
         {
-            dir.x = 0f;
+            delta.x = 0f;
         }
 
-        if (zBackwardRestrictio)   // 뒷 방향으로 추적이 불가능할 때
-        {
-            dir.z = Mathf.Min(0f, dir.z);
-        }
+        // 비율 계산 (거리 기반)
+        float ratioX = Mathf.Abs(delta.x);
+        float ratioZ = Mathf.Abs(delta.z);
 
-        // 속도 보정
-        float velocityX = dir.x * _moveSpeedX;
-        float velocityZ = dir.z * _moveSpeedZ;
+        float sum = ratioX + ratioZ;
+        if (sum < Mathf.Epsilon) return;
 
-        // 점프는 없다고 가정
-        _rigidbody.velocity = new Vector3(velocityX, 0f, velocityZ);
+        ratioX /= sum;
+        ratioZ /= sum;
+
+        // 부호 적용
+        float sx = Mathf.Sign(delta.x);
+        float sz = Mathf.Sign(delta.z);
+
+        // 축별 속도 반영
+        float velocityX = ratioX * _moveSpeedX * sx;
+        float velocityZ = ratioZ * _moveSpeedZ * sz;
+
+        Vector3 velocity = new Vector3(velocityX, 0f, velocityZ);
+
+        Vector3 pos = _rigidbody.position + velocity * Time.fixedDeltaTime;
 
         // 조건 후처리
-        Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, -_roadWidth / 2, _roadWidth / 2);
+
         _rigidbody.MovePosition(pos);
     }
     #endregion
