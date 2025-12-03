@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShadowRunGoalLight : MonoBehaviour
@@ -31,11 +32,20 @@ public class ShadowRunGoalLight : MonoBehaviour
         else
         {
             if (dis <= 0) return;
-            
+
             float boundary = (stopCorrectDistance / Define.MapLength) * defaultViewScale;
             float calcBalance = boundary * stopCorrectDistance;
             this.transform.localScale = Vector3.one * (calcBalance / dis);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<PlayerController>() != null)
+        {
+            ShadowRun.Instance.ClearCheck();
+        }
+
     }
 
 
