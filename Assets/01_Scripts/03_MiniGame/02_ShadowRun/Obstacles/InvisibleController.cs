@@ -7,7 +7,7 @@ public class InvisibleController : MonoBehaviour
     [Range(3f, 6f)][SerializeField] private float _moveSpeedX = 3f;
     [Range(3f, 6f)][SerializeField] private float _moveSpeedZ = 5f;
     [SerializeField] private bool _xTrackingEnabled = true;
-    [SerializeField] private bool zBackwardRestrictio = true;
+    [SerializeField] private bool _zBackwardRestrictio = true;
 
     [Header("값 확인용")]
     [SerializeField] private Transform _curTarget;
@@ -31,10 +31,21 @@ public class InvisibleController : MonoBehaviour
     /// [public] 해당 오브젝트 생성 시 정보 초기화
     /// </summary>
     /// <param name="invisibleInfo"></param>
-    public void InitInfo(ObstacleManager.ObstacleInfo invisibleInfo, float roadWidth)
+    public void InitInfo(
+        ObstacleManager.ObstacleInfo invisibleInfo,
+        float roadWidth,
+        float moveSpeedX = 3f,
+        float moveSpeedZ = 5f,
+         bool xTrackingEnabled = true,
+         bool zBackwardRestrictio = true
+        )
     {
         _invisibleInfo = invisibleInfo;
         _roadWidth = roadWidth;
+        _moveSpeedX = moveSpeedX;
+        _moveSpeedZ = moveSpeedZ;
+        _xTrackingEnabled = xTrackingEnabled;
+        _zBackwardRestrictio = zBackwardRestrictio;
     }
 
     private void Start()

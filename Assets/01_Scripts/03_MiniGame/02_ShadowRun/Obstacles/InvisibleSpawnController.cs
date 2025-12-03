@@ -22,6 +22,13 @@ public class InvisibleSpawnController : MonoBehaviour
     [Tooltip("투명 인간 생성 y 시작 지점(m)")]
     [SerializeField] private float _spawnYRangeStart = 0f;
 
+    [Header("이동 세팅 - 오버라이드 할 경우에만 적용")]
+    [SerializeField] private bool _isOverrideMovementSetting = false;
+    [Range(3f, 6f)][SerializeField] private float _moveSpeedX = 3f;
+    [Range(3f, 6f)][SerializeField] private float _moveSpeedZ = 5f;
+    [SerializeField] private bool _xTrackingEnabled = true;
+    [SerializeField] private bool _zBackwardRestrictio = true;
+
     private bool _doneSpawn = false;
     // 코루틴
     private Coroutine _spawn;
@@ -68,7 +75,20 @@ public class InvisibleSpawnController : MonoBehaviour
             // 투명인간 생성
             GameObject invisibleObj = Instantiate(_invisible, _root.transform);
             var invisible = invisibleObj.GetComponent<InvisibleController>();
-            invisible.InitInfo(info, _roadWitdh);
+            if (_isOverrideMovementSetting)
+            {
+                invisible.InitInfo(
+                    info,
+                    _roadWitdh,
+                    _moveSpeedX,
+                    _moveSpeedZ,
+                    _xTrackingEnabled,
+                    _zBackwardRestrictio);
+            }
+            else
+            {
+                invisible.InitInfo(info, _roadWitdh);
+            }
 
             // 투명인간 위치 지정
             x = Random.Range(_xRange.x, _xRange.y);
