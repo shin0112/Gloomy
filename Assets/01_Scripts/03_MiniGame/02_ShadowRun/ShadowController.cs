@@ -22,7 +22,6 @@ public class ShadowController : MonoBehaviour
 
     // modifier를 계산하기 위한 캐싱 값
     private Vector3 _prevTargetPos;
-    private Vector3 _prevShadowPos;
 
     [Header("게임 세팅")]
     [Tooltip("추격 게임이 시작한 후 그림자가 출발을 기다리는 시간(초)")]
@@ -84,7 +83,6 @@ public class ShadowController : MonoBehaviour
         _speedModifier = 1f;
 
         _prevTargetPos = _curTarget.transform.position;
-        _prevShadowPos = this.transform.position;
     }
     #endregion
 
