@@ -414,6 +414,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8640100276268605839, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92ade9d097a2ff64c9ef5e3785d7fe5a, type: 2}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
       propertyPath: maxRoationX
