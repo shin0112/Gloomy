@@ -122,13 +122,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 2253353514760362158, guid: ca60f3d04994a0645a076a6c45329fa4,
     type: 3}
-  cardCount: 16
-  rowCount: 4
+  rowCount: 2
+  columnCount: 2
   board: {fileID: 7113800200296467972}
   topLeft: {fileID: 2501105182070323003}
   topRight: {fileID: 5993166845694442831}
   bottomLeft: {fileID: 2202238584907154248}
   bottomRight: {fileID: 7555344812532921027}
+  sprites:
+  - {fileID: 21300000, guid: e326edf0738aee64e85012dcee1e15fd, type: 3}
+  - {fileID: 21300000, guid: 29cb6cd7de9b5f04999bf68b7702cdc4, type: 3}
+  - {fileID: 21300000, guid: 14b212f917f1e944eb6f70e92372ade5, type: 3}
+  - {fileID: 21300000, guid: 30f48a5764299d749a87e925b86f92dc, type: 3}
+  - {fileID: 21300000, guid: 3fb485e725d1a1f48863e599da2fa53a, type: 3}
+  - {fileID: 21300000, guid: de8f9903a4be9494e86730a81de081e3, type: 3}
+  - {fileID: 21300000, guid: 15836252fe045994bab72fc4098afafb, type: 3}
+  - {fileID: 21300000, guid: a297c6712ce581342b5a6d74960ce200, type: 3}
 --- !u!1 &1219605790416763871
 GameObject:
   m_ObjectHideFlags: 0

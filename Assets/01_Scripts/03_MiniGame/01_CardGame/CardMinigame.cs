@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,25 +12,25 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
     
     [SerializeField] private float playTime = 30.0f;
     [SerializeField] CardBoard cardBoard;
-    public TextMeshPro textTime;
+    public TextMeshPro timeText;
     
-
+    bool isPlaying = false;
+    
     protected override void Init()
     {
-        StartGame(); 
+        StartCoroutine(CountDown(StartGame));
     }
 
     void Update()
     {
-        if(Time.timeScale ==0.0f)
+        if(isPlaying == false)
             return;
         
         playTime -= Time.deltaTime;
-        textTime.text = playTime.ToString("F2");
+        timeText.text = playTime.ToString("F2");
 
         if (playTime <= 0)
         {
-            Time.timeScale = 0;
             GameOver();
             return;
         }
@@ -49,13 +51,26 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
     public void GameOver()
     {
         // Todo : 게임오버
+        isPlaying = false;
         cardBoard.OpenAllCard();
+        StartDelayAction(() =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            },
+            3.0f);
     }
     
     
     public void GameClear()
     {   
         // Todo : 게임클레어 
+        isPlaying = false;
+        timeText.text = "CLEAR";
+        StartDelayAction(() =>
+            {
+                SceneManager.LoadScene(Define.ShadowRunScene);
+            },
+            3.0f);
     }
 
     
@@ -68,16 +83,25 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
     void StartGame()
     { 
         cardBoard.SpawnCards();
-        Time.timeScale = 1;
-        //StartCoroutine(StartGameCoroutine());
+        isPlaying =  true;
     }
 
-    // IEnumerator StartGameCoroutine()
-    // {
-    //     Time.timeScale = 0;
-    //     yield return new WaitForSeconds(3);
-    //     Time.timeScale = 1;
-    //     
-    // }
+
+
+    IEnumerator CountDown(Action action)
+    {
+        WaitForSeconds wait = new WaitForSeconds(1);
+        
+        timeText.text = "3";
+        yield return wait;
+        timeText.text = "2";
+        yield return wait;
+        timeText.text = "1";
+        yield return wait;
+        timeText.text = "START";
+        yield return wait;
+        action?.Invoke();
+    }
+
 
 }
