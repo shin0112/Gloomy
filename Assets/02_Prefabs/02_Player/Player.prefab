@@ -51,14 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtransformInput: {x: 0, y: 0}
   cameraMoveObject: {fileID: 3805378438949916709}
-  model: {fileID: 7587351795440497478}
+  rayObject: {fileID: 7587351795440497478}
   slidePivot: {fileID: 7159591761226490089}
   layerMask:
     serializedVersion: 2
     m_Bits: 64
   cameraTransfrom: {fileID: 6254411648532761541}
   capsuleCollider: {fileID: 0}
-  characterCamera: {fileID: 0}
   speed: 6
   jumpPower: 30
   mouseSensesivity: 0.5
@@ -67,9 +66,8 @@ MonoBehaviour:
   DashPower: 30
   dashDuration: 3
   dashCooldown: 3.5
-  moveTime: 2
   isOpenShadowScene: 0
-  curX: 0
+  interactableObject: {fileID: 0}
 --- !u!54 &978405944609388397
 Rigidbody:
   m_ObjectHideFlags: 0
