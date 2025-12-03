@@ -29,7 +29,7 @@ public class ShadowRunUI : MonoBehaviour
     [SerializeField] private Button _testInvisibleButton;
     #endregion
 
-    #region 초기화
+    #region Unity API
     private void Reset()
     {
         _closeEffect = transform.FindChild<Image>("Image- CloseEffect");
@@ -44,7 +44,6 @@ public class ShadowRunUI : MonoBehaviour
     {
         _shadow = FindObjectOfType<ShadowController>();
     }
-    #endregion
 
     private void OnEnable()
     {
@@ -60,6 +59,12 @@ public class ShadowRunUI : MonoBehaviour
         ChangeColorAlpha();
         UpdateDistanceText();
     }
+
+    private void OnDisable()
+    {
+        _testInvisibleButton.onClick.RemoveAllListeners();
+    }
+    #endregion
 
     #region 비네팅 연출
     /// <summary>
