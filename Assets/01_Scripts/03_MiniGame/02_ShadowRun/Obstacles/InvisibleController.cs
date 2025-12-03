@@ -24,7 +24,7 @@ public class InvisibleController : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponentInChildren<Rigidbody>(true);
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -57,34 +57,22 @@ public class InvisibleController : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        Vector3 delta = _curTarget.position - transform.position;
+        // 방향 구하기
+        Vector3 dir = (_curTarget.position - transform.position).normalized;
 
         if (!_xTrackingEnabled)     // x축 추적이 불가능할 때
         {
-            delta.x = 0f;
+            dir.x = 0f;
         }
 
-        // 1) 맵 비율 기반 스케일 조정 
-        float scaledX = delta.x / (_roadWidth * 0.5f);  // x는 좁으니 비중 강화됨
-        float scaledZ = delta.z / 100f;
+        // 속도 보정
+        float velocityX = dir.x * _moveSpeedX;
+        float velocityZ = dir.z * _moveSpeedZ;
 
-        Vector3 scaled = new Vector3(scaledX * _moveSpeedX,
-                                  0,
-                                  scaledZ * _moveSpeedZ);
-
-
-        // 2) 속도차 반영 후 방향 정규화
-        Vector3 dir = scaled.normalized;
-
-        // 3) 전체 속도 크기 결정
-        float maxSpeed = Mathf.Max(_moveSpeedX, _moveSpeedZ);
-        Vector3 velocity = dir * maxSpeed;
-
-        Vector3 pos = _rigidbody.position + velocity * Time.fixedDeltaTime;
-
+        // 점프는 없다고 가정
         // 조건 후처리
+        Vector3 pos = transform.position + new Vector3(velocityX, 0f, velocityZ) * Time.deltaTime;
         pos.x = Mathf.Clamp(pos.x, -_roadWidth / 2, _roadWidth / 2);
-
         _rigidbody.MovePosition(pos);
     }
     #endregion
