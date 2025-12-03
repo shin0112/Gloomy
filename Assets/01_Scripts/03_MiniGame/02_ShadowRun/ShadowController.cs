@@ -21,6 +21,7 @@ public class ShadowController : MonoBehaviour
     [field: SerializeField] public float Distance { get; private set; }
     [field: SerializeField] public bool HasCaughtTarget { get; private set; }
     public event Action OnCaughtTarget;
+    public event Action OnEscapeTarget;
 
     // 캐싱
     private Vector3 _prevTargetPos;             // modifier 계산
