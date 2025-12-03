@@ -124,6 +124,21 @@ public class PlayerController : MonoBehaviour
         interactAction.action.Enable();
     }
 
+    private void OnDisable()
+    {
+        moveAction.action.performed -= InputMove;
+        moveAction.action.canceled -= InputMove;
+
+        jumpAction.action.started -= InputJump;
+
+        slidingAction.action.performed -= InputSliding;
+        slidingAction.action.canceled -= InputSliding;
+        dashAction.action.performed -= InputDash;
+        lookAction.action.performed -= InputLook;
+        interactAction.action.started -= InputIinteract;
+        interactAction.action.performed -= InputIinteract;
+    }
+
     public void Move()
     {
         if (isOpenShadowScene == true)
