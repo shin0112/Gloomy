@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform slidePivot;//슬라이더 할 때 기준점
     [SerializeField] LayerMask layerMask;
     [SerializeField] private Transform cameraTransfrom;
+    [SerializeField] private CapsuleCollider capsuleCollider;
 
     [Header("Option")]
     [SerializeField] private float speed;//이동스피드
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("RunGame")]
     [SerializeField] private float moveTime;
     private Vector3 moveDir;
-    [SerializeField]private bool isLock = false;
+    [SerializeField]private bool isOpenShadowScene = false;
 
     private float slidingSpeed = 500f;
    
@@ -41,8 +42,13 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
+        if(isOpenShadowScene == false)
+        {
+            cameraTransfrom.rotation = Quaternion.Euler(0, 0, 0);
+            cameraTransfrom.position = new Vector3(0, 0, -7);
+        }
     }
 
     void Update()
@@ -73,7 +79,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Move()
     {
-        if(isLock == true)
+        if(isOpenShadowScene == true)
         {
             if (transform.position.x < -3.0f)
             {
@@ -95,14 +101,20 @@ public class PlayerController : MonoBehaviour
 
     public void Look()
     {
-        if(isLock == true)
+        if(isOpenShadowScene == true)
         {
+           return;
+        }
+        else
+        {
+
+
+
             dir += mouseDelta.y * mouseSensesivity;
             dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
             cameraMoveObject.localEulerAngles = new Vector3(-dir, 0, 0);
             transform.eulerAngles += new Vector3(0, mouseDelta.x * mouseSensesivity, 0);
         }
-     
 
     }
 
@@ -194,29 +206,14 @@ public class PlayerController : MonoBehaviour
         Vector3 dash = transform.forward;
         dash *= DashPower;
         rb.velocity += dash;
+        //capsuleCollider.enabled = false;
 
         yield return new WaitForSeconds(dashDuration);
-        isDash = false;
+        //isDash = false;
+        capsuleCollider.enabled = true;
         yield return new WaitForSeconds(dashCooldown);
         StopCoroutine(DashTime());
     }
 
-
-    //public void RailIndex()
-    //{
-    //    index[0] = Mathf.Clamp(transform.position.x, -4, 1);
-
-    //    for(int i = 0; )
-    //    {
-
-    //    }
-    //}
-
+    //public void 
 }
-//1번 2번 3번 레일 위치를 정한다
-//1번 레일 position 값
-//2번 레일 position 값
-//3번 레일 position 값
-//현제 위치가 1번레일일 경우
-//현제 위치가 2번레일일 경우
-//현제 위치가 3번레일일 경우
