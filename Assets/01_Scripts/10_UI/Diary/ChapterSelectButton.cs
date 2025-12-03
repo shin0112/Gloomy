@@ -40,7 +40,6 @@ public class ChapterSelectButton : MonoBehaviour
     void LoadChapter()
     {
         // todo: 나중에 Scene 관리하는거 생기면 바꾸기
-        //SceneManager.LoadScene(1);
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(Define.CardGameEnterScene);
     }
 }
