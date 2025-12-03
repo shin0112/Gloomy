@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,10 +24,17 @@ public class ShadowRunUI : MonoBehaviour
     [Header("감정 조각")]
     [SerializeField] private Image _mindPiece;
 
+    [Header("게임 연출")]
+    [SerializeField] private GameObject _pressDashKeyObj;
+    [SerializeField] private float _delayShowDashKeyTime = 1f;
+
     [Header("테스트용")]
     [SerializeField] private Button _testReLoadButton;
     [SerializeField] private Button _testStartButton;
     [SerializeField] private Button _testInvisibleButton;
+
+    // 코루틴
+    private Coroutine _showDashKeyCoroutine;
     #endregion
 
     #region Unity API
@@ -35,6 +43,9 @@ public class ShadowRunUI : MonoBehaviour
         _closeEffect = transform.FindChild<Image>("Image- CloseEffect");
         _distanceText = transform.FindChild<TextMeshProUGUI>("Text - Distance");
         _mindPiece = transform.FindChild<Image>("Image - MindPiece");
+        _pressDashKeyObj = transform.FindChild<Image>("Image - PressDashKey").gameObject;
+
+        // test
         _testReLoadButton = transform.FindChild<Button>("Button - ReLoad");
         _testStartButton = transform.FindChild<Button>("Button - Start");
         _testInvisibleButton = transform.FindChild<Button>("Button - Invisible");
@@ -43,12 +54,15 @@ public class ShadowRunUI : MonoBehaviour
     private void Start()
     {
         _shadow = FindObjectOfType<ShadowController>();
+        _shadow.OnCaughtTarget += OnCaughtTarget;
     }
 
     private void OnEnable()
     {
         _distanceText.text = "0.00M";
         _mindPiece.gameObject.SetActive(false);
+
+        // test
         _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
         _testStartButton.onClick.AddListener(OnClickTestStartButton);
         _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
@@ -66,7 +80,7 @@ public class ShadowRunUI : MonoBehaviour
     }
     #endregion
 
-    #region 비네팅 연출
+    #region 게임 연출
     /// <summary>
     /// 그림자 잡힘 여부에 따라 이미지의 알파값을 조정
     /// </summary>
@@ -77,11 +91,40 @@ public class ShadowRunUI : MonoBehaviour
         float delta = Time.deltaTime * _closeSpeed;
 
         if (_shadow.HasCaughtTarget)
+        {
             color.a = Mathf.Min(color.a + delta, 1f);
+        }
         else
+        {
             color.a = Mathf.Max(color.a - delta, 0f);
+        }
 
         _closeEffect.color = color;
+    }
+
+    /// <summary>
+    /// 타겟이 잡혔을 때 동작하는 연출
+    /// </summary>
+    private void OnCaughtTarget()
+    {
+        Logger.Log("플레이어 잡힘");
+
+        if (_showDashKeyCoroutine != null)
+        {
+            StopCoroutine(nameof(ShowPressDashKeyCoroutine));
+            _showDashKeyCoroutine = null;
+        }
+        _showDashKeyCoroutine = StartCoroutine(nameof(ShowPressDashKeyCoroutine));
+    }
+
+    /// <summary>
+    /// 특정 시간 후 대시 키 이미지 보여주기
+    /// </summary>
+    private IEnumerator ShowPressDashKeyCoroutine()
+    {
+        yield return new WaitForSeconds(_delayShowDashKeyTime);
+
+        _pressDashKeyObj.SetActive(true);
     }
     #endregion
 
