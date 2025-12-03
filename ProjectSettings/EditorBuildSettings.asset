@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/00_Scenes/GameScene.unity
+    path: Assets/00_Scenes/TitleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/00_Scenes/LibraryScene.unity
+    guid: fec727cd86a734844964e35f405e537b
+  - enabled: 1
+    path: Assets/00_Scenes/CardGameEnterScene.unity
+    guid: cf35893a118cfaa469b02bd9779f2074
+  - enabled: 1
+    path: Assets/00_Scenes/CardGameScene.unity
+    guid: 4857538613ecf7d46ba30a39dd15bf85
+  - enabled: 1
+    path: Assets/00_Scenes/ShadowRunScene.unity
+    guid: c178c1d63fe78b847baeff79c5bd0914
   m_configObjects: {}

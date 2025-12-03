@@ -6,17 +6,18 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("playerMoveOption")]
     [SerializeField] private Vector2 curtransformInput; //방향 입력 값
     [SerializeField] private Transform cameraMoveObject; //카메라 이동 오브젝트
     private Vector2 mouseDelta;//마우스입력값
     private Rigidbody rb;//리지드바디
-    [SerializeField]private GameObject model;//ray로 점프제한 역할 //실질적 플레이어 이미지가 있는 오브젝트
+    [SerializeField] private GameObject rayObject;//ray로 점프제한 역할 //실질적 플레이어 이미지가 있는 오브젝트
     private float dir;//이동할 때 변수?
     [SerializeField] private Transform slidePivot;//슬라이더 할 때 기준점
     [SerializeField] LayerMask layerMask;
     [SerializeField] private Transform cameraTransfrom;//카메라
     [SerializeField] private CapsuleCollider capsuleCollider;
-    [SerializeField] private Camera characterCamera;
+    private Vector3 moveDir;
 
     [Header("Option")]
     [SerializeField] private float speed;//이동스피드
@@ -24,49 +25,56 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mouseSensesivity;//감도
     [SerializeField] private float maxRoationX;//각도 최대값
     [SerializeField] private float minRoationX;//각도 최소값
+
+    [Header("RungameOption")]
     [SerializeField] private float DashPower; //대쉬 했을 때거리?
     [SerializeField] private float dashDuration = 3f; //대쉬 지속시간 기본 3초
     [SerializeField] private float dashCooldown = 3.5f;
-    
-    [Header("RunGame")]
-    [SerializeField] private float moveTime;
-    private Vector3 moveDir;
-    [SerializeField]private bool isOpenShadowScene = false;
-
     private float slidingSpeed = 500f;
-   
+
+
+    [Header("bool")]
+    [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
     private bool isDash = false;
-    [SerializeField] private float curX;
-    
+    private bool isInteract = false;
+
+    [Header("Scripts")]
+    public InteractableObject interactableObject;
+    public IInteractable interactable;
+
 
 
     void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
-        if(isOpenShadowScene == false)
+        if (isOpenShadowScene == false)
         {
             cameraTransfrom.rotation = Quaternion.Euler(0, 0, 0);
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
-        characterCamera = GetComponent<Camera>();
+        interactableObject = GetComponent<InteractableObject>();
+
     }
 
     void Update()
     {
-        
+
         Look();
-        
+
         if (isSliding == true)
         {
             Sliding();
         }
-        else if(isSliding == false)
+        else if (isSliding == false)
         {
             NoSliding();
         }
         IsGround();
+        CharacterRay();
+        Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+
     }
 
     private void FixedUpdate()
@@ -81,7 +89,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Move()
     {
-        if(isOpenShadowScene == true)
+        if (isOpenShadowScene == true)
         {
             if (transform.position.x < -3.0f)
             {
@@ -92,7 +100,7 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
             }
         }
-        
+
 
         moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
         moveDir *= speed;
@@ -103,15 +111,12 @@ public class PlayerController : MonoBehaviour
 
     public void Look()
     {
-        if(isOpenShadowScene == true)
+        if (isOpenShadowScene == true)
         {
-           return;
+            return;
         }
         else
         {
-
-
-
             dir += mouseDelta.y * mouseSensesivity;
             dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
             cameraMoveObject.localEulerAngles = new Vector3(-dir, 0, 0);
@@ -125,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, -90, slidingSpeed * Time.deltaTime);
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
-        
+
     }
 
     public void NoSliding()
@@ -136,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash()
     {
-        
+
         StartCoroutine(DashTime());
         //isDash = false;
     }
@@ -176,7 +181,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputDash(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
             isDash = true;
         }
@@ -187,14 +192,29 @@ public class PlayerController : MonoBehaviour
         mouseDelta = context.ReadValue<Vector2>();
     }
 
+    public void InputIinteract(InputAction.CallbackContext context)
+    {
+
+        if (context.phase == InputActionPhase.Started)
+        {
+            interactable?.OnInteract();
+         
+        }
+        else if (context.phase == InputActionPhase.Performed)
+        {
+            return;
+        }
+
+    }
+
     bool IsGround()
     {
-        Ray ray = new Ray(model.transform.position, Vector3.down);
+        Ray ray = new Ray(rayObject.transform.position, Vector3.down);
         RaycastHit hit;
-        if (Physics.Raycast(ray,0.5f,layerMask))
+        if (Physics.Raycast(ray, 0.5f, layerMask))
         {
             return true;
-        } 
+        }
         return false;
     }
 
@@ -217,8 +237,21 @@ public class PlayerController : MonoBehaviour
         StopCoroutine(DashTime());
     }
 
-    //public void RayMouse()
-    //{
-    //    Ray cameraray = new Ray(characterCamera.ScreenPointToRay(new Vector3(Screen.width);
-    //}
+    public void CharacterRay()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 5f))
+        {
+
+            InteractableObject obj = hit.collider.gameObject.GetComponent<InteractableObject>();
+            interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+
+        }
+        else
+        {
+            isInteract = false;
+        }
+
+
+    }
 }
