@@ -55,7 +55,7 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
         cardBoard.OpenAllCard();
         StartDelayAction(() =>
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene(Define.CardGameScene);
             },
             3.0f);
     }
