@@ -66,17 +66,19 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
         // Todo : 게임클레어 
         isPlaying = false;
         timeText.text = "CLEAR";
-        StartDelayAction(() =>
-            {
-                SceneManager.LoadScene(Define.ShadowRunScene);
-            },
-            3.0f);
+        
+        
+        SceneManager.LoadScene(Define.ShadowRunScene);
+        // StartDelayAction(() =>
+        //     {
+        //     },
+        //     3.0f);
     }
 
     
     public void Replay()
     {
-        SceneManager.LoadScene("Scene_Card");
+        SceneManager.LoadScene(Define.CardGameScene);
         
     }
 
