@@ -64,25 +64,19 @@ public class InvisibleController : MonoBehaviour
             delta.x = 0f;
         }
 
-        // 비율 계산 (거리 기반)
-        float ratioX = Mathf.Abs(delta.x);
-        float ratioZ = Mathf.Abs(delta.z);
+        // 1) 축별 속도 먼저 반영
+        float scaledX = delta.x * _moveSpeedX;
+        float scaledZ = delta.z * _moveSpeedZ;
 
-        float sum = ratioX + ratioZ;
-        if (sum < Mathf.Epsilon) return;
+        Vector3 scaled = new Vector3(scaledX, 0, scaledZ);
 
-        ratioX /= sum;
-        ratioZ /= sum;
+        // 2) 속도차 반영 후 방향 정규화
+        Vector3 dir = scaled.normalized;
 
-        // 부호 적용
-        float sx = Mathf.Sign(delta.x);
-        float sz = Mathf.Sign(delta.z);
+        // 3) 전체 속도 크기 결정
+        float maxSpeed = Mathf.Max(_moveSpeedX, _moveSpeedZ);
 
-        // 축별 속도 반영
-        float velocityX = ratioX * _moveSpeedX * sx;
-        float velocityZ = ratioZ * _moveSpeedZ * sz;
-
-        Vector3 velocity = new Vector3(velocityX, 0f, velocityZ);
+        Vector3 velocity = dir * maxSpeed;
 
         Vector3 pos = _rigidbody.position + velocity * Time.fixedDeltaTime;
 
