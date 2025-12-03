@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     [Header("Scripts")]
     public InteractableObject interactableObject;
     public IInteractable interactable;
+    public ShadowController shadowController;
 
     [Header("InputAction")]
     public InputActionReference interactAction;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
         interactableObject = GetComponent<InteractableObject>();
-
+        shadowController = GetComponent<ShadowController>();
     }
 
     void Update()
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
         IsGround();
         CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+        ShadowCollision();
 
     }
 
@@ -104,39 +106,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        moveAction.action.performed += InputMove;
-        moveAction.action.canceled += InputMove;
-
-        jumpAction.action.started += InputJump;
-
-        slidingAction.action.performed += InputSliding;
-        slidingAction.action.canceled += InputSliding;
-        dashAction.action.performed += InputDash;
-        lookAction.action.performed += InputLook;
-        interactAction.action.started += InputIinteract;
-        interactAction.action.performed += InputIinteract;
-
         moveAction.action.Enable();
         jumpAction.action.Enable();
         slidingAction.action.Enable();
-        dashAction.action.Enable();
         lookAction.action.Enable();
         interactAction.action.Enable();
     }
 
     private void OnDisable()
     {
-        moveAction.action.performed -= InputMove;
-        moveAction.action.canceled -= InputMove;
-
-        jumpAction.action.started -= InputJump;
-
-        slidingAction.action.performed -= InputSliding;
-        slidingAction.action.canceled -= InputSliding;
-        dashAction.action.performed -= InputDash;
-        lookAction.action.performed -= InputLook;
-        interactAction.action.started -= InputIinteract;
-        interactAction.action.performed -= InputIinteract;
+        moveAction.action.Disable();
+        jumpAction.action.Disable();
+        slidingAction.action.Disable();
+        lookAction.action.Disable();
+        interactAction.action.Disable();
     }
 
     public void Move()
@@ -297,5 +280,20 @@ public class PlayerController : MonoBehaviour
         }
         
 
+    }
+
+    public void ShadowCollision()
+    {
+        if(shadowController.HasCaughtTarget == true)
+        {
+            dashCooldown = 0;
+            //OnDisable();
+            if(Input.GetKey(KeyCode.F))
+            {
+                OnEnable();
+                Dash();
+            }
+           
+        }
     }
 }
