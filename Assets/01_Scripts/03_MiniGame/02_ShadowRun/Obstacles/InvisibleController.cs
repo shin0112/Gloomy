@@ -64,18 +64,20 @@ public class InvisibleController : MonoBehaviour
             delta.x = 0f;
         }
 
-        // 1) 축별 속도 먼저 반영
-        float scaledX = delta.x * _moveSpeedX;
-        float scaledZ = delta.z * _moveSpeedZ;
+        // 1) 맵 비율 기반 스케일 조정 
+        float scaledX = delta.x / (_roadWidth * 0.5f);  // x는 좁으니 비중 강화됨
+        float scaledZ = delta.z / 100f;
 
-        Vector3 scaled = new Vector3(scaledX, 0, scaledZ);
+        Vector3 scaled = new Vector3(scaledX * _moveSpeedX,
+                                  0,
+                                  scaledZ * _moveSpeedZ);
+
 
         // 2) 속도차 반영 후 방향 정규화
         Vector3 dir = scaled.normalized;
 
         // 3) 전체 속도 크기 결정
         float maxSpeed = Mathf.Max(_moveSpeedX, _moveSpeedZ);
-
         Vector3 velocity = dir * maxSpeed;
 
         Vector3 pos = _rigidbody.position + velocity * Time.fixedDeltaTime;
