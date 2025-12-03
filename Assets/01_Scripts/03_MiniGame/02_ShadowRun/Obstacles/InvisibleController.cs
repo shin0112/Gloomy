@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class InvisibleController : MonoBehaviour
 {
+    #region 필드
     [Header("이동 세팅")]
     [Range(3f, 6f)][SerializeField] private float _moveSpeedX = 3f;
     [Range(3f, 6f)][SerializeField] private float _moveSpeedZ = 5f;
@@ -16,6 +17,7 @@ public class InvisibleController : MonoBehaviour
 
     // 컴포넌트
     private Rigidbody _rigidbody;
+    #endregion
 
     #region 초기화
     private void Awake()

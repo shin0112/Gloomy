@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class InvisibleSpawnController : MonoBehaviour
 {
+    #region 필드
     [Header("생성 세팅")]
     [SerializeField] private GameObject _invisible;
     [Tooltip("한 스테이지에서 등장하는 투명 인간의 생성 횟수")]
@@ -18,6 +19,7 @@ public class InvisibleSpawnController : MonoBehaviour
     [SerializeField] private float _spawnYRangeStart = 0f;
 
     private ObstacleManager.ObstacleInfo _invisibleInfo;
+    #endregion
 
     private void Awake()
     {
