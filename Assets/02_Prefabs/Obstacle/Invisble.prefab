@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6829456702472219783}
   - component: {fileID: 900344954579193572}
   - component: {fileID: 5348584729795289649}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Invisible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3420308830705327820}
   - component: {fileID: 6299861186279589848}
   - component: {fileID: 7600193929217612741}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Invisble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   _moveSpeedX: 3
   _moveSpeedZ: 5
   _xTrackingEnabled: 1
-  zBackwardRestrictio: 1
+  _zBackwardRestrictio: 1
   _curTarget: {fileID: 0}
 --- !u!54 &6299861186279589848
 Rigidbody:
