@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5668cf461c22a76418d41343b6362257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+    type: 3}
   playTime: 10
   cardBoard: {fileID: 33929421695547999}
   timeText: {fileID: 1715757486660132758}
