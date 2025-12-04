@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 9022366198169245964}
   - component: {fileID: 976312816083494706}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text (TMP) - Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2553,8 +2553,9 @@ MonoBehaviour:
   _distanceText: {fileID: 5470266020687160282}
   _mindPiece: {fileID: 3325563089395471950}
   _pressDashKeyObj: {fileID: 184185882399112114}
-  _delayShowDashKeyTime: 0
+  _delayShowDashKeyTime: 1
   _timerText: {fileID: 8231117164938277101}
+  _testShadowButtonText: {fileID: 976312816083494706}
   _testStartButton: {fileID: 5598753544308147623}
   _testShadowButton: {fileID: 4670257893999865952}
   _testTimerButton: {fileID: 1520023213158439942}

@@ -61,7 +61,7 @@ public class ShadowController : MonoBehaviour
     #region 초기화
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponentInChildren<Rigidbody>();
     }
 
     private void Start()
@@ -113,7 +113,7 @@ public class ShadowController : MonoBehaviour
     /// </summary>
     private void MoveAndRot()
     {
-        Vector3 direction = (_curTarget.transform.position - this.transform.position).normalized;
+        Vector3 direction = (_curTarget.transform.position - _rigidbody.position).normalized;
         Rotate(direction);
         Move(direction);
     }
@@ -128,16 +128,16 @@ public class ShadowController : MonoBehaviour
         _rigidbody.velocity = direction;
 
         // 좌표 조건 처리
-        Vector3 shadowPos = this.transform.position;
+        Vector3 shadowPos = _rigidbody.position;
 
         // 1) x 좌표: -maxX <= shadowPos.x <= maxX
         float maxX = _roadWidth / 2;
         shadowPos.x = Mathf.Clamp(shadowPos.x, -maxX, maxX);
 
         // 2) y 좌표: 유지
-        shadowPos.y = this.transform.position.y;
+        shadowPos.y = _rigidbody.position.y;
 
-        this.transform.position = shadowPos;
+        _rigidbody.position = shadowPos;
     }
 
     /// <summary>
@@ -148,7 +148,7 @@ public class ShadowController : MonoBehaviour
     {
         if (direction != Vector3.zero)
         {
-            Transform shadowTransform = this.transform;
+            Transform shadowTransform = _rigidbody.transform;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             shadowTransform.rotation = Quaternion.Slerp(
                 shadowTransform.rotation,
@@ -163,7 +163,7 @@ public class ShadowController : MonoBehaviour
     /// </summary>
     private void CalcDistance()
     {
-        float nowDistance = Vector3.Distance(_curTarget.position, this.transform.position);
+        float nowDistance = Vector3.Distance(_curTarget.position, _rigidbody.position);
         // 오브젝트 부피로 인한 값(1f) 감산
         Distance = Mathf.Max(nowDistance - 1, 0);
 
