@@ -220,7 +220,7 @@ public class ShadowRunUI : MonoBehaviour
     /// </summary>
     private void OnClickTestStartButton()
     {
-        _shadow.IsTest = false;
+        ToggleShadowTestMode();
         ResetTimer();
     }
 
@@ -229,8 +229,7 @@ public class ShadowRunUI : MonoBehaviour
     /// </summary>
     private void OnClickTestShadowButton()
     {
-        _shadow.IsTest = !_shadow.IsTest;
-        _testShadowButtonText.text = $"그림자 움직임\n{(_shadow.IsTest ? "ON" : "OFF")}";
+        ToggleShadowTestMode();
     }
 
     /// <summary>
@@ -273,6 +272,12 @@ public class ShadowRunUI : MonoBehaviour
     {
         _timer = 0f;
         _onTimer = true;
+    }
+
+    private void ToggleShadowTestMode()
+    {
+        _shadow.IsTest = !_shadow.IsTest;
+        _testShadowButtonText.text = $"그림자 움직임\n{(_shadow.IsTest ? "ON" : "OFF")}";
     }
     #endregion
 }
