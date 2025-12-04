@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        isOpenShadowScene = false;
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         if (isOpenShadowScene == false)
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             shadowController = FindObjectOfType<ShadowController>();
         }
+        else if(shadowController == null) return;
         isDash = false;
     }
 
@@ -83,10 +85,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        IsGround();
-        CharacterRay();
+        //IsGround();
+        //CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
-        ShadowCollision();
+        //ShadowCollision();
 
     }
 
