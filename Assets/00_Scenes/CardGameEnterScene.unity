@@ -1526,11 +1526,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardBoardStatue
       objectReference: {fileID: 0}
-    - target: {fileID: 5523811185791304285, guid: 893e012e8c636844b8ac0006706c7383,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6704691778578383454, guid: 893e012e8c636844b8ac0006706c7383,
         type: 3}
       propertyPath: m_LocalPosition.x
