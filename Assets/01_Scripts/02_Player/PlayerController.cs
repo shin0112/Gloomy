@@ -86,9 +86,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //IsGround();
-        //CharacterRay();
+        CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
-        //ShadowCollision();
+        ShadowCollision();
 
     }
 
