@@ -63,8 +63,8 @@ public class PlayerController : MonoBehaviour
         interactableObject = GetComponent<InteractableObject>();
         
             shadowController = FindObjectOfType<ShadowController>();
-        }
-        else if(shadowController == null) return;
+        
+        
         isDash = false;
         //isMove = true;
     }
