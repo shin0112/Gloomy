@@ -41,7 +41,7 @@ public class ShadowRunGoalLight : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerCollision>() != null)
         {
             ShadowRun.Instance.ClearCheck();
         }
