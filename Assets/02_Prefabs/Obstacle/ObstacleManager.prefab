@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 8285650773781734686}
-  mapLength: 1000
+  mapLength: 970
   owl:
     prefab: {fileID: 8977636229173278498, guid: 0c09435b1be93594abfff5e5c3d81bff,
       type: 3}

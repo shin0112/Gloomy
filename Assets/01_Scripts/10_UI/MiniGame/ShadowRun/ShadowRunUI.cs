@@ -125,10 +125,15 @@ public class ShadowRunUI : MonoBehaviour
         _closeEffect.color = color;
     }
 
-    /// <summary>
-    /// 타겟이 잡혔을 때 동작하는 연출
-    /// </summary>
     private void OnCaughtTarget()
+    {
+        _pressDashKeyObj.SetActive(true);
+    }
+
+    /// <summary>
+    /// 타겟이 잡혔을 때 동작하는 연출 - 코루틴
+    /// </summary>
+    private void OnCaughtTargetCoroutine()
     {
         Logger.Log("플레이어 잡힘");
 

@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("세팅")]
+    [SerializeField] private float _roadWitgh = 18f;
+
     [Header("playerMoveOption")]
     [SerializeField] private Vector2 curtransformInput; //방향 입력 값
     [SerializeField] private Transform cameraMoveObject; //카메라 이동 오브젝트
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //isOpenShadowScene = false;
+
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         if (isOpenShadowScene == false)
@@ -61,10 +62,10 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
         interactableObject = GetComponent<InteractableObject>();
-        
-            shadowController = FindObjectOfType<ShadowController>();
-        
-        
+
+        shadowController = FindObjectOfType<ShadowController>();
+
+
         isDash = false;
         //isMove = true;
     }
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
         isDash = true;
         isJump = true;
         isMove = true;
-       
+
     }
 
     public void IsFalse()
@@ -125,13 +126,13 @@ public class PlayerController : MonoBehaviour
     {
         if (isOpenShadowScene == true)
         {
-            if (transform.position.x < -3.0f)
+            if (transform.position.x < -_roadWitgh / 2f)
             {
-                transform.position = new Vector3(-3.0f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(-_roadWitgh / 2f, transform.position.y, transform.position.z);
             }
-            else if (transform.position.x > 3.0f)
+            else if (transform.position.x > _roadWitgh / 2f)
             {
-                transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(_roadWitgh / 2f, transform.position.y, transform.position.z);
             }
         }
         if (isMove == true)
@@ -146,8 +147,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look()
     {
-        
-        if(isOpenShadowScene == false)
+
+        if (isOpenShadowScene == false)
         {
             dir += mouseDelta.y * mouseSensesivity;
             dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
@@ -184,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputMove(InputAction.CallbackContext context)
     {
-        if(isMove == true)
+        if (isMove == true)
         {
             if (context.phase == InputActionPhase.Performed)
             {
@@ -195,7 +196,7 @@ public class PlayerController : MonoBehaviour
                 curtransformInput = Vector2.zero;
             }
         }
-        
+
     }
 
     public void InputJump(InputAction.CallbackContext context)
@@ -292,6 +293,7 @@ public class PlayerController : MonoBehaviour
 
     public void ShadowCollision()
     {
+        if (shadowController == null) return;
         if (shadowController.HasCaughtTarget == true)
         {
             dashCooldown = 0;
@@ -303,6 +305,5 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-       
     }
 }

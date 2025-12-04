@@ -52,7 +52,9 @@ public class InvisibleSpawnController : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (!_doneSpawn && other.TryGetComponent<PlayerController>(out var player))
+        Logger.Log("트리거 동작");
+
+        if (!_doneSpawn && other.gameObject.CompareTag("Player"))
         {
             Logger.Log("투명 인간 스폰 시작");
             _spawn = StartCoroutine(nameof(SpawnInvisible));

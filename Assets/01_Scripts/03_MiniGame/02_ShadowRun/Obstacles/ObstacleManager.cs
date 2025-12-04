@@ -9,6 +9,7 @@ public class ObstacleManager : MonoBehaviour
         public float y;           // 고정 높이
         public Vector2 xRange;    // X 랜덤 범위
         public float startZ;      // 시작 지점
+        public float endZ;
         public float spacing;     // 최소 간격
     }
 
@@ -34,16 +35,15 @@ public class ObstacleManager : MonoBehaviour
     void SpawnObstacleLine(ObstacleInfo info)
     {
         float z = info.startZ;
-
-        while (z < mapLength)
+        while (z < info.endZ)
         {
             float x = Random.Range(info.xRange.x, info.xRange.y);
             Vector3 pos = new Vector3(x, info.y, z);
 
-            if (info == owl && z > 500f)
+            if (info.prefab.name != "HudleLine" && z > hurdle.startZ && z < hurdle.endZ)
             {
-                z += info.spacing + Random.Range(0f, 3f);
-                continue; // 이번 스폰 건너뛰고 다음으로
+                z += info.spacing + Random.Range(0f, 3f); // Z 간격 랜덤
+                continue;
             }
 
             GameObject obj = Instantiate(info.prefab, root);
@@ -57,12 +57,12 @@ public class ObstacleManager : MonoBehaviour
     void SpawnStars()
     {
         float[] zPositions = { 15f, mapLength / 2f, mapLength }; //별의 생성지점, 시작 중간 , 끝지점
-        //0f는 시작지점 값, maplength는 /2fm mapLength는 1000M (전체 맵 길이 나누기 2)
-        
+                                                                 //0f는 시작지점 값, maplength는 /2fm mapLength는 1000M (전체 맵 길이 나누기 2)
+
         foreach (float z in zPositions)
         {
             float x = Random.Range(star.xRange.x, star.xRange.y);
-            Vector3 pos = new Vector3(x, star.y, z); 
+            Vector3 pos = new Vector3(x, star.y, z);
 
             GameObject obj = Instantiate(star.prefab, root);
             obj.transform.localPosition = pos;
