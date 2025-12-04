@@ -66,10 +66,7 @@ public class ShadowRunUI : MonoBehaviour
         _mindPiece.gameObject.SetActive(false);
 
         // test
-        _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
-        _testStartButton.onClick.AddListener(OnClickTestStartButton);
-        _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
-        _testIGoalButton.onClick.AddListener(OnClickTestGoalButton);
+        AddTestButtonListener();
     }
 
     private void Update()
@@ -80,9 +77,11 @@ public class ShadowRunUI : MonoBehaviour
 
     private void OnDisable()
     {
-        _testInvisibleButton.onClick.RemoveAllListeners();
         _shadow.OnCaughtTarget -= OnCaughtTarget;
         _shadow.OnEscapeTarget -= OnEscapeTarget;
+
+        // test
+        RemoveTestButtonListener();
     }
     #endregion
 
@@ -168,6 +167,29 @@ public class ShadowRunUI : MonoBehaviour
     #endregion
 
     #region 테스트
+    /// <summary>
+    /// 테스트 버튼 리스너 추가
+    /// </summary>
+    private void AddTestButtonListener()
+    {
+        _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
+        _testStartButton.onClick.AddListener(OnClickTestStartButton);
+        _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
+        _testIGoalButton.onClick.AddListener(OnClickTestGoalButton);
+    }
+
+    /// <summary>
+    /// 테스트 버튼 리스너 해제
+    /// </summary>
+    private void RemoveTestButtonListener()
+    {
+        _testInvisibleButton.onClick.RemoveAllListeners();
+        _testIGoalButton.onClick.RemoveAllListeners();
+    }
+
+    /// <summary>
+    /// [test] 현재 씬 리로드
+    /// </summary>
     private void OnClickTestReloadButton()
     {
         _testReLoadButton.onClick.RemoveListener(OnClickTestReloadButton);
@@ -175,18 +197,27 @@ public class ShadowRunUI : MonoBehaviour
         SceneManager.LoadScene(curScene.name);
     }
 
+    /// <summary>
+    /// [test] 그림자 테스트 플래그 변경
+    /// </summary>
     private void OnClickTestStartButton()
     {
         _testStartButton.onClick.RemoveListener(OnClickTestStartButton);
         _shadow.IsTest = false;
     }
 
+    /// <summary>
+    /// [test] 투명 인간 스폰 위치로 순간 이동
+    /// </summary>
     private void OnClickTestInvisibleButton()
     {
         var player = FindObjectOfType<PlayerController>();
         player.transform.position = new Vector3(0, 1, 495);
     }
 
+    /// <summary>
+    /// [test] 골 지점으로 순간 이동
+    /// </summary>
     private void OnClickTestGoalButton()
     {
         var player = FindObjectOfType<PlayerController>();
