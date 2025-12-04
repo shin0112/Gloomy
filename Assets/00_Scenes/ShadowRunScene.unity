@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 52a8598d260de824db005db757468074,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -434,12 +435,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82ab89e565cc48048bdedfde220a148d, type: 3}
---- !u!1 &578392750 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 337416044704346849, guid: a3612d3478f372a49aa05a6384443426,
-    type: 3}
-  m_PrefabInstance: {fileID: 1678724053}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &723245800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,34 +514,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1678724053}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1177277843 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
-    type: 3}
-  m_PrefabInstance: {fileID: 1678724053}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578392750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ea1195b6f47814f8b67fce0fcd24f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1177277844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578392750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59e38c4c210bfa5498aa6377d2c645c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1177277843}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1001 &1395672516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -787,20 +754,15 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InputMove
       objectReference: {fileID: 0}
-    - target: {fileID: 7198796518611157914, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 8484362949313582599, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
       propertyPath: isDash
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
@@ -810,45 +772,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 337416044704346849, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1177277844}
-    - targetCorrespondingSourceObject: {fileID: 8770934223881154935, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1836650447}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3612d3478f372a49aa05a6384443426, type: 3}
---- !u!1 &1836650443 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8770934223881154935, guid: a3612d3478f372a49aa05a6384443426,
-    type: 3}
-  m_PrefabInstance: {fileID: 1678724053}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1836650447
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836650443}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1980841449
 PrefabInstance:
   m_ObjectHideFlags: 0
