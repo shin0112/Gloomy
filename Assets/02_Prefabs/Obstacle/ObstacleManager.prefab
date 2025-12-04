@@ -47,30 +47,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 8285650773781734686}
-  mapLength: 1000
+  mapLength: 970
   owl:
-    prefab: {fileID: 7901427384133234246, guid: 0c09435b1be93594abfff5e5c3d81bff,
+    prefab: {fileID: 8977636229173278498, guid: 0c09435b1be93594abfff5e5c3d81bff,
       type: 3}
     y: 0
     xRange: {x: -2.5, y: 2.5}
     startZ: 10
     spacing: 10
   rock:
-    prefab: {fileID: 2300125185318126800, guid: 5b5c02a289c01ad4da3e61068947867f,
+    prefab: {fileID: 4570503220992513810, guid: 5b5c02a289c01ad4da3e61068947867f,
       type: 3}
     y: 0
     xRange: {x: -2.5, y: 2.5}
     startZ: 70
     spacing: 10
   hurdle:
-    prefab: {fileID: 8330555204706614496, guid: aa5dafa1b393afe4686826f27875e232,
+    prefab: {fileID: 4650603096239387350, guid: aa5dafa1b393afe4686826f27875e232,
       type: 3}
     y: 0
     xRange: {x: -2.5, y: 2.5}
     startZ: 100
     spacing: 8
   star:
-    prefab: {fileID: 1601880977150667353, guid: 7ef8f0f6033c60f47a56e657ee48c228,
+    prefab: {fileID: 2590796873490481367, guid: 7ef8f0f6033c60f47a56e657ee48c228,
       type: 3}
     y: 1.5
     xRange: {x: -1, y: 1}
