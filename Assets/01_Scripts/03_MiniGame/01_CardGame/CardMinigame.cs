@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 // 가져오고보니 싱글톤 아니어도 되게따.,
 public class CardMinigame : SceneSingletonManager<CardMinigame>
 {
-    [SerializeField] private PlayerController playerController;
     [SerializeField] private float playTime = 30.0f;
     [SerializeField] CardBoard cardBoard;
     public TextMeshPro timeText;
@@ -69,7 +68,6 @@ public class CardMinigame : SceneSingletonManager<CardMinigame>
         
         
         SceneManager.LoadScene(Define.ShadowRunScene);
-        playerController.isOpenShadowScene = true;
         // StartDelayAction(() =>
         //     {
         //     },
