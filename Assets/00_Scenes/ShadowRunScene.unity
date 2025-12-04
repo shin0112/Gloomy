@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 52a8598d260de824db005db757468074,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -392,6 +393,36 @@ PrefabInstance:
     - target: {fileID: 6514514619542956969, guid: 82ab89e565cc48048bdedfde220a148d,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504179112585977616, guid: 82ab89e565cc48048bdedfde220a148d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504179112585977616, guid: 82ab89e565cc48048bdedfde220a148d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504179112585977616, guid: 82ab89e565cc48048bdedfde220a148d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7982298475736479304, guid: 82ab89e565cc48048bdedfde220a148d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7982298475736479304, guid: 82ab89e565cc48048bdedfde220a148d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7982298475736479304, guid: 82ab89e565cc48048bdedfde220a148d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8204407169422893537, guid: 82ab89e565cc48048bdedfde220a148d,
@@ -722,6 +753,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: InputMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484362949313582599, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: isDash
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}

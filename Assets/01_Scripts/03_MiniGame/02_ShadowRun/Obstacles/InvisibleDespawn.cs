@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 투명 인간 디스폰
+/// </summary>
 public class InvisibleDespawn : MonoBehaviour
 {
     [SerializeField] LayerMask _layer;

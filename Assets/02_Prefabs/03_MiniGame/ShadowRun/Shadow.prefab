@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1662544634612761180}
+  - component: {fileID: 656416901065166846}
   - component: {fileID: 2038359104557296636}
   - component: {fileID: 5521324412204565793}
   - component: {fileID: 7357607249785139771}
-  - component: {fileID: 656416901065166846}
   - component: {fileID: 3021212353221736012}
   m_Layer: 0
   m_Name: Shadow
@@ -36,6 +36,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &656416901065166846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3191422271057771647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d0e1427a0adf54bb63824ece617455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsTest>k__BackingField: 1
+  _curTarget: {fileID: 271373973191908824, guid: a3612d3478f372a49aa05a6384443426,
+    type: 3}
+  <Distance>k__BackingField: 0
+  <HasCaughtTarget>k__BackingField: 0
+  _startDelay: 3
+  _caughtDistance: 0.05
+  _speed: 6
+  _speedModifier: 1
+  _diagonalSlowFactor: 5
+  _roadWidth: 10
+  _vignetteTriggerDistance: 1
+  _vigetteIntensity: 1
 --- !u!33 &2038359104557296636
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -109,31 +134,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &656416901065166846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191422271057771647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d0e1427a0adf54bb63824ece617455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsTest>k__BackingField: 1
-  _curTarget: {fileID: 271373973191908824, guid: a3612d3478f372a49aa05a6384443426,
-    type: 3}
-  <Distance>k__BackingField: 0
-  <HasCaughtTarget>k__BackingField: 0
-  _startDelay: 3
-  _caughtDistance: 0.05
-  _speed: 6
-  _speedModifier: 1
-  _diagonalSlowFactor: 5
-  _roadWidth: 10
-  _vignetteTriggerDistance: 1
-  _vigetteIntensity: 1
 --- !u!54 &3021212353221736012
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -29,10 +29,16 @@ public class ShadowRunUI : MonoBehaviour
     [SerializeField] private float _delayShowDashKeyTime = 1f;
 
     [Header("테스트용")]
-    [SerializeField] private Button _testReLoadButton;
+    [SerializeField] private TextMeshProUGUI _timerText;
+    private float _timer = 0f;
+    private bool _onTimer = false;
+
     [SerializeField] private Button _testStartButton;
+    [SerializeField] private Button _testShadowButton;
+    [SerializeField] private Button _testTimerButton;
     [SerializeField] private Button _testInvisibleButton;
     [SerializeField] private Button _testIGoalButton;
+    [SerializeField] private Button _testReLoadButton;
 
     // 코루틴
     private Coroutine _showDashKeyCoroutine;
@@ -47,10 +53,14 @@ public class ShadowRunUI : MonoBehaviour
         _pressDashKeyObj = transform.FindChild<Image>("Image - PressDashKey").gameObject;
 
         // test
-        _testReLoadButton = transform.FindChild<Button>("Button - ReLoad");
+        _timerText = transform.FindChild<TextMeshProUGUI>("Text - Timer");
+
         _testStartButton = transform.FindChild<Button>("Button - Start");
+        _testShadowButton = transform.FindChild<Button>("Button - Shadow");
+        _testTimerButton = transform.FindChild<Button>("Button - Timer");
         _testInvisibleButton = transform.FindChild<Button>("Button - Invisible");
         _testIGoalButton = transform.FindChild<Button>("Button - Goal");
+        _testReLoadButton = transform.FindChild<Button>("Button - ReLoad");
     }
 
     private void Start()
@@ -66,23 +76,28 @@ public class ShadowRunUI : MonoBehaviour
         _mindPiece.gameObject.SetActive(false);
 
         // test
-        _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
-        _testStartButton.onClick.AddListener(OnClickTestStartButton);
-        _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
-        _testIGoalButton.onClick.AddListener(OnClickTestGoalButton);
+        AddTestButtonListener();
     }
 
     private void Update()
     {
         ChangeColorAlpha();
         UpdateDistanceText();
+
+        UpdateTimer();
+        if (_onTimer)
+        {
+            _timer += Time.deltaTime;
+        }
     }
 
     private void OnDisable()
     {
-        _testInvisibleButton.onClick.RemoveAllListeners();
         _shadow.OnCaughtTarget -= OnCaughtTarget;
         _shadow.OnEscapeTarget -= OnEscapeTarget;
+
+        // test
+        RemoveTestButtonListener();
     }
     #endregion
 
@@ -168,6 +183,82 @@ public class ShadowRunUI : MonoBehaviour
     #endregion
 
     #region 테스트
+    /// <summary>
+    /// 테스트 버튼 리스너 추가
+    /// </summary>
+    private void AddTestButtonListener()
+    {
+        _testStartButton.onClick.AddListener(OnClickTestStartButton);
+        _testShadowButton.onClick.AddListener(OnClickTestShadowButton);
+        _testTimerButton.onClick.AddListener(OnClickTestTimerButton);
+        _testInvisibleButton.onClick.AddListener(OnClickTestInvisibleButton);
+        _testIGoalButton.onClick.AddListener(OnClickTestGoalButton);
+        _testReLoadButton.onClick.AddListener(OnClickTestReloadButton);
+    }
+
+    /// <summary>
+    /// 테스트 버튼 리스너 해제
+    /// </summary>
+    private void RemoveTestButtonListener()
+    {
+        _testStartButton.onClick.RemoveAllListeners();
+        _testShadowButton.onClick.RemoveAllListeners();
+        _testTimerButton.onClick.RemoveAllListeners();
+        _testInvisibleButton.onClick.RemoveAllListeners();
+        _testIGoalButton.onClick.RemoveAllListeners();
+    }
+
+    private void UpdateTimer()
+    {
+        _timerText.text = _timer.ToString("0.00");
+    }
+
+    /// <summary>
+    /// [test] 그림자 테스트 & 타이머 시작
+    /// </summary>
+    private void OnClickTestStartButton()
+    {
+        _shadow.IsTest = false;
+        ResetTimer();
+    }
+
+    /// <summary>
+    /// [test] 그림자 테스트 플래그 변경
+    /// </summary>
+    private void OnClickTestShadowButton()
+    {
+        _shadow.IsTest = false;
+    }
+
+    /// <summary>
+    /// [test] 타이머 시작
+    /// </summary>
+    private void OnClickTestTimerButton()
+    {
+        ResetTimer();
+    }
+
+    /// <summary>
+    /// [test] 투명 인간 스폰 위치로 순간 이동
+    /// </summary>
+    private void OnClickTestInvisibleButton()
+    {
+        var player = FindObjectOfType<PlayerController>();
+        player.transform.position = new Vector3(0, 1, 495);
+    }
+
+    /// <summary>
+    /// [test] 골 지점으로 순간 이동
+    /// </summary>
+    private void OnClickTestGoalButton()
+    {
+        var player = FindObjectOfType<PlayerController>();
+        player.transform.position = new Vector3(0, 1, 950);
+    }
+
+    /// <summary>
+    /// [test] 현재 씬 리로드
+    /// </summary>
     private void OnClickTestReloadButton()
     {
         _testReLoadButton.onClick.RemoveListener(OnClickTestReloadButton);
@@ -175,22 +266,10 @@ public class ShadowRunUI : MonoBehaviour
         SceneManager.LoadScene(curScene.name);
     }
 
-    private void OnClickTestStartButton()
+    private void ResetTimer()
     {
-        _testStartButton.onClick.RemoveListener(OnClickTestStartButton);
-        _shadow.IsTest = false;
-    }
-
-    private void OnClickTestInvisibleButton()
-    {
-        var player = FindObjectOfType<PlayerController>();
-        player.transform.position = new Vector3(0, 1, 495);
-    }
-
-    private void OnClickTestGoalButton()
-    {
-        var player = FindObjectOfType<PlayerController>();
-        player.transform.position = new Vector3(0, 1, 950);
+        _timer = 0f;
+        _onTimer = true;
     }
     #endregion
 }

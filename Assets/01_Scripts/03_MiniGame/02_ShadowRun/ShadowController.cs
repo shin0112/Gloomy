@@ -9,12 +9,10 @@ using UnityEngine.Rendering.Universal;
 public class ShadowController : MonoBehaviour
 {
     #region 필드
-    [field: Header("테스트")]
     // 테스트
+    [field: Header("테스트")]
     [field: SerializeField] public bool IsTest { get; set; }
 
-    // 플레이어가 이동하다가 아마 매니저 측에서 shadowcontroller를 instantiate
-    // 그러면 그 오브젝트를 받아서 바로 init할 수 있음
     [Header("타겟 정보")]
     [Tooltip("그림자가 따라가는 타겟")]
     [SerializeField] private Transform _curTarget;
@@ -43,7 +41,7 @@ public class ShadowController : MonoBehaviour
     [Range(1f, 5f)][SerializeField] private float _diagonalSlowFactor = 3.0f;
     [Tooltip("그림자가 이동할 수 있는 너비 (도로 너비와 동일)")]
 
-    [SerializeField] private float _roadWidth = 10f;
+    [Range(0f, 10f)][SerializeField] private float _roadWidth = 10f;
     // 회전
     private float _rotateDamping = 1f;
 
@@ -83,8 +81,7 @@ public class ShadowController : MonoBehaviour
             _curTarget = FindObjectOfType<PlayerController>().transform;
         }
 
-        // 추가 세팅들
-        _speedModifier = 1f;
+        // todo: 추가 세팅들
 
         _prevTargetPos = _curTarget.transform.position;
     }
@@ -161,7 +158,8 @@ public class ShadowController : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어와 거리 측정
+    /// 플레이어와 거리 측정. 
+    /// 연출 여부 & 잡힌 상태를 보고 UI 이벤트 컨트롤
     /// </summary>
     private void CalcDistance()
     {
@@ -171,14 +169,13 @@ public class ShadowController : MonoBehaviour
 
         HasCaughtTarget = Distance < _caughtDistance;
 
-        // todo: 벗어날 경우 doneCaughtDirection 초기화
-        if (!_doneCaughtDirection && HasCaughtTarget)
+        if (!_doneCaughtDirection && HasCaughtTarget)   // 잡힌 연출 x & 잡혔을 때
         {
             OnCaughtTarget?.Invoke();
             _doneCaughtDirection = true;
         }
 
-        if (_doneCaughtDirection && !HasCaughtTarget)
+        if (_doneCaughtDirection && !HasCaughtTarget)   // 잡힌 연출 o & 벗어났을 때
         {
             OnEscapeTarget?.Invoke();
             _doneCaughtDirection = false;
