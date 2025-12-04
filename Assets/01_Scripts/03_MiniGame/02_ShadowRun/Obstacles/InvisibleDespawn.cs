@@ -8,8 +8,11 @@ public class InvisibleDespawn : MonoBehaviour
     {
         if ((_layer & (1 << other.gameObject.layer)) != 0)
         {
-            Logger.Log("투명 인간 삭제");
-            Destroy(other.gameObject);
+            if (other.TryGetComponent<InvisibleController>(out var invisible))
+            {
+                Logger.Log("투명 인간 삭제");
+                Destroy(invisible.gameObject);
+            }
         }
     }
 }
