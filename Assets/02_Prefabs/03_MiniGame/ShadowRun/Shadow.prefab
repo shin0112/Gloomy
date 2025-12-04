@@ -122,7 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsTest>k__BackingField: 1
-  _curTarget: {fileID: 0}
+  _curTarget: {fileID: 271373973191908824, guid: a3612d3478f372a49aa05a6384443426,
+    type: 3}
   <Distance>k__BackingField: 0
   <HasCaughtTarget>k__BackingField: 0
   _startDelay: 3

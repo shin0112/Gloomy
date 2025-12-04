@@ -36,19 +36,17 @@ public class PlayerController : MonoBehaviour
     [Header("bool")]
     [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
-    private bool isDash = false;
+    public bool isDash = true;
+    private bool isMove = true;
+    private bool isJump = true;
+
 
     [Header("Scripts")]
     public InteractableObject interactableObject;
     public IInteractable interactable;
+    public ShadowController shadowController;
 
-    [Header("InputAction")]
-    public InputActionReference interactAction;
-    public InputActionReference moveAction;
-    public InputActionReference jumpAction;
-    public InputActionReference slidingAction;
-    public InputActionReference dashAction;
-    public InputActionReference lookAction;
+
     RaycastHit hit;
 
 
@@ -62,6 +60,10 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
         interactableObject = GetComponent<InteractableObject>();
+        if (SceneManager.GetActiveScene().name == "ShadowRunScene")
+        {
+            shadowController = FindObjectOfType<ShadowController>();
+        }
 
     }
 
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
 
         Look();
-        if(isOpenShadowScene)
+        if (isOpenShadowScene)
         {
             if (isSliding == true)
             {
@@ -80,63 +82,41 @@ public class PlayerController : MonoBehaviour
                 NoSliding();
             }
         }
-        
+
         IsGround();
         CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+        ShadowCollision();
 
     }
 
     private void FixedUpdate()
     {
         Move();
-        if(isOpenShadowScene == true)
+        if (isOpenShadowScene == true)
         {
             if (isDash)
             {
                 Dash();
             }
         }
-        
         //Gravity();
-
     }
 
-    private void OnEnable()
+    public void IsTrue()
     {
-        moveAction.action.performed += InputMove;
-        moveAction.action.canceled += InputMove;
-
-        jumpAction.action.started += InputJump;
-
-        slidingAction.action.performed += InputSliding;
-        slidingAction.action.canceled += InputSliding;
-        dashAction.action.performed += InputDash;
-        lookAction.action.performed += InputLook;
-        interactAction.action.started += InputIinteract;
-        interactAction.action.performed += InputIinteract;
-
-        moveAction.action.Enable();
-        jumpAction.action.Enable();
-        slidingAction.action.Enable();
-        dashAction.action.Enable();
-        lookAction.action.Enable();
-        interactAction.action.Enable();
+        isDash = true;
+        isJump = true;
+        isMove = true;
+       
     }
 
-    private void OnDisable()
+    public void IsFalse()
     {
-        moveAction.action.performed -= InputMove;
-        moveAction.action.canceled -= InputMove;
-
-        jumpAction.action.started -= InputJump;
-
-        slidingAction.action.performed -= InputSliding;
-        slidingAction.action.canceled -= InputSliding;
-        dashAction.action.performed -= InputDash;
-        lookAction.action.performed -= InputLook;
-        interactAction.action.started -= InputIinteract;
-        interactAction.action.performed -= InputIinteract;
+        isDash = false;
+        isJump = false;
+        isMove = false;
+        isSliding = false;
     }
 
     public void Move()
@@ -152,10 +132,14 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
             }
         }
-        moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
-        moveDir *= speed;
-        moveDir.y = rb.velocity.y;
-        rb.velocity = moveDir;
+        if (isMove)
+        {
+            moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
+            moveDir *= speed;
+            moveDir.y = rb.velocity.y;
+            rb.velocity = moveDir;
+        }
+
     }
 
     public void Look()
@@ -178,10 +162,8 @@ public class PlayerController : MonoBehaviour
 
     public void Sliding()
     {
-
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, -90, slidingSpeed * Time.deltaTime);
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
-
     }
 
     public void NoSliding()
@@ -214,7 +196,11 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGround())
         {
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            if (isJump == true)
+            {
+                rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            }
+
         }
     }
 
@@ -282,20 +268,34 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(dashDuration);
         isDash = false;
-        capsuleCollider.enabled = true;
+        //capsuleCollider.enabled = true;
         yield return new WaitForSeconds(dashCooldown);
-        StopCoroutine(DashTime());
     }
 
     public void CharacterRay()
     {
-        
+
         if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 5f))
         {
             InteractableObject obj = hit.collider.gameObject.GetComponent<InteractableObject>();
             interactable = hit.collider.gameObject.GetComponent<IInteractable>();
         }
-        
 
+
+    }
+
+    public void ShadowCollision()
+    {
+        if (shadowController.HasCaughtTarget == true)
+        {
+            dashCooldown = 0;
+            IsFalse();
+            if (Input.GetKey(KeyCode.F))
+            {
+                IsTrue();
+                Dash();
+            }
+
+        }
     }
 }
