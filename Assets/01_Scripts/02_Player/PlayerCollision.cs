@@ -18,9 +18,12 @@ public class PlayerCollision : MonoBehaviour
 
     //private void OnTriggerEnter(Collider other)
     //{
-    //    if(controller.isDash == true)
+    //    if (controller.isDash == true)
     //    {
-    //        if(other.gameObject.)
+    //        if ((layerMask & (1 << other.gameObject.layer)) !=0)
+    //        {
+    //            Destroy(gameObject);
+    //        }
     //    }
     //}
 }

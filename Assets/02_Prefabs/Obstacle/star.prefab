@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2121431744014266595}
   - component: {fileID: 5475358188254244044}
   - component: {fileID: 1582243671873998893}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8798766934221078879}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 14186455247162161}
   - component: {fileID: 3135687615048300557}
   - component: {fileID: 6753942454504080419}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("bool")]
     [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
-    public bool isDash = true;
+    public bool isDash = false;
     private bool isMove = true;
     private bool isJump = true;
 
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             shadowController = FindObjectOfType<ShadowController>();
         }
-
+        isDash = false;
     }
 
     void Update()
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         Move();
         if (isOpenShadowScene == true)
         {
-            if (isDash)
+            if (isDash == true)
             {
                 Dash();
             }
