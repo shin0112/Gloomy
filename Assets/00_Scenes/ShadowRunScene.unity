@@ -744,26 +744,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: InputMove
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484362949313582599, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
-        type: 3}
-      propertyPath: isDash
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
       propertyPath: shadowController
