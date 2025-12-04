@@ -18,6 +18,7 @@ public class JournalPageUI : PageUI
     {
         if (firstOpen)
         {
+            journalPanel.SetActive(true);
             journalTextInputField.gameObject.SetActive(true);
             journalTextInputField.ActivateInputField();
             journalTextInputField.Select();
@@ -25,6 +26,7 @@ public class JournalPageUI : PageUI
         else
         {
             // todo : 추후 기획에 따라 변경 필요
+            journalPanel.SetActive(false);
             journalTextInputField.gameObject.SetActive(false);
         }
     }
