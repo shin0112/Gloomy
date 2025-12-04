@@ -19,7 +19,7 @@ public class ChapterSelectButton : MonoBehaviour
         
         chapterText.text = _chpater.ToString();
         button = GetComponent<Button>();
-        button.onClick.AddListener(LoadChapter);
+        button?.onClick.AddListener(LoadChapter);
         
         if(ChapterClearData.IsClear(chpater-1) == true)
             OpenChapter();
