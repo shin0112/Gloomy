@@ -23,6 +23,12 @@ public class JournalPageUI : PageUI
             journalTextInputField.ActivateInputField();
             journalTextInputField.Select();
         }
+        else if (ChapterClearData.IsClear(2))
+        {
+            journalPanel.SetActive(true);
+            journalTextInputField.gameObject.SetActive(true);
+            journalTextInputField.text = "2챕터를 클리어했다!";
+        }
         else
         {
             // todo : 추후 기획에 따라 변경 필요
