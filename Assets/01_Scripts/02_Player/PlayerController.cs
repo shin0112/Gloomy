@@ -36,17 +36,17 @@ public class PlayerController : MonoBehaviour
     [Header("bool")]
     [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
-    private bool isDash = false;
-    private bool isMove = false;
-    private bool isJump = false;
-    
+    public bool isDash = true;
+    private bool isMove = true;
+    private bool isJump = true;
+
 
     [Header("Scripts")]
     public InteractableObject interactableObject;
     public IInteractable interactable;
     public ShadowController shadowController;
 
-    
+
     RaycastHit hit;
 
 
@@ -60,18 +60,18 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
         interactableObject = GetComponent<InteractableObject>();
-        if(SceneManager.GetActiveScene().name == "ShadowRunScene")
+        if (SceneManager.GetActiveScene().name == "ShadowRunScene")
         {
             shadowController = FindObjectOfType<ShadowController>();
         }
-        
+
     }
 
     void Update()
     {
 
         Look();
-        if(isOpenShadowScene)
+        if (isOpenShadowScene)
         {
             if (isSliding == true)
             {
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 NoSliding();
             }
         }
-        
+
         IsGround();
         CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        if(isOpenShadowScene == true)
+        if (isOpenShadowScene == true)
         {
             if (isDash)
             {
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         isDash = true;
         isJump = true;
         isMove = true;
-        isSliding = true;
+       
     }
 
     public void IsFalse()
@@ -132,10 +132,14 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
             }
         }
-        moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
-        moveDir *= speed;
-        moveDir.y = rb.velocity.y;
-        rb.velocity = moveDir;
+        if (isMove)
+        {
+            moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
+            moveDir *= speed;
+            moveDir.y = rb.velocity.y;
+            rb.velocity = moveDir;
+        }
+
     }
 
     public void Look()
@@ -158,10 +162,8 @@ public class PlayerController : MonoBehaviour
 
     public void Sliding()
     {
-
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, -90, slidingSpeed * Time.deltaTime);
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
-
     }
 
     public void NoSliding()
@@ -194,7 +196,11 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGround())
         {
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            if (isJump == true)
+            {
+                rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            }
+
         }
     }
 
@@ -268,13 +274,13 @@ public class PlayerController : MonoBehaviour
 
     public void CharacterRay()
     {
-        
+
         if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 5f))
         {
             InteractableObject obj = hit.collider.gameObject.GetComponent<InteractableObject>();
             interactable = hit.collider.gameObject.GetComponent<IInteractable>();
         }
-        
+
 
     }
 
