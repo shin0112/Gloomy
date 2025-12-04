@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5458525421209964656}
   - component: {fileID: 1453347288830115266}
   - component: {fileID: 1912719823643176221}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Owl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9205711372322540264}
   - component: {fileID: 8319761033342946151}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Owl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
