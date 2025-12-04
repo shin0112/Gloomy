@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("bool")]
-    [SerializeField] private bool isOpenShadowScene = false;
+    public bool isOpenShadowScene = false;
     private bool isSliding = false;
     public bool isDash = false;
     private bool isMove = true;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //isOpenShadowScene = false;
+        
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         if (isOpenShadowScene == false)
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         {
             shadowController = FindObjectOfType<ShadowController>();
         }
-        else if(shadowController == null) return;
+       
         isDash = false;
         //isMove = true;
     }
@@ -293,6 +293,7 @@ public class PlayerController : MonoBehaviour
 
     public void ShadowCollision()
     {
+        if (shadowController == null) return;
         if (shadowController.HasCaughtTarget == true)
         {
             dashCooldown = 0;
@@ -304,5 +305,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+
     }
 }
