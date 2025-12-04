@@ -54,6 +54,7 @@ MonoBehaviour:
     y: 0
     xRange: {x: -2.5, y: 2.5}
     startZ: 10
+    endZ: 0
     spacing: 10
   rock:
     prefab: {fileID: 4570503220992513810, guid: 5b5c02a289c01ad4da3e61068947867f,
@@ -61,6 +62,7 @@ MonoBehaviour:
     y: 0
     xRange: {x: -2.5, y: 2.5}
     startZ: 70
+    endZ: 0
     spacing: 10
   hurdle:
     prefab: {fileID: 4650603096239387350, guid: aa5dafa1b393afe4686826f27875e232,
@@ -68,6 +70,7 @@ MonoBehaviour:
     y: 0
     xRange: {x: -2.5, y: 2.5}
     startZ: 100
+    endZ: 0
     spacing: 8
   star:
     prefab: {fileID: 2590796873490481367, guid: 7ef8f0f6033c60f47a56e657ee48c228,
@@ -75,6 +78,7 @@ MonoBehaviour:
     y: 1.5
     xRange: {x: -1, y: 1}
     startZ: 0
+    endZ: 0
     spacing: 0
 --- !u!1 &6069186580869487205
 GameObject:
