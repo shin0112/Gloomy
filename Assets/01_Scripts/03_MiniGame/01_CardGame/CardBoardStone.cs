@@ -15,7 +15,7 @@ public class CardBoardStone : InteractableObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetOrAddComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerController>() != null)
         {
             OnInteractionTargetted();
         }
@@ -23,7 +23,7 @@ public class CardBoardStone : InteractableObject
 
     private void OnTriggerExit(Collider other)
     {       
-        if (other.GetOrAddComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerController>() != null)
         {
             OnInteractionUntargetted();
         }
