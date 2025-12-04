@@ -61,11 +61,10 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
         interactableObject = GetComponent<InteractableObject>();
-        if (SceneManager.GetActiveScene().name == "ShadowRunScene")
-        {
+        
             shadowController = FindObjectOfType<ShadowController>();
         }
-       
+        else if(shadowController == null) return;
         isDash = false;
         //isMove = true;
     }
@@ -305,6 +304,5 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
     }
 }
