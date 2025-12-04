@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1006935472020416431}
   - component: {fileID: 3671445210754587807}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ObstacleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8285650773781734686}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3541621669042079031}
   - component: {fileID: 5409139304991020252}
   - component: {fileID: 9026166193632099638}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: InvisibleSpawnController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
