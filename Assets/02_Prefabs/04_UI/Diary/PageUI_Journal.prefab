@@ -815,6 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59bd4f78c318425f989c5c8fd34311bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  journalPanel: {fileID: 4297229528539164759}
   journalTextInputField: {fileID: 3273044105350994791}
 --- !u!224 &8680338535140741984 stripped
 RectTransform:
