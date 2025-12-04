@@ -81,6 +81,8 @@ public class ShadowRunUI : MonoBehaviour
     private void OnDisable()
     {
         _testInvisibleButton.onClick.RemoveAllListeners();
+        _shadow.OnCaughtTarget -= OnCaughtTarget;
+        _shadow.OnEscapeTarget -= OnEscapeTarget;
     }
     #endregion
 

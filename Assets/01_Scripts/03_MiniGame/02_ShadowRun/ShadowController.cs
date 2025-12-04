@@ -177,6 +177,12 @@ public class ShadowController : MonoBehaviour
             OnCaughtTarget?.Invoke();
             _doneCaughtDirection = true;
         }
+
+        if (_doneCaughtDirection && !HasCaughtTarget)
+        {
+            OnEscapeTarget?.Invoke();
+            _doneCaughtDirection = false;
+        }
     }
 
     /// <summary>
