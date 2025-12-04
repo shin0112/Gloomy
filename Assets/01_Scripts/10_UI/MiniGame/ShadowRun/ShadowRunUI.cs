@@ -30,6 +30,7 @@ public class ShadowRunUI : MonoBehaviour
 
     [Header("테스트용")]
     [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _testShadowButtonText;
     private float _timer = 0f;
     private bool _onTimer = false;
 
@@ -54,6 +55,7 @@ public class ShadowRunUI : MonoBehaviour
 
         // test
         _timerText = transform.FindChild<TextMeshProUGUI>("Text - Timer");
+        _testShadowButtonText = transform.FindChild<TextMeshProUGUI>("Text (TMP) - Shadow");
 
         _testStartButton = transform.FindChild<Button>("Button - Start");
         _testShadowButton = transform.FindChild<Button>("Button - Shadow");
@@ -227,7 +229,8 @@ public class ShadowRunUI : MonoBehaviour
     /// </summary>
     private void OnClickTestShadowButton()
     {
-        _shadow.IsTest = false;
+        _shadow.IsTest = !_shadow.IsTest;
+        _testShadowButtonText.text = $"그림자 움직임\n{(_shadow.IsTest ? "ON" : "OFF")}";
     }
 
     /// <summary>
