@@ -445,6 +445,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 656416901065166846, guid: cb7f54707bb87744bba724357a138443,
         type: 3}
+      propertyPath: _speed
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 656416901065166846, guid: cb7f54707bb87744bba724357a138443,
+        type: 3}
       propertyPath: _curTarget
       value: 
       objectReference: {fileID: 1177277839}
@@ -743,6 +748,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484362949313582599, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: speed
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: isDash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: jumpPower
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
