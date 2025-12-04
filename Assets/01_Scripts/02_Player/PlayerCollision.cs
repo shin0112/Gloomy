@@ -16,14 +16,15 @@ public class PlayerCollision : MonoBehaviour
         
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (controller.isDash == true)
-    //    {
-    //        if ((layerMask & (1 << other.gameObject.layer)) !=0)
-    //        {
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (controller.isDash == true)
+        {
+            if ((layerMask & (1 << other.gameObject.layer)) != 0)
+            {
+                Debug.Log("Destroy : " + other.name);
+                Destroy(other.gameObject);
+            }
+        }
+    }
 }
