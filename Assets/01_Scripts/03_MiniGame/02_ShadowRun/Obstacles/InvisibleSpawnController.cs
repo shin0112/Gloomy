@@ -56,6 +56,8 @@ public class InvisibleSpawnController : MonoBehaviour
 
         if (!_doneSpawn && other.gameObject.CompareTag("Player"))
         {
+            _doneSpawn = true;
+
             Logger.Log("투명 인간 스폰 시작");
             _spawn = StartCoroutine(nameof(SpawnInvisible));
         }
@@ -113,7 +115,6 @@ public class InvisibleSpawnController : MonoBehaviour
             count++;
 
             Logger.Log($"투명인간 스폰 {count}");
-            _doneSpawn = true;
         } while (count < _spawnCount);
     }
 }
