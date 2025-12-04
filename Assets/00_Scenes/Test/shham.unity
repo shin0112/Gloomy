@@ -240,6 +240,12 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &664354608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4650603096239387350, guid: aa5dafa1b393afe4686826f27875e232,
+    type: 3}
+  m_PrefabInstance: {fileID: 980020982960439951}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &782425595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -308,11 +314,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a162ad3b68e829c4587c15207e2f06ca, type: 3}
---- !u!1 &1042439896 stripped
+--- !u!1 &1484061113 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8330555204706614496, guid: aa5dafa1b393afe4686826f27875e232,
+  m_CorrespondingSourceObject: {fileID: 8977636229173278498, guid: 0c09435b1be93594abfff5e5c3d81bff,
     type: 3}
-  m_PrefabInstance: {fileID: 980020982960439951}
+  m_PrefabInstance: {fileID: 4336201156546932699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1546920920 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2590796873490481367, guid: 7ef8f0f6033c60f47a56e657ee48c228,
+    type: 3}
+  m_PrefabInstance: {fileID: 763637175136689425}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1864654203
 PrefabInstance:
@@ -335,7 +347,7 @@ PrefabInstance:
     - target: {fileID: 6909503268321907224, guid: d84d52c83d89473458af93081de7765f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.41
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6909503268321907224, guid: d84d52c83d89473458af93081de7765f,
         type: 3}
@@ -382,6 +394,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d84d52c83d89473458af93081de7765f, type: 3}
+--- !u!1 &2025541044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4570503220992513810, guid: 5b5c02a289c01ad4da3e61068947867f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2041455343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2041455343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -762,6 +780,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7348485719628282756, guid: 0c09435b1be93594abfff5e5c3d81bff,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348485719628282756, guid: 0c09435b1be93594abfff5e5c3d81bff,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7901427384133234246, guid: 0c09435b1be93594abfff5e5c3d81bff,
         type: 3}
       propertyPath: m_Name
@@ -853,7 +881,7 @@ PrefabInstance:
     - target: {fileID: 1006935472020416431, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1006935472020416431, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
@@ -902,9 +930,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
+      propertyPath: owl.prefab
+      value: 
+      objectReference: {fileID: 1484061113}
+    - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
+        type: 3}
+      propertyPath: rock.prefab
+      value: 
+      objectReference: {fileID: 2025541044}
+    - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
+        type: 3}
+      propertyPath: star.prefab
+      value: 
+      objectReference: {fileID: 1546920920}
+    - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
+        type: 3}
       propertyPath: hurdle.prefab
       value: 
-      objectReference: {fileID: 1042439896}
+      objectReference: {fileID: 664354608}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
