@@ -37,18 +37,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
     private bool isDash = false;
+    private bool isMove = false;
+    private bool isJump = false;
+    
 
     [Header("Scripts")]
     public InteractableObject interactableObject;
     public IInteractable interactable;
+    public ShadowController shadowController;
 
-    [Header("InputAction")]
-    public InputActionReference interactAction;
-    public InputActionReference moveAction;
-    public InputActionReference jumpAction;
-    public InputActionReference slidingAction;
-    public InputActionReference dashAction;
-    public InputActionReference lookAction;
+    
     RaycastHit hit;
 
 
@@ -62,7 +60,11 @@ public class PlayerController : MonoBehaviour
             cameraTransfrom.position = new Vector3(0, 0, -7);
         }
         interactableObject = GetComponent<InteractableObject>();
-
+        if(SceneManager.GetActiveScene().name == "ShadowRunScene")
+        {
+            shadowController = FindObjectOfType<ShadowController>();
+        }
+        
     }
 
     void Update()
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
         IsGround();
         CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+        ShadowCollision();
 
     }
 
@@ -97,46 +100,23 @@ public class PlayerController : MonoBehaviour
                 Dash();
             }
         }
-        
         //Gravity();
-
     }
 
-    private void OnEnable()
+    public void IsTrue()
     {
-        moveAction.action.performed += InputMove;
-        moveAction.action.canceled += InputMove;
-
-        jumpAction.action.started += InputJump;
-
-        slidingAction.action.performed += InputSliding;
-        slidingAction.action.canceled += InputSliding;
-        dashAction.action.performed += InputDash;
-        lookAction.action.performed += InputLook;
-        interactAction.action.started += InputIinteract;
-        interactAction.action.performed += InputIinteract;
-
-        moveAction.action.Enable();
-        jumpAction.action.Enable();
-        slidingAction.action.Enable();
-        dashAction.action.Enable();
-        lookAction.action.Enable();
-        interactAction.action.Enable();
+        isDash = true;
+        isJump = true;
+        isMove = true;
+        isSliding = true;
     }
 
-    private void OnDisable()
+    public void IsFalse()
     {
-        moveAction.action.performed -= InputMove;
-        moveAction.action.canceled -= InputMove;
-
-        jumpAction.action.started -= InputJump;
-
-        slidingAction.action.performed -= InputSliding;
-        slidingAction.action.canceled -= InputSliding;
-        dashAction.action.performed -= InputDash;
-        lookAction.action.performed -= InputLook;
-        interactAction.action.started -= InputIinteract;
-        interactAction.action.performed -= InputIinteract;
+        isDash = false;
+        isJump = false;
+        isMove = false;
+        isSliding = false;
     }
 
     public void Move()
@@ -282,9 +262,8 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(dashDuration);
         isDash = false;
-        capsuleCollider.enabled = true;
+        //capsuleCollider.enabled = true;
         yield return new WaitForSeconds(dashCooldown);
-        StopCoroutine(DashTime());
     }
 
     public void CharacterRay()
@@ -297,5 +276,20 @@ public class PlayerController : MonoBehaviour
         }
         
 
+    }
+
+    public void ShadowCollision()
+    {
+        if (shadowController.HasCaughtTarget == true)
+        {
+            dashCooldown = 0;
+            IsFalse();
+            if (Input.GetKey(KeyCode.F))
+            {
+                IsTrue();
+                Dash();
+            }
+
+        }
     }
 }
