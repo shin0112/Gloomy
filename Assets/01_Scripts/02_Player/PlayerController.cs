@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("bool")]
     [SerializeField] private bool isOpenShadowScene = false;
     private bool isSliding = false;
-    public bool isDash = true;
+    public bool isDash = false;
     private bool isMove = true;
     private bool isJump = true;
 
@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //isOpenShadowScene = false;
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         if (isOpenShadowScene == false)
@@ -64,7 +65,9 @@ public class PlayerController : MonoBehaviour
         {
             shadowController = FindObjectOfType<ShadowController>();
         }
-
+        else if(shadowController == null) return;
+        isDash = false;
+        //isMove = true;
     }
 
     void Update()
@@ -83,7 +86,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        IsGround();
+        //IsGround();
         CharacterRay();
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
         ShadowCollision();
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
         Move();
         if (isOpenShadowScene == true)
         {
-            if (isDash)
+            if (isDash == true)
             {
                 Dash();
             }
@@ -132,7 +135,7 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(3.0f, transform.position.y, transform.position.z);
             }
         }
-        if (isMove)
+        if (isMove == true)
         {
             moveDir = cameraTransfrom.forward * curtransformInput.y + cameraTransfrom.right * curtransformInput.x;
             moveDir *= speed;
@@ -144,11 +147,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look()
     {
-        if (isOpenShadowScene == true)
-        {
-            return;
-        }
-        else
+        
+        if(isOpenShadowScene == false)
         {
             dir += mouseDelta.y * mouseSensesivity;
             dir = Mathf.Clamp(dir, minRoationX, maxRoationX);
@@ -156,6 +156,10 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles += new Vector3(0, mouseDelta.x * mouseSensesivity, 0);
 
             mouseDelta = Vector2.zero;
+        }
+        else
+        {
+            return;
         }
 
     }
@@ -181,15 +185,18 @@ public class PlayerController : MonoBehaviour
 
     public void InputMove(InputAction.CallbackContext context)
     {
-
-        if (context.phase == InputActionPhase.Performed)
+        if(isMove == true)
         {
-            curtransformInput = context.ReadValue<Vector2>();
+            if (context.phase == InputActionPhase.Performed)
+            {
+                curtransformInput = context.ReadValue<Vector2>();
+            }
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                curtransformInput = Vector2.zero;
+            }
         }
-        if (context.phase == InputActionPhase.Canceled)
-        {
-            curtransformInput = Vector2.zero;
-        }
+        
     }
 
     public void InputJump(InputAction.CallbackContext context)
