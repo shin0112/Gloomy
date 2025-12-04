@@ -600,7 +600,7 @@ PrefabInstance:
     - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
       propertyPath: hurdle.endZ
-      value: 700
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
@@ -636,7 +636,7 @@ PrefabInstance:
     - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
       propertyPath: hurdle.spacing
-      value: 10
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3671445210754587807, guid: f3517600946441749a32f6e8eb803492,
         type: 3}
