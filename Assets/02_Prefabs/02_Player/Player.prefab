@@ -57,12 +57,12 @@ MonoBehaviour:
     m_Bits: 64
   cameraTransfrom: {fileID: 6254411648532761541}
   capsuleCollider: {fileID: 0}
-  speed: 6
-  jumpPower: 30
+  speed: 15.5
+  jumpPower: 35
   mouseSensesivity: 0.5
   maxRoationX: 20
   minRoationX: -75
-  DashPower: 30
+  DashPower: 20
   dashDuration: 3
   dashCooldown: 3.5
   isOpenShadowScene: 1

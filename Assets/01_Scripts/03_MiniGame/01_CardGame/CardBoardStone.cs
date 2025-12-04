@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class CardBoardStone : InteractableObject
 {
+    [SerializeField] private PlayerController PlayerController;
     public override void OnInteract()
     {
         SceneManager.LoadScene(Define.CardGameScene);
+        PlayerController.isOpenShadowScene = true;
     }
 
 
