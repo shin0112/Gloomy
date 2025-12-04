@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 52a8598d260de824db005db757468074,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -412,6 +413,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 656416901065166846, guid: cb7f54707bb87744bba724357a138443,
+        type: 3}
+      propertyPath: _curTarget
+      value: 
+      objectReference: {fileID: 1177277839}
     - target: {fileID: 1662544634612761180, guid: cb7f54707bb87744bba724357a138443,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -568,17 +574,17 @@ PrefabInstance:
     - target: {fileID: 113540714255207696, guid: e568fb6af5f77024aabd31bfb6702ec8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.9656054
+      value: 1.9800054
       objectReference: {fileID: 0}
     - target: {fileID: 113540714255207696, guid: e568fb6af5f77024aabd31bfb6702ec8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9656054
+      value: 1.9800054
       objectReference: {fileID: 0}
     - target: {fileID: 113540714255207696, guid: e568fb6af5f77024aabd31bfb6702ec8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.9656054
+      value: 1.9800054
       objectReference: {fileID: 0}
     - target: {fileID: 113540714255207696, guid: e568fb6af5f77024aabd31bfb6702ec8,
         type: 3}
@@ -708,11 +714,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
-      propertyPath: isOpenShadowScene
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296774061113075118, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InputMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484362949313582599, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
+        type: 3}
+      propertyPath: shadowController
+      value: 
+      objectReference: {fileID: 2068002984}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -791,6 +812,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d84d52c83d89473458af93081de7765f, type: 3}
+--- !u!114 &2068002984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 656416901065166846, guid: cb7f54707bb87744bba724357a138443,
+    type: 3}
+  m_PrefabInstance: {fileID: 723245800}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d0e1427a0adf54bb63824ece617455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2069284345
 GameObject:
   m_ObjectHideFlags: 0
