@@ -41,7 +41,7 @@ public class ShadowController : MonoBehaviour
     [Range(1f, 5f)][SerializeField] private float _diagonalSlowFactor = 3.0f;
     [Tooltip("그림자가 이동할 수 있는 너비 (도로 너비와 동일)")]
 
-    [SerializeField] private float _roadWidth = 10f;
+    [Range(0f, 10f)][SerializeField] private float _roadWidth = 10f;
     // 회전
     private float _rotateDamping = 1f;
 
