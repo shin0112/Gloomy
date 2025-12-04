@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class CardBoardStone : InteractableObject
 {
+    
     public override void OnInteract()
     {
         SceneManager.LoadScene(Define.CardGameScene);
+        
     }
 
 
