@@ -1434,7 +1434,7 @@ PrefabInstance:
     - target: {fileID: 9134215436299136804, guid: a3612d3478f372a49aa05a6384443426,
         type: 3}
       propertyPath: isOpenShadowScene
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
