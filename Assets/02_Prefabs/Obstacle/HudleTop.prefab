@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4862481272081644448}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HudleTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2492372872745998325}
   - component: {fileID: 1876489904904862690}
   - component: {fileID: 5263535950037866276}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HudleTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 4565150841531304739}
   - component: {fileID: 5756679095872699090}
   - component: {fileID: 6430065580937732868}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HurderRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 533760460323492214}
   - component: {fileID: 8071796712785969515}
   - component: {fileID: 5875294843238458990}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HurderLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
