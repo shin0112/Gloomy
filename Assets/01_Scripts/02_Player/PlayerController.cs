@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         //Gravity();
     }
 
-    public void IsTrue()
+    public void IsTrue()//잡히고 대쉬하면 제한이 풀리는
     {
         isDash = true;
         isJump = true;
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void IsFalse()
+    public void IsFalse()//잡혔을 때 제한
     {
         isDash = false;
         isJump = false;
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
         isSliding = false;
     }
 
-    public void Move()
+    public void Move()//움직임
     {
         if (isOpenShadowScene == true)
         {
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Look()
+    public void Look()//3d 카메라 제어
     {
 
         if (isOpenShadowScene == false)
@@ -164,26 +164,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Sliding()
+    public void Sliding()//sliding
     {
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, -90, slidingSpeed * Time.deltaTime);
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
     }
 
-    public void NoSliding()
+    public void NoSliding()//sliding 취소
     {
         float playerRotate = Mathf.MoveTowardsAngle(slidePivot.eulerAngles.x, 0, slidingSpeed * Time.deltaTime);
         slidePivot.localEulerAngles = new Vector3(playerRotate, 0, 0);
     }
 
-    public void Dash()
+    public void Dash()//대쉬
     {
 
         StartCoroutine(DashTime());
         //isDash = false;
     }
 
-    public void InputMove(InputAction.CallbackContext context)
+    public void InputMove(InputAction.CallbackContext context)//inputaction 움직임
     {
         if (isMove == true)
         {
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void InputJump(InputAction.CallbackContext context)
+    public void InputJump(InputAction.CallbackContext context)//inputaction 점프
     {
         if (context.phase == InputActionPhase.Started && IsGround())
         {
@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputSliding(InputAction.CallbackContext context)
+    public void InputSliding(InputAction.CallbackContext context)//inputaction 슬라이딩
     {
         if (context.performed)
         {
@@ -223,7 +223,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputDash(InputAction.CallbackContext context)
+    public void InputDash(InputAction.CallbackContext context)//inputaction 대쉬
     {
         if (context.performed)
         {
@@ -231,12 +231,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InputLook(InputAction.CallbackContext context)
+    public void InputLook(InputAction.CallbackContext context)//inputaction 카메라제어
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
 
-    public void InputIinteract(InputAction.CallbackContext context)
+    public void InputIinteract(InputAction.CallbackContext context)//inputaction 상호작용
     {
 
         if (context.phase == InputActionPhase.Started)
@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    bool IsGround()
+    bool IsGround()//점프제어
     {
         Ray ray = new Ray(rayObject.transform.position, Vector3.down);
         RaycastHit hit;
@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.down * 30, ForceMode.Acceleration);
     }
 
-    public IEnumerator DashTime()
+    public IEnumerator DashTime()//대쉬지속시간 그리고 쿨타임
     {
         Vector3 dash = transform.forward;
         dash *= DashPower;
@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
     }
 
-    public void CharacterRay()
+    public void CharacterRay()//상호작용 관련된 ray
     {
 
         if (Physics.Raycast(rayObject.transform.position, transform.forward, out hit, 5f))
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void ShadowCollision()
+    public void ShadowCollision()//부딪쳤을 때 f키
     {
         if (shadowController == null) return;
         if (shadowController.HasCaughtTarget == true)

@@ -16,7 +16,7 @@ public class PlayerCollision : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)//대쉬시 장애물 파괴
     {
         if (controller.isDash == true)
         {
