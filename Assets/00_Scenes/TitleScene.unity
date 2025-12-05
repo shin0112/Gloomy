@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 305252063}
   - component: {fileID: 305252062}
   m_Layer: 5
-  m_Name: GroomyLamb
+  m_Name: GloomyLamb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Groomy Lamb
+  m_text: Gloomy Lamb
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a99d0618a4113db4d8969282e8de2d80, type: 2}
   m_sharedMaterial: {fileID: -7031857775404610152, guid: a99d0618a4113db4d8969282e8de2d80,
